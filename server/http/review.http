@@ -5,11 +5,12 @@
 GET http://localhost:3300/
 
 ### 회원가입
-POST http://localhost:3300/auth/register
+POST http://localhost:3300/register/email
 Content-Type: application/json
 
 {
   "email": "eee@test.com",
+  "name": "현주",
   "password": "1234"
 }
 
