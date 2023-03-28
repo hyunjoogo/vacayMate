@@ -12,11 +12,10 @@ router.get('/', async (req, res, next) => {
     return;
   }
 
-
   // JWT 검증
   try {
     const token = authHeader.split(' ')[1];
-    const decoded = jwt.verify(token.split(' ')[1], process.env.JWT_SECRET);
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
     const user = await User.findById(decoded.id);
     if (!user) {
       res.status(400).json({message: '등록되어 있지 않은 사용자입니다.'});

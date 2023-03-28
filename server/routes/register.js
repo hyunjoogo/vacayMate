@@ -8,7 +8,7 @@ const jwt = require("jsonwebtoken");
 // 구글 OAuth2.0을 이용한 사용자 등록 API
 router.post('/', async (req, res, next) => {
   // ----------------------------- 임시 컬렉션 삭제
-  User.collection.drop();
+  // User.collection.drop();
   //  -------------------------- 임시 컬렉션 삭제
 
   const oAuth2Client = new OAuth2Client(process.env.GOOGLE_CLIENT_ID, process.env.GOOGLE_CLIENT_PASSWORD);
