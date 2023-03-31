@@ -2,24 +2,18 @@
 // https://jwt.io/
 
 ### '/'
-GET http://localhost:3300/
+GET {{host}}/
 
-### 회원가입
-POST http://localhost:3300/register/email
+### 회원 로그인
+GET {{host}}/login
+Authorization: Bearer {{access_token}}
 Content-Type: application/json
 
-{
-  "email": "eee@test.com",
-  "name": "현주",
-  "password": "1234"
-}
+###
+POST {{host}}/auth/refresh-token
+
 
 ###
-POST http://localhost:3300/auth/login
+POST {{host}}/auth/logout
 
-###
-POST http://localhost:3300/auth/refresh-token
-
-###
-POST http://localhost:3300/auth/logout
-
+### 회원가입 후 입사일 입력하기

@@ -29,8 +29,18 @@ const UserSchema = new Schema({
   },
   leaveTypes: [
     {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: 'LeaveType'
+      leaveType : {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'LeaveType'
+      },
+      days: {
+        type: Number,
+        default: 0
+      },
+      usedDays: {
+        type: Number,
+        default: 0
+      },
     }
   ]
 });
