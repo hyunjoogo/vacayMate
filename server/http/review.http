@@ -9,9 +9,17 @@ GET {{host}}/login
 Authorization: Bearer {{access_token}}
 Content-Type: application/json
 
-###
-POST {{host}}/auth/refresh-token
+### 휴가유형 생성
+POST {{host}}/vacation/{{hyunjoogo_id}}
+Authorization: Bearer {{access_token}}
+Content-Type: application/json
 
+{
+  "type": "annual",
+  "totalDays": 15,
+  "leftDays": 15,
+  "expirationDate": "2024-12-31"
+}
 
 ###
 POST {{host}}/auth/logout
