@@ -15,13 +15,18 @@ Authorization: Bearer {{access_token}}
 Content-Type: application/json
 
 {
-  "type": "annual",
-  "totalDays": 15,
-  "leftDays": 15,
+  "type": "summer",
+  "totalDays": 5,
+  "leftDays": 5,
   "expirationDate": "2024-12-31"
 }
 
-###
-POST {{host}}/auth/logout
+### 전체 사용자의 휴가유형 리스트
+GET {{host}}/vacation?sort=created_at
+Authorization: Bearer {{access_token}}
+
+### 하나의 사용자의 휴가유형 리스트
+GET {{host}}/vacation/{{hyunjoogo_id}}
+Authorization: Bearer {{access_token}}
 
 ### 회원가입 후 입사일 입력하기
