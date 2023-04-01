@@ -8,6 +8,7 @@ require('./helpers/init_mongodb');
 const RegisterRoute = require('./routes/register');
 const LoginRoute = require('./routes/login');
 const VacationRoute = require('./routes/vacation');
+const RequestRoute = require('./routes/request');
 
 const app = express();
 app.use(morgan('dev'));
@@ -22,6 +23,7 @@ app.get('/', async (req, res) => {
 app.use('/login', LoginRoute);
 app.use('/register', RegisterRoute)
 app.use('/vacation', VacationRoute)
+app.use('/request', RequestRoute)
 
 app.use((err, req, res, next) => {
   res.status(err.status || 500);

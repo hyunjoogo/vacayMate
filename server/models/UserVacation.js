@@ -31,4 +31,4 @@ const UserVacationSchema = new Schema({
 });
 
 // Create the UserVacation model
-module.exports = mongoose.model('UserVacation', UserVacationSchema);
+module.exports = mongoose.models.UserVacation || mongoose.model('UserVacation', UserVacationSchema);

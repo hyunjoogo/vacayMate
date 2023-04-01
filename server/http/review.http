@@ -29,4 +29,15 @@ Authorization: Bearer {{access_token}}
 GET {{host}}/vacation/{{hyunjoogo_id}}
 Authorization: Bearer {{access_token}}
 
-### 회원가입 후 입사일 입력하기
+### 사용자의 휴가사용요청
+POST {{host}}/request/{{hyunjoogo_id}}
+Authorization: Bearer {{access_token}}
+Content-Type: application/json
+
+{
+  "type": "annual",
+  "useType": "dayOff",
+  "startDate": "2023-02-23",
+  "endDate": "2023-02-25",
+  "status": "pending"
+}

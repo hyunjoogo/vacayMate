@@ -41,7 +41,7 @@ router.post('/', async (req, res, next) => {
       console.log("기존사용자입니다. 기존사용자의 정보를 보냅니다.")
     }
     const accessToken = jwt.sign({id: user._id}, process.env.JWT_SECRET, {
-      expiresIn: '1h'
+      expiresIn: '7d'
     });
     res.status(200).json({accessToken});
   } catch (error) {

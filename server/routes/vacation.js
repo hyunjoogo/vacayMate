@@ -85,7 +85,7 @@ router.get('/', (req, res) => {
 });
 
 /**
- *  @route GET /userVacations/:id
+ *  @route GET /userVacation/:id
  *  @desc 데이터베이스에서 id로 단일 UserVacation 문서를 검색합니다.
  *  @access Public
  *  @param {String} id - 검색할 UserVacation 문서의 id
@@ -97,7 +97,7 @@ router.get('/', (req, res) => {
  */
 router.get('/:id', (req, res) => {
 // 데이터베이스에서 지정된 id를 가진 UserVacation 문서를 검색하기 위해 쿼리를 실행합니다.
-  UserVacation.findById(req.params.id)
+  UserVacation.find({user: req.params.id})
   .populate('user', 'name') // 검색된 문서의 user 필드는 해당 사용자의 이름 속성으로 채워집니다.
   .then(doc => {
     if (!doc) {

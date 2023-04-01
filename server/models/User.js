@@ -12,7 +12,7 @@ const UserSchema = new Schema({
     unique: true
   },
   password: {
-    type: String,
+    type: String
   },
   profileImage: {
     type: String
@@ -29,7 +29,7 @@ const UserSchema = new Schema({
   },
   leaveTypes: [
     {
-      leaveType : {
+      leaveType: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'LeaveType'
       },
@@ -40,7 +40,7 @@ const UserSchema = new Schema({
       usedDays: {
         type: Number,
         default: 0
-      },
+      }
     }
   ]
 });
