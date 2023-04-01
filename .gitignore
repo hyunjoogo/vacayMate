@@ -6,4 +6,3 @@
 
 server/http/http-client.env.json
 server/http/http-client.private.env.json
-server/index.html
