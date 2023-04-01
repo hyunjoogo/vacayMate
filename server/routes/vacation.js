@@ -12,16 +12,16 @@ router.post('/:id', verifyToken, async (req, res) => {
     //   res.status(400).json({ message: 'Invalid vacation type' });
     //   return;
     // }
+    // TODO 사용자가 존재하는지 여부 확인할 것
+    //
 
     try {
-      // TODO 사용자가 존재하는지 여부 확인할 것
-      //
+
       const userVacation = await UserVacation.findOne({
         user: req.params.id, type: req.body.type,
         expirationDate: req.body.expirationDate
       });
 
-      console.log(userVacation);
       if (userVacation) {
         res.status(400).json({message: '이미 생성된 휴가 유형입니다.'});
         return;

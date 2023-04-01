@@ -23,7 +23,7 @@ router.post('/', async (req, res, next) => {
     const token = authHeader.split(' ')[1];
     const ticket = await oAuth2Client.verifyIdToken({
       idToken: token,
-      audience: process.env.GOOGLE_CLIENT_ID,
+      audience: process.env.GOOGLE_CLIENT_ID
     });
     const payload = ticket.getPayload();
     const email = payload.email;
@@ -33,12 +33,15 @@ router.post('/', async (req, res, next) => {
         email: email,
         name: payload.name,
         profileImage: payload.picture,
-        leaveTypes: [],
+        leaveTypes: []
       });
       await user.save();
+      console.log("새로운 사용자입니다. 계정을 생성합니다")
+    } else {
+      console.log("기존사용자입니다. 기존사용자의 정보를 보냅니다.")
     }
     const accessToken = jwt.sign({id: user._id}, process.env.JWT_SECRET, {
-      expiresIn: '1h',
+      expiresIn: '1h'
     });
     res.status(200).json({accessToken});
   } catch (error) {

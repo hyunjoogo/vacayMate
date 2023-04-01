@@ -16,7 +16,7 @@ app.use(express.json());
 app.use(express.urlencoded({extended: true}));
 
 app.get('/', async (req, res) => {
-  res.send('Hello from express');
+  res.sendFile(__dirname + '/index.html');
 });
 
 app.use('/login', LoginRoute);

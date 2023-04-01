@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+  <script src="https://accounts.google.com/gsi/client" async defer></script></head>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js" async defer></script>
+
+<body>
+<script>
+  async function handleCredentialResponse(response) {
+    console.log(response);
+    try {
+      let accessToken = "";
+      const {data} = await axios.post('http://localhost:3300/register', {}, {
+        headers: {
+          Authorization: `Bearer ${response.credential}`
+        }
+      });
+      accessToken = data.accessToken;
+      console.log('가입완료', {accessToken})
+    } catch (err) {
+      console.error(err);
+    }
+  }
+  window.onload = function () {
+    google.accounts.id.initialize({
+      client_id: "739307502412-ee4ur6b7e48b9dl1upbsgk1sej8s1o3o.apps.googleusercontent.com",
+      callback: handleCredentialResponse
+    });
+    google.accounts.id.renderButton(
+      document.getElementById("buttonDiv"),
+      { theme: "outline", size: "large" }  // customization attributes
+    );
+    google.accounts.id.prompt(); // also display the One Tap dialog
+  }
+</script>
+<div id="buttonDiv"></div>
+heeloo
+</body>
+</html>
