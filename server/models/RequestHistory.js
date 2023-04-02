@@ -10,6 +10,10 @@ const requestHistorySchema = new Schema({
     ref: 'User',
     required: true
   },
+  requestName: {
+    type: String,
+    required: true
+  },
   type: {
     type: String,
     enum: vacationType,
@@ -24,9 +28,15 @@ const requestHistorySchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: 'User'
   },
+  approverName: {
+    type: String,
+  },
   canceler: {
     type: Schema.Types.ObjectId,
     ref: 'User'
+  },
+  cancelerName: {
+    type: String,
   },
   memo: {
     type: String,
@@ -48,8 +58,12 @@ const requestHistorySchema = new Schema({
   requestDays: {
     type: Number,
     required: true
+  },
+  createdAt: {
+    type: Date,
+    default: Date.now
   }
-}, {timestamps: {createdAt: 'created_at'}});
+});
 
 module.exports = mongoose.model('RequestHistory', requestHistorySchema);
 

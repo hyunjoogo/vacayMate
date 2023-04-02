@@ -8,6 +8,10 @@ const UserVacationSchema = new Schema({
     ref: 'User',
     required: true
   },
+  name: {
+    type: String,
+    required: true
+  },
   type: {
     type: String,
     required: true
@@ -24,7 +28,7 @@ const UserVacationSchema = new Schema({
     type: Date,
     required: true
   },
-  created_at: {
+  createdAt: {
     type: Date,
     default: Date.now
   }

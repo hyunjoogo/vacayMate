@@ -1,3 +1,4 @@
+###
 // https://sihyung92.oopy.io/etc/intellij/2
 // https://jwt.io/
 
@@ -37,7 +38,37 @@ Content-Type: application/json
 {
   "type": "annual",
   "useType": "dayOff",
-  "startDate": "2023-02-23",
-  "endDate": "2023-02-25",
+  "startDate": "2023-06-23",
+  "endDate": "2023-06-25",
   "status": "pending"
 }
+
+
+### 휴가사용요청 목록
+GET {{host}}/request
+Authorization: Bearer {{access_token}}
+Content-Type: application/json
+
+### 휴가사용요청 이름만 검색
+GET {{host}}/request?page=1&limit=10&name=김현주
+Authorization: Bearer {{access_token}}
+Content-Type: application/json
+
+### 이름검색
+GET {{host}}/request?page=1&limit=10&name=김현주
+Authorization: Bearer {{access_token}}
+Content-Type: application/json
+
+### 아무 조건없는 검색
+GET {{host}}/request?page=1&limit=10
+Authorization: Bearer {{access_token}}
+Content-Type: application/json
+
+### 이름+type(name=김현, type="annual") 검색
+GET {{host}}/request?page=1&limit=10&type=annual&name=김현
+Authorization: Bearer {{access_token}}
+Content-Type: application/json
+
+
+
+
