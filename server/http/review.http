@@ -69,6 +69,8 @@ GET {{host}}/request?page=1&limit=10&type=annual&name=김현
 Authorization: Bearer {{access_token}}
 Content-Type: application/json
 
-
-
+### 휴가요청 상세조회
+GET {{host}}/request/64285b152cac545f5125ceec
+Authorization: Bearer {{access_token}}
+Content-Type: application/json
 
