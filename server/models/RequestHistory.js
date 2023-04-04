@@ -65,5 +65,6 @@ const requestHistorySchema = new Schema({
   }
 });
 
-module.exports = mongoose.model('RequestHistory', requestHistorySchema);
+const RequestHistory = mongoose.model('RequestHistory', requestHistorySchema);
 
+module.exports = RequestHistory

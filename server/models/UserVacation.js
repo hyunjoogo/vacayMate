@@ -8,7 +8,7 @@ const UserVacationSchema = new Schema({
     ref: 'User',
     required: true
   },
-  name: {
+  requestName: {
     type: String,
     required: true
   },
