@@ -24,7 +24,7 @@ app.get("/", async (req, res) => {
 
 app.use("/login", LoginRoute);
 app.use("/register", RegisterRoute);
-app.use("/vacation", VacationRoute);
+app.use("/vacation",verifyToken, VacationRoute);
 app.use("/request", verifyToken, RequestRoute);
 
 app.use((err, req, res, next) => {

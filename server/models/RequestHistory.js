@@ -24,20 +24,6 @@ const requestHistorySchema = new Schema({
     enum: useTypes,
     required: true
   },
-  approver: {
-    type: Schema.Types.ObjectId,
-    ref: 'User'
-  },
-  approverName: {
-    type: String,
-  },
-  canceler: {
-    type: Schema.Types.ObjectId,
-    ref: 'User'
-  },
-  cancelerName: {
-    type: String,
-  },
   memo: {
     type: String,
     maxlength: 1000
@@ -62,9 +48,34 @@ const requestHistorySchema = new Schema({
   createdAt: {
     type: Date,
     default: Date.now
-  }
+  },
+  approver: {
+    // 상태가 cancelled인데 이 값이 있으면 승인되었다가 취소된 신청
+    type: Schema.Types.ObjectId,
+    ref: 'User'
+  },
+  approverName: {
+    // 상태가 cancelled인데 이 값이 있으면 승인되었다가 취소된 신청
+    type: String
+  },
+  useHistoryId: {
+    // 상태가 cancelled인데 이 값이 있으면 승인되었다가 취소된 신청
+    type: Schema.Types.ObjectId,
+    ref: 'UseHistory'
+  },
+  cancelHistoryId: {
+    type: Schema.Types.ObjectId,
+    ref: 'CancelHistory'
+  },
+  canceler: {
+    type: Schema.Types.ObjectId,
+    ref: 'User'
+  },
+  cancelerName: {
+    type: String
+  },
 });
 
 const RequestHistory = mongoose.model('RequestHistory', requestHistorySchema);
 
-module.exports = RequestHistory
+module.exports = RequestHistory;

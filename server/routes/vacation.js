@@ -3,6 +3,7 @@ const router = express.Router();
 const verifyToken = require("../middlewares/verifyToken");
 const User = require('../models/User');
 const UserVacation = require('../models/UserVacation');
+const {approveVacation, cancelVacation} = require("../controllers/vacationController");
 
 // 휴가 유형 생성
 router.post('/:id', verifyToken, async (req, res) => {
@@ -111,6 +112,9 @@ router.get('/:id', (req, res) => {
     res.status(500).send('Internal Server Error'); // 데이터베이스 쿼리가 실패하는 경우, 에러 응답을 보냅니다.
   });
 });
-
+// 휴가 승인하기
+router.patch('/approve/:requestId', approveVacation);
+// 휴가 취소하기 (대기 => 취소, 승인 => 취소)
+router.patch('/cancel/:requestId', cancelVacation);
 
 module.exports = router;

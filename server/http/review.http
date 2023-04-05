@@ -74,3 +74,13 @@ GET {{host}}/request/64285b152cac545f5125ceec
 Authorization: Bearer {{access_token}}
 Content-Type: application/json
 
+### 휴가요청 수락
+PATCH {{host}}/vacation/approve/6428635475ebaaf847b3170b
+Authorization: Bearer {{access_token}}
+Content-Type: application/json
+
+{
+  "status": "approved",
+  "approver": "6426b6d7d694a7a92d29061b",
+  "approverName" : "김현주"
+}
