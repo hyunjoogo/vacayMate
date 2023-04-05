@@ -38,4 +38,5 @@ app.use((err, req, res, next) => {
 const PORT = 3300;
 app.listen(PORT, () => {
   console.log(`Server running on Port ${PORT}`);
+  console.log(`localhost:3300`);
 });
