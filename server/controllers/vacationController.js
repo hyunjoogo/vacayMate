@@ -37,12 +37,14 @@ exports.approveVacation = async (req, res) => {
 
       await useHistory.save();
 
-      const updatedRequestHistory = await RequestHistory.findByIdAndUpdate(requestId, {
-        status: 'approved',
-        approver: approverId,
-        approverName,
-        useHistoryId: useHistory._id
-      }, {new: true});
+      // RequestHistory 객체를 직접 수정합니다.
+      requestHistory.status = 'approved';
+      requestHistory.approver = approverId;
+      requestHistory.approverName = requestHistory;
+      requestHistory.useHistoryId = useHistory._id;
+
+      // 변경된 RequestHistory 객체를 저장합니다.
+      const updatedRequestHistory = await requestHistory.save();
 
       res.status(200).json({message: '휴가가 성공적으로 승인되었습니다.', data: updatedRequestHistory});
     }
@@ -82,20 +84,20 @@ exports.cancelVacation = async (req, res) => {
     await cancelHistory.save();
 
     // 휴가 사용 신청을 취소 처리를 수행합니다.
-// RequestHistory 객체를 직접 수정합니다.
+    // RequestHistory 객체를 직접 수정합니다.
     requestHistory.status = 'cancelled';
     requestHistory.cancelHistoryId = cancelHistory._id;
     requestHistory.canceler = cancelerId;
     requestHistory.cancelerName = cancelerName;
 
-// 변경된 RequestHistory 객체를 저장합니다.
-    await requestHistory.save();
+    // 변경된 RequestHistory 객체를 저장합니다.
+    const updateRequestHistory = await requestHistory.save();
 
     if (requestHistory.status === 'approved') {
       await UseHistory.findOneAndDelete({request: requestId});
     }
 
-    res.status(200).json({message: '휴가가 성공적으로 취소되었습니다.', data: {requestHistory, cancelHistory}});
+    res.status(200).json({message: '휴가가 성공적으로 취소되었습니다.', data: updateRequestHistory});
   } catch (error) {
     res.status(500).json({message: '휴가 취소 중 오류가 발생했습니다.', error});
   }
