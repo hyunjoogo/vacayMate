@@ -3,12 +3,7 @@ const morgan = require("morgan");
 const cors = require("cors");
 
 require("dotenv").config();
-require("./helpers/init_mongodb");
 
-const RegisterRoute = require("./routes/register");
-const LoginRoute = require("./routes/login");
-const VacationRoute = require("./routes/vacation");
-const RequestRoute = require("./routes/request");
 
 const verifyToken = require("./middlewares/verifyToken");
 
@@ -22,10 +17,6 @@ app.get("/", async (req, res) => {
   res.sendFile(__dirname + "/index.html");
 });
 
-app.use("/login", LoginRoute);
-app.use("/register", RegisterRoute);
-app.use("/vacation",verifyToken, VacationRoute);
-app.use("/request", verifyToken, RequestRoute);
 
 app.use((err, req, res, next) => {
   res.status(err.status || 500);

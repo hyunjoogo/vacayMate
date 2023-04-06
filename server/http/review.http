@@ -23,23 +23,24 @@ Content-Type: application/json
 }
 
 ### 전체 사용자의 휴가유형 리스트
-GET {{host}}/vacation?sort=created_at
+GET {{host}}/type?sort=created_at
 Authorization: Bearer {{access_token}}
 
 ### 하나의 사용자의 휴가유형 리스트
-GET {{host}}/vacation/{{hyunjoogo_id}}
+GET {{host}}/type/{{hyunjoogo_id}}
 Authorization: Bearer {{access_token}}
 
 ### 사용자의 휴가사용요청
-POST {{host}}/request/{{hyunjoogo_id}}
+POST {{host}}/request/
 Authorization: Bearer {{access_token}}
 Content-Type: application/json
 
 {
+  "userId": "{{hyunjoogo_id}}",
   "type": "annual",
   "useType": "dayOff",
-  "startDate": "2023-06-23",
-  "endDate": "2023-06-25",
+  "startDate": "2023-06-26",
+  "endDate": "2023-06-28",
   "status": "pending"
 }
 
