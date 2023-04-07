@@ -18,19 +18,19 @@ const User = sequelize.define('User', {
   },
   position: {
     type: DataTypes.STRING,
-    allowNull: false,
+    // allowNull: false,
   },
   department: {
     type: DataTypes.STRING,
-    allowNull: false,
+    // allowNull: false,
   },
   role: {
     type: DataTypes.STRING,
-    allowNull: false,
+    // allowNull: false,
   },
   enterDate: {
     type: DataTypes.DATE,
-    allowNull: false,
+    // allowNull: false,
   },
   isLeave: {
     type: DataTypes.BOOLEAN,

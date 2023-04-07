@@ -12,7 +12,7 @@
     console.log(response);
     try {
       let accessToken = "";
-      const {data} = await axios.post('http://localhost:3300/register', {}, {
+      const {data} = await axios.post('http://localhost:3300/api/auth/google', {}, {
         headers: {
           Authorization: `Bearer ${response.credential}`
         }
