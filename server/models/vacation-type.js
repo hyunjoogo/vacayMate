@@ -5,12 +5,18 @@ const VacationType = sequelize.define('VacationType', {
   id: {
     type: DataTypes.INTEGER,
     primaryKey: true,
-    autoIncrement: true,
+    autoIncrement: true
   },
   name: {
     type: DataTypes.STRING,
-    allowNull: false,
-    unique: true,
+    allowNull: false
+  },
+  expirationDate: {
+    type: DataTypes.DATEONLY,
+    allowNull: false
+  },
+  memo: {
+    type: DataTypes.TEXT
   },
 });
 

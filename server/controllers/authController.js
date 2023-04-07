@@ -1,15 +1,7 @@
 const {OAuth2Client} = require('google-auth-library');
 const jwt = require('jsonwebtoken');
 const User = require('../models/user');
-
-
-
-async function syncDatabase() {
-  await User.sync({ force: true });
-  console.log('All models were synchronized successfully.');
-}
-
-syncDatabase();
+const {syncUserDatabase} = require("../helpers/sync-database");
 
 const googleLogin = async (req, res, next) => {
   const oAuth2Client = new OAuth2Client(process.env.GOOGLE_CLIENT_ID, process.env.GOOGLE_CLIENT_PASSWORD);
@@ -27,6 +19,8 @@ const googleLogin = async (req, res, next) => {
     const payload = ticket.getPayload();
     const email = payload.email;
     const name = payload.name;
+
+    await syncUserDatabase();
 
     let user = await User.findOne({email});
     if (!user) {
