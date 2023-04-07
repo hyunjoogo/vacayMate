@@ -1,7 +1,5 @@
-const VacationType = require('../models/vacation-type')
-const {vacationTypeSchema} = require("./validation/vacationType");
+const VacationType = require('../models/vacation-type');
 const Joi = require('joi');
-const {syncVacationTypeDatabase} = require("../helpers/sync-database");
 
 exports.create = async (req, res) => {
   const schema = Joi.object({
@@ -11,25 +9,23 @@ exports.create = async (req, res) => {
   });
 
 
-  const { error, value } = schema.validate(req.body);
+  const {error, value} = schema.validate(req.body);
   if (error) {
-    res.status(400).json({ message: error.details[0].message });
+    res.status(400).json({message: error.details[0].message});
     return;
   }
 
-  const { name, expirationDate, memo } = value;
+  const {name, expirationDate, memo} = value;
 
   try {
-    await syncVacationTypeDatabase()
-
     const vacationType = await VacationType.create({
       name,
       expirationDate,
-      memo,
+      memo
     });
-    res.status(201).json({ vacationType });
+    res.status(201).json({vacationType});
   } catch (err) {
     console.error(err);
-    res.status(500).json({ message: 'Internal server error' });
+    res.status(500).json({message: 'Internal server error'});
   }
 };

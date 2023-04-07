@@ -5,6 +5,7 @@ require("dotenv").config();
 const verifyToken = require("./middlewares/verifyToken");
 const AuthRoute = require("./routes/auth");
 const VacationRoute = require("./routes/vacation");
+const UserRoute = require('./routes/user');
 
 const app = express();
 app.use(morgan("dev"));
@@ -18,6 +19,7 @@ app.get("/", async (req, res) => {
 });
 
 app.use("/api/auth", AuthRoute);
+app.use("/api/user", UserRoute);
 app.use("/api/vacation", VacationRoute);
 
 
