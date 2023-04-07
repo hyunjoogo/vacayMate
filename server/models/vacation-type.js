@@ -36,6 +36,21 @@ const VacationType = sequelize.define('VacationType', {
   underscored: true // 2. underscored 옵션을 설정
 });
 
+VacationType.prototype.hasEnoughRemainingDays = async function(requestedDays) {
+  const remainingDays = this.remaining_days;
+  if (remainingDays < requestedDays) {
+    throw new Error('Not enough remaining days');
+  }
+};
+
+VacationType.prototype.decreaseRemainingDays = async function(requestedDays) {
+  await this.hasEnoughRemainingDays(requestedDays);
+
+  const remainingDays = this.remaining_days - requestedDays;
+  this.remaining_days = remainingDays;
+  await this.save();
+};
+
 VacationType.sync({ force: false })
 .then(() => {
   console.log('VacationType model and database table synced successfully!');

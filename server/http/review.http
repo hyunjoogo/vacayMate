@@ -34,6 +34,38 @@ Content-Type: application/json
   "expirationDate": "2023-12-31"
 }
 
+### 사용자의 휴가사용신청 생성
+POST {{host}}/api/vacation/request
+Authorization: Bearer {{access_token}}
+Content-Type: application/json
+
+{
+  "userId": 1,
+  "vacationTypeId": 1,
+  "useTimes": [
+    {
+      "startDt": "2023-04-10",
+      "endDt": "2023-04-10",
+      "useType": "오전반차",
+      "totalCount": 0.5
+    },
+    {
+      "startDt": "2023-04-11",
+      "endDt": "2023-04-11",
+      "useType": "오후반차",
+      "totalCount": 0.5
+    },
+    {
+      "startDt": "2023-04-12",
+      "endDt": "2023-04-12",
+      "useType": "일차",
+      "totalCount": 1
+    }
+  ],
+  "vacationTotalDays": 3
+}
+
+
 ### 전체 사용자의 휴가유형 리스트
 GET {{host}}/type?sort=created_at
 Authorization: Bearer {{access_token}}

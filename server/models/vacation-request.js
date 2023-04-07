@@ -1,44 +1,102 @@
-const { DataTypes } = require('sequelize');
+const {DataTypes} = require('sequelize');
 const sequelize = require('../database');
+const User = require('./user');
+const VacationType = require('./vacation-type');
 
 const VacationRequest = sequelize.define('VacationRequest', {
   id: {
     type: DataTypes.INTEGER,
     primaryKey: true,
-    autoIncrement: true,
+    autoIncrement: true
   },
-  vacation_start_date: {
+  userId: {
+    type: DataTypes.INTEGER,
+    allowNull: false,
+    references: {
+      model: User,
+      key: 'id'
+    },
+    field: 'user_id'
+  },
+  vacationTypeId: {
+    type: DataTypes.INTEGER,
+    allowNull: false,
+    references: {
+      model: VacationType,
+      key: 'id'
+    },
+    field: 'vacation_type_id'
+  },
+  vacationStartDate: {
     type: DataTypes.DATE,
     allowNull: false,
+    field: 'vacation_start_date'
   },
-  vacation_end_date: {
+  vacationEndDate: {
     type: DataTypes.DATE,
     allowNull: false,
+    field: 'vacation_end_date'
   },
-  vacation_time_type: {
+  vacationTimeType: {
     type: DataTypes.STRING,
     allowNull: false,
+    field: 'vacation_time_type'
+  },
+  totalVacationDays: {
+    type: DataTypes.FLOAT,
+    allowNull: false,
+    field: 'total_vacation_days',
   },
   status: {
     type: DataTypes.STRING,
-    allowNull: false,
+    allowNull: false
   },
-  created_at: {
+  createdAt: {
     type: DataTypes.DATE,
     allowNull: false,
+    defaultValue: DataTypes.NOW,
+    field: 'created_at'
   },
-  canceled_at: {
+  canceledAt: {
     type: DataTypes.DATE,
+    allowNull: true,
+    field: 'canceled_at'
   },
-  canceled_by: {
+  canceledBy: {
     type: DataTypes.INTEGER,
+    allowNull: true,
+    references: {
+      model: User,
+      key: 'id'
+    },
+    field: 'canceled_by'
   },
-  approved_at: {
+  approvedAt: {
     type: DataTypes.DATE,
+    allowNull: true,
+    field: 'approved_at'
   },
-  approved_by: {
+  approvedBy: {
     type: DataTypes.INTEGER,
-  },
+    allowNull: true,
+    references: {
+      model: User,
+      key: 'id'
+    },
+    field: 'approved_by'
+  }
+}, {
+  tableName: 'vacation_requests',
+  timestamps: true,      // 1. timestamps 자동 생성 기능 설정
+  underscored: true // 2. underscored 옵션을 설정
+});
+
+VacationRequest.sync({ force: true })
+.then(() => {
+  console.log('VacationRequest model and database table synced successfully!');
+})
+.catch(error => {
+  console.error('Unable to sync User VacationRequest and database table:', error);
 });
 
 module.exports = VacationRequest;
