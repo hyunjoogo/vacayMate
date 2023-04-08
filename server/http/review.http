@@ -21,7 +21,7 @@ Content-Type: application/json
   "memo": "2023년도 여름휴가분"
 }
 
-### 관리자 -> 사용자 휴가 유형 생성
+### 관리자 : 사용자 휴가 유형 생성
 POST {{host}}/api/user/vacation-type
 Authorization: Bearer {{access_token}}
 Content-Type: application/json
@@ -34,4 +34,48 @@ Content-Type: application/json
   "expirationDate": "2023-12-31"
 }
 
+### 관리자 : 사용자의 휴가사용요청 대기 -> 승인
+### status는 "approved" 만 가능
+PATCH {{host}}/api/vacation/request/approve/69
+Authorization: Bearer {{access_token}}
+Content-Type: application/json
 
+{
+  "adminId": 1,
+  "status": "approved"
+}
+
+### 관리자 : 사용자의 휴가사용요청 대기 -> 승인
+### status는 "approved" 만 가능
+PATCH {{host}}/api/vacation/request/approve/69
+Authorization: Bearer {{access_token}}
+Content-Type: application/json
+
+{
+  "adminId": 1,
+  "status": "approved"
+}
+
+### 관리자 : 사용자의 휴가사용요청 대기 -> 거절
+### status는 "refused" 만 가능
+### 꼭 user_vacations remain_days 원복되었는지 확인해볼 것
+PATCH {{host}}/api/vacation/request/refuse/65
+Authorization: Bearer {{access_token}}
+Content-Type: application/json
+
+{
+  "adminId": 1,
+  "status": "refused"
+}
+
+### 관리자 : 사용자의 휴가사용요청 사용중 -> 취소
+### status는 "approved" 만 가능
+### 꼭 user_vacations remain_days 원복되었는지 확인해볼 것
+PATCH {{host}}/api/vacation/request/cancel/69
+Authorization: Bearer {{access_token}}
+Content-Type: application/json
+
+{
+  "adminId": 1,
+  "status": "canceled"
+}

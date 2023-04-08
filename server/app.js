@@ -7,6 +7,10 @@ const AuthRoute = require("./routes/auth");
 const VacationRoute = require("./routes/vacation");
 const UserRoute = require('./routes/user');
 const TimeRoute = require('./routes/time');
+const dayjs = require('dayjs')
+const utc = require('dayjs/plugin/utc');
+dayjs.extend(utc)
+
 
 const app = express();
 app.use(morgan("dev"));
@@ -35,3 +39,5 @@ app.use((err, req, res, next) => {
 
 const PORT = 3300;
 app.listen(PORT, () => console.log(`서버 시작됨: http://localhost:${PORT}`));
+
+

@@ -78,12 +78,27 @@ const VacationRequest = sequelize.define('VacationRequest', {
       key: 'id'
     },
     field: 'approved_by'
+  },
+  refusedAt: {
+    type: DataTypes.DATE,
+    allowNull: true,
+    field: 'refused_at'
+  },
+  refusedBy: {
+    type: DataTypes.INTEGER,
+    allowNull: true,
+    references: {
+      model: User,
+      key: 'id'
+    },
+    field: 'refused_by'
   }
 }, {
   tableName: 'vacation_requests',
   timestamps: true,      // 1. timestamps 자동 생성 기능 설정
   underscored: true // 2. underscored 옵션을 설정
 });
+
 
 VacationRequest.sync({ force: false })
 .then(() => {
