@@ -34,7 +34,7 @@ Content-Type: application/json
   "expirationDate": "2023-12-31"
 }
 
-### 사용자의 휴가사용신청 생성
+### 14오후,15일차,16오전 휴가사용신청 생성
 POST {{host}}/api/vacation/request
 Authorization: Bearer {{access_token}}
 Content-Type: application/json
@@ -44,25 +44,101 @@ Content-Type: application/json
   "vacationTypeId": 1,
   "useTimes": [
     {
-      "startDt": "2023-04-10",
-      "endDt": "2023-04-10",
-      "useType": "오전반차",
+      "startDt": "2023-04-14T04:00:00.000Z",
+      "endDt": "2023-04-14T09:00:00.000Z",
+      "useType": "오후",
       "totalCount": 0.5
     },
     {
-      "startDt": "2023-04-11",
-      "endDt": "2023-04-11",
-      "useType": "오후반차",
-      "totalCount": 0.5
-    },
-    {
-      "startDt": "2023-04-12",
-      "endDt": "2023-04-12",
-      "useType": "일차",
+      "startDt": "2023-04-15T00:00:00.000Z",
+      "endDt": "2023-04-15T09:00:00.000Z",
+      "useType": "연차",
       "totalCount": 1
+    },
+    {
+      "startDt": "2023-04-16T00:00:00.000Z",
+      "endDt": "2023-04-16T03:00:00.000Z",
+      "useType": "연차",
+      "totalCount": 0.5
     }
   ],
   "vacationTotalDays": 2
+}
+
+### 9-10 연속일차 휴가사용신청 생성
+POST {{host}}/api/vacation/request
+Authorization: Bearer {{access_token}}
+Content-Type: application/json
+
+{
+  "userId": 1,
+  "vacationTypeId": 1,
+  "useTimes": [
+    {
+      "startDt": "2023-04-08T00:00:00.000Z",
+      "endDt": "2023-04-09T09:00:00.000Z",
+      "useType": "일차",
+      "totalCount": 2
+    }
+  ],
+  "vacationTotalDays": 2
+}
+
+### 9 오후 휴가사용신청 생성
+POST {{host}}/api/vacation/request
+Authorization: Bearer {{access_token}}
+Content-Type: application/json
+
+{
+  "userId": 1,
+  "vacationTypeId": 1,
+  "useTimes": [
+    {
+      "startDt": "2023-04-09T04:00:00.000Z",
+      "endDt": "2023-04-09T09:00:00.000Z",
+      "useType": "오후",
+      "totalCount": 0.5
+    }
+  ],
+  "vacationTotalDays": 0.5
+}
+
+### 9 오전 휴가사용신청 생성
+POST {{host}}/api/vacation/request
+Authorization: Bearer {{access_token}}
+Content-Type: application/json
+
+{
+  "userId": 1,
+  "vacationTypeId": 1,
+  "useTimes": [
+    {
+      "startDt": "2023-04-09T00:00:00Z",
+      "endDt": "2023-04-09T03:00:00Z",
+      "useType": "오전",
+      "totalCount": 0.5
+    }
+  ],
+  "vacationTotalDays": 0.5
+}
+
+### 9 종일 휴가사용신청 생성
+POST {{host}}/api/vacation/request
+Authorization: Bearer {{access_token}}
+Content-Type: application/json
+
+{
+  "userId": 1,
+  "vacationTypeId": 1,
+  "useTimes": [
+    {
+      "startDt": "2023-04-09T00:00:00.000Z",
+      "endDt": "2023-04-09T09:00:00.000Z",
+      "useType": "하루",
+      "totalCount": 1
+    }
+  ],
+  "vacationTotalDays": 1
 }
 
 

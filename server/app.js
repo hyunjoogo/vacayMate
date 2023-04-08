@@ -6,6 +6,7 @@ const verifyToken = require("./middlewares/verifyToken");
 const AuthRoute = require("./routes/auth");
 const VacationRoute = require("./routes/vacation");
 const UserRoute = require('./routes/user');
+const TimeRoute = require('./routes/time');
 
 const app = express();
 app.use(morgan("dev"));
@@ -21,6 +22,7 @@ app.get("/", async (req, res) => {
 app.use("/api/auth", AuthRoute);
 app.use("/api/user", UserRoute);
 app.use("/api/vacation", VacationRoute);
+app.use("/time", TimeRoute);
 
 
 app.use((err, req, res, next) => {

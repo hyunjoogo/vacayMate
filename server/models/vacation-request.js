@@ -51,12 +51,6 @@ const VacationRequest = sequelize.define('VacationRequest', {
     type: DataTypes.STRING,
     allowNull: false
   },
-  createdAt: {
-    type: DataTypes.DATE,
-    allowNull: false,
-    defaultValue: DataTypes.NOW,
-    field: 'created_at'
-  },
   canceledAt: {
     type: DataTypes.DATE,
     allowNull: true,
@@ -91,7 +85,7 @@ const VacationRequest = sequelize.define('VacationRequest', {
   underscored: true // 2. underscored 옵션을 설정
 });
 
-VacationRequest.sync({ force: true })
+VacationRequest.sync({ force: false })
 .then(() => {
   console.log('VacationRequest model and database table synced successfully!');
 })
