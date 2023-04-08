@@ -29,3 +29,34 @@ export function calculateVacation(startDate) {
 
   return { vacationDate, vacationDays };
 }
+
+
+function calculateVacationPeriod(startDate, useType) {
+  const startDateMoment = moment(startDate);
+  const period = {
+    startDt: startDateMoment.format('YYYY-MM-DD'),
+    endDt: '',
+    totalCount: 0
+  };
+
+  switch (useType) {
+    case '일차':
+      period.totalCount = 1;
+      break;
+    case '오전반나절':
+      period.totalCount = 0.5;
+      break;
+    case '오후반나절':
+      period.totalCount = 0.5;
+      break;
+    default:
+      period.totalCount = 0;
+      break;
+  }
+
+  const endDateMoment = moment(startDate).add(period.totalCount, 'days');
+
+  period.endDt = endDateMoment.format('YYYY-MM-DD');
+
+  return period;
+}

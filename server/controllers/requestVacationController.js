@@ -36,6 +36,10 @@ exports.createRequest = async (req, res) => {
     // 휴가 요청 생성
     const bulkRequests = await VacationRequest.bulkCreate(vacationRequests);
 
+    // 해당 휴가유형의 잔여 휴가일수 감소
+    userVacation.remainingDays = userVacation.remainingDays - vacationTotalDays;
+    await userVacation.save();
+
     return res.status(200).json({message: 'Vacation requests successfully created.', data: {bulkRequests}});
   } catch (err) {
     console.error(err);
