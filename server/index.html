@@ -5,9 +5,37 @@
   <title>Title</title>
   <script src="https://accounts.google.com/gsi/client" async defer></script></head>
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js" async defer></script>
+<script src="https://cdn.jsdelivr.net/npm/dayjs@1/dayjs.min.js" async defer></script>
+
 
 <body>
+
+<div id="buttonDiv"></div>
+<button>현재시간</button>
 <script>
+  const button = document.querySelector('button');
+
+  button.addEventListener('click', function() {
+    const currentTime = new Date();
+    const utcTime = currentTime.toUTCString();
+    const dayjsTime = dayjs().format()
+    console.log({currentTime, utcTime, dayjsTime});
+    fetch('/time', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        currentTime, utcTime, dayjsTime
+      })
+    }).then(response => {
+      // 응답 처리
+    }).catch(error => {
+      // 오류 처리
+    });
+  })
+
+
   async function handleCredentialResponse(response) {
     console.log(response);
     try {
@@ -35,7 +63,5 @@
     google.accounts.id.prompt(); // also display the One Tap dialog
   }
 </script>
-<div id="buttonDiv"></div>
-heeloo
 </body>
 </html>
