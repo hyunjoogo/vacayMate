@@ -6,8 +6,13 @@ const VacationRequest = require("../models/vacation-request");
 const UserVacation = require("../models/user-vacation");
 
 
-// POST /vacation
+// 관리자: 시스템 휴가유형 조회
+router.get('/', vacationTypeController.getVacationTypes);
+// 관리자 : 시스템 휴가유형 생성
 router.post('/', vacationTypeController.create);
+// 관리자: 시스템 휴가유형 수정
+
+// 관리자: 시스템 휴가유형 삭제 (이거 만들지 않는게 좋을듯)
 
 // POST /vacation/request
 router.post('/request', requestVacationController.createRequest);
