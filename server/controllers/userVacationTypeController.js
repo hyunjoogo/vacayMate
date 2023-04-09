@@ -1,6 +1,7 @@
 const UserVacation = require('../models/user-vacation');
 const User = require('../models/user');
-
+const VacationType = require('../models/vacation-type');
+const Sequelize = require('sequelize');
 exports.createUserVacation = async (req, res) => {
   const {userId, vacationTypeId, remainingDays, totalDays, expirationDate} = req.body;
 
@@ -26,5 +27,38 @@ exports.createUserVacation = async (req, res) => {
   } catch (err) {
     console.error(err);
     res.status(500).json({success: false, message: 'Server error'});
+  }
+};
+
+exports.getMyVacationTypes = async (req, res) => {
+  const {nowPage = 1, pageSize = 10, name="", userId} = req.query;
+  const offset = (nowPage - 1) * pageSize;
+  const limit = Number(pageSize);
+
+  try {
+    const where = {
+      userId,
+      '$VacationType.name$': {
+        [Sequelize.Op.like]: `%${name}%`
+      }
+    };
+    const include = [
+      {
+        model: VacationType,
+        attributes: ['name']
+      }
+    ];
+
+    const userVacations = await UserVacation.findAndCountAll({
+      where,
+      include,
+      offset,
+      limit
+    });
+
+    res.status(200).json(userVacations);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({message: '서버 에러 발생'});
   }
 };

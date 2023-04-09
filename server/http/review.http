@@ -27,8 +27,16 @@ Content-Type: application/json
   "memo": "2023년도 여름휴가분"
 }
 
+### 사용자 휴가유형 검색
+GET {{host}}/api/user/vacation-type?userId={{hyunjoogo_id}}&nowPage=1&pageSize=10&name=
+Authorization: Bearer {{access_token}}
+Content-Type: application/json
+
+
+
+
 ### 관리자 : 사용자 휴가 유형 생성
-POST {{host}}/api/user/vacation-type
+POST {{host}}/api/user/admin/vacation-type
 Authorization: Bearer {{access_token}}
 Content-Type: application/json
 
