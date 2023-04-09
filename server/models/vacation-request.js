@@ -99,6 +99,7 @@ const VacationRequest = sequelize.define('VacationRequest', {
   underscored: true // 2. underscored 옵션을 설정
 });
 
+VacationRequest.belongsTo(User, { foreignKey: 'userId' });
 
 VacationRequest.sync({ force: false })
 .then(() => {

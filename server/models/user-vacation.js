@@ -54,7 +54,7 @@ const UserVacation = sequelize.define('UserVacation', {
   underscored: true // 2. underscored 옵션을 설정
 });
 
-UserVacation.belongsTo(VacationType, { foreignKey: 'vacationTypeId' });
+UserVacation.belongsTo(VacationType, {foreignKey: 'vacationTypeId'});
 
 
 UserVacation.sync({force: false})

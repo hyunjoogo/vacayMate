@@ -1,10 +1,49 @@
 const UserVacation = require('../models/user-vacation');
 const VacationRequest = require('../models/vacation-request');
-const {Sequelize} = require("sequelize");
+const User = require('../models/user');
 const generateVacationRequests = require("./requestVacation/generateVacationRequests");
 const sequelize = require("../database");
 const dayjs = require('dayjs');
+const Sequelize = require('sequelize');
+const {convertTimestampToUTC} = require("../utils/timeStampToUTC");
 
+
+exports.getMyRequest = async (req, res) => {
+  const {nowPage = 1, pageSize = 10, userId, startDate, endDate, vacationTypeId, vacationTimeType} = req.query;
+  const offset = (nowPage - 1) * pageSize;
+  const limit = Number(pageSize);
+  try {
+    const where = {userId};
+    if (startDate && endDate) {
+      const utcStartDate = convertTimestampToUTC(startDate)
+      const utcEndDate = convertTimestampToUTC(endDate)
+      where.vacationStartDate = {
+        [Sequelize.Op.between]: [utcStartDate, utcEndDate]
+      }
+    }
+    if (vacationTypeId) {
+      where.vacationTypeId = vacationTypeId;
+    }
+    if (vacationTimeType) {
+      where.vacationTimeType = vacationTimeType;
+    }
+    const userVacationRequests = await VacationRequest.findAndCountAll({
+      where,
+      order: [['createdAt', 'DESC']],
+      offset,
+      limit,
+      include: {
+        model: User,
+        attributes: ['id', 'name']
+      }
+    });
+    res.status(200).json(userVacationRequests);
+
+  } catch (err) {
+    console.error(err);
+    return res.status(500).json({error: '서버 에러 발생'});
+  }
+};
 
 // 휴가사용요청 생성
 exports.createRequest = async (req, res) => {
@@ -99,11 +138,11 @@ exports.approveVacationRequest = async (req, res) => {
         }
       );
     } else {
-      return res.status(400).json({ message: '잘못된 요청입니다.' });
+      return res.status(400).json({message: '잘못된 요청입니다.'});
     }
 
     // 처리 완료 메시지 반환
-    return res.status(200).json({ message: '요청이 처리되었습니다.' });
+    return res.status(200).json({message: '요청이 처리되었습니다.'});
   } catch (err) {
     console.log(err);
     return res.status(500).json({message: '서버 오류가 발생했습니다.'});
@@ -142,18 +181,18 @@ exports.refuseVacationRequest = async (req, res) => {
       );
       // 거절시 잔여일수 복원
       const vacation = await UserVacation.findOne({
-        where: { userId: vacationRequest.userId, vacationTypeId: vacationRequest.vacationTypeId },
+        where: {userId: vacationRequest.userId, vacationTypeId: vacationRequest.vacationTypeId}
       });
       await UserVacation.update(
-        { remainingDays: vacation.remainingDays + vacationRequest.totalVacationDays },
-        { where: { id: vacation.id } }
+        {remainingDays: vacation.remainingDays + vacationRequest.totalVacationDays},
+        {where: {id: vacation.id}}
       );
     } else {
-      return res.status(400).json({ message: '잘못된 요청입니다.' });
+      return res.status(400).json({message: '잘못된 요청입니다.'});
     }
 
     // 처리 완료 메시지 반환
-    return res.status(200).json({ message: '요청이 처리되었습니다.' });
+    return res.status(200).json({message: '요청이 처리되었습니다.'});
   } catch (err) {
     console.log(err);
     return res.status(500).json({message: '서버 오류가 발생했습니다.'});
@@ -192,18 +231,18 @@ exports.cancelVacationRequest = async (req, res) => {
       );
       // 취소시 잔여일수 복원
       const vacation = await UserVacation.findOne({
-        where: { userId: vacationRequest.userId, vacationTypeId: vacationRequest.vacationTypeId },
+        where: {userId: vacationRequest.userId, vacationTypeId: vacationRequest.vacationTypeId}
       });
       await UserVacation.update(
-        { remainingDays: vacation.remainingDays + vacationRequest.totalVacationDays },
-        { where: { id: vacation.id } }
+        {remainingDays: vacation.remainingDays + vacationRequest.totalVacationDays},
+        {where: {id: vacation.id}}
       );
     } else {
-      return res.status(400).json({ message: '잘못된 요청입니다.' });
+      return res.status(400).json({message: '잘못된 요청입니다.'});
     }
 
     // 처리 완료 메시지 반환
-    return res.status(200).json({ message: '요청이 처리되었습니다.' });
+    return res.status(200).json({message: '요청이 처리되었습니다.'});
   } catch (err) {
     console.log(err);
     return res.status(500).json({message: '서버 오류가 발생했습니다.'});

@@ -14,7 +14,9 @@ router.post('/', vacationTypeController.create);
 
 // 관리자: 시스템 휴가유형 삭제 (이거 만들지 않는게 좋을듯)
 
-// POST /vacation/request
+// 사용자: 휴가사용요청 조회
+router.get('/request', requestVacationController.getMyRequest);
+// 사용자: 휴가사용요청 생성
 router.post('/request', requestVacationController.createRequest);
 
 // 휴가사용요청 승인 (pending 일때만 가능) -> approved

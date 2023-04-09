@@ -27,13 +27,10 @@ Content-Type: application/json
   "memo": "2023년도 여름휴가분"
 }
 
-### 사용자 휴가유형 검색
+### 사용자 휴가유형 조회
 GET {{host}}/api/user/vacation-type?userId={{hyunjoogo_id}}&nowPage=1&pageSize=10&name=
 Authorization: Bearer {{access_token}}
 Content-Type: application/json
-
-
-
 
 ### 관리자 : 사용자 휴가 유형 생성
 POST {{host}}/api/user/admin/vacation-type
@@ -47,6 +44,26 @@ Content-Type: application/json
   "totalDays": 5,
   "expirationDate": "2023-12-31"
 }
+
+### 사용자 휴가유형 조회 (4월 한달)
+GET {{host}}/api/vacation/request?userId={{hyunjoogo_id}}&nowPage=1&pageSize=10
+    &startDate=1680307200&endDate=1682899199
+Authorization: Bearer {{access_token}}
+Content-Type: application/json
+
+### 사용자 휴가유형 조회 (4월 9일 ~ 15일)
+GET {{host}}/api/vacation/request?userId={{hyunjoogo_id}}&nowPage=1&pageSize=10
+    &startDate=1680998400&endDate=1681603199
+Authorization: Bearer {{access_token}}
+Content-Type: application/json
+
+### 사용자 휴가유형 조회 (연차, 반차 조건으로 검색)
+###
+GET {{host}}/api/vacation/request?userId={{hyunjoogo_id}}&nowPage=1&pageSize=10
+    &vacationTimeType=연차
+Authorization: Bearer {{access_token}}
+Content-Type: application/json
+
 
 ### 관리자 : 사용자의 휴가사용요청 대기 -> 승인
 ### status는 "approved" 만 가능
