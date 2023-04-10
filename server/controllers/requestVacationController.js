@@ -6,20 +6,22 @@ const sequelize = require("../database");
 const dayjs = require('dayjs');
 const Sequelize = require('sequelize');
 const {convertTimestampToUTC} = require("../utils/timeStampToUTC");
+const VacationType = require("../models/vacation-type");
+const VacationRequestService = require('../services/vacationRequestService');
 
-
-exports.getMyRequest = async (req, res) => {
+// 사용자: 휴가사용요청 조회
+exports.getMyRequestes = async (req, res) => {
   const {nowPage = 1, pageSize = 10, userId, startDate, endDate, vacationTypeId, vacationTimeType} = req.query;
   const offset = (nowPage - 1) * pageSize;
   const limit = Number(pageSize);
   try {
     const where = {userId};
     if (startDate && endDate) {
-      const utcStartDate = convertTimestampToUTC(startDate)
-      const utcEndDate = convertTimestampToUTC(endDate)
+      const utcStartDate = convertTimestampToUTC(startDate);
+      const utcEndDate = convertTimestampToUTC(endDate);
       where.vacationStartDate = {
         [Sequelize.Op.between]: [utcStartDate, utcEndDate]
-      }
+      };
     }
     if (vacationTypeId) {
       where.vacationTypeId = vacationTypeId;
@@ -44,7 +46,17 @@ exports.getMyRequest = async (req, res) => {
     return res.status(500).json({error: '서버 에러 발생'});
   }
 };
-
+// 사용자 : 휴가사용요청 상세조회
+exports.getMyRequestDetail = async (req, res) => {
+  const {vacationRequestId} = req.params;
+  try {
+    const result = await VacationRequestService.getMyRequestDetail(vacationRequestId);
+    res.status(200).json(result);
+  } catch (err) {
+    console.error(err);
+    return res.status(500).json({error: '서버 에러 발생'});
+  }
+};
 // 휴가사용요청 생성
 exports.createRequest = async (req, res) => {
   const {userId, vacationTypeId, useTimes, vacationTotalDays} = req.body;

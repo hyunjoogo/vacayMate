@@ -64,6 +64,10 @@ GET {{host}}/api/vacation/request?userId={{hyunjoogo_id}}&nowPage=1&pageSize=10
 Authorization: Bearer {{access_token}}
 Content-Type: application/json
 
+### 사용자 휴가유형 상세조회
+GET {{host}}/api/vacation/request/69
+Authorization: Bearer {{access_token}}
+Content-Type: application/json
 
 ### 관리자 : 사용자의 휴가사용요청 대기 -> 승인
 ### status는 "approved" 만 가능
