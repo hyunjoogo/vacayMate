@@ -99,8 +99,8 @@ const VacationRequest = sequelize.define('VacationRequest', {
   underscored: true // 2. underscored 옵션을 설정
 });
 
-VacationRequest.belongsTo(VacationType, {foreignKey: 'vacationTypeId'});
-VacationRequest.belongsTo(User, {foreignKey: 'userId'});
+VacationRequest.belongsTo(VacationType, {foreignKey: 'vacationTypeId', as : 'vacationType'});
+VacationRequest.belongsTo(User, {foreignKey: 'userId', as : 'user'});
 VacationRequest.belongsTo(User, {foreignKey: 'canceled_by', as: "canceledByUser"});
 VacationRequest.belongsTo(User, {foreignKey: 'refused_by', as: "refusedByUser"});
 VacationRequest.belongsTo(User, {foreignKey: 'approved_by', as: "approvedByUser"});

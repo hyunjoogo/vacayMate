@@ -9,10 +9,12 @@ exports.getMyRequestDetail = async (vacationRequestId) => {
     include: [
       {
         model: User,
+        as: 'user',
         attributes: ['id', 'name']
       },
       {
         model: VacationType, // VacationType 모델 추가
+        as: 'vacationType',
         attributes: ['id', 'name'] // 필요한 속성만 선택
       },
       {
@@ -38,8 +40,51 @@ exports.getMyRequestDetail = async (vacationRequestId) => {
       }
     ]
   });
-  const result = {};
+
+  const {
+    id, userId, user,
+    vacationType,
+    vacationStartDate,
+    vacationEndDate,
+    vacationTimeType,
+    totalVacationDays,
+    status,
+    approvedByUser,
+    canceledByUser,
+    refusedByUser,
+    approvedAt,
+    canceledAt,
+    refusedAt
+  } = vacationRequest;
+
+  const result = {
+    id, userId,
+    userName: user.name,
+
+    vacationTypeId : vacationType.id,
+    vacationTypeName : vacationType.name,
+
+    vacationStartDate: vacationStartDate,
+    vacationEndDate: vacationEndDate,
+    vacationTimeType: vacationTimeType,
+    totalVacationDays: totalVacationDays,
+
+    status,
+    isApproved: !!approvedByUser,
+    approvedByUserName: approvedByUser ? approvedByUser.name : null,
+    approvedByUserId: approvedByUser ? approvedByUser.id : null,
+    approvedAt: approvedByUser ? approvedAt : null,
+    isRefused: !!refusedByUser,
+    refusedByUserName: refusedByUser ? refusedByUser.name : null,
+    refusedByUserId: refusedByUser ? refusedByUser.id : null,
+    refusedAt: refusedByUser ? refusedAt : null,
+    isCanceled: !!canceledByUser,
+    canceledByUserName: canceledByUser ? canceledByUser.name : null,
+    canceledByUserId: canceledByUser ? canceledByUser.id : null,
+    canceledAt: canceledByUser ? canceledAt : null,
+  };
 
 
   return result;
 };
+
