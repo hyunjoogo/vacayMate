@@ -2,6 +2,7 @@ const UserVacation = require('../models/user-vacation');
 const User = require('../models/user');
 const VacationType = require('../models/vacation-type');
 const Sequelize = require('sequelize');
+
 exports.createUserVacation = async (req, res) => {
   const {userId, vacationTypeId, remainingDays, totalDays, expirationDate} = req.body;
 
