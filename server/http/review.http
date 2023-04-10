@@ -33,6 +33,12 @@ Authorization: Bearer {{access_token}}
 Content-Type: application/json
 
 ### 관리자 : 사용자 휴가 유형 생성
+POST {{host}}/api/user/admin/createAnnual/{{hyunjoogo_id}}
+Authorization: Bearer {{access_token}}
+Content-Type: application/json
+
+
+### 관리자 : 사용자 휴가 유형 생성
 POST {{host}}/api/user/admin/vacation-type
 Authorization: Bearer {{access_token}}
 Content-Type: application/json

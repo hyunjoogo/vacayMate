@@ -1,7 +1,6 @@
 const {DataTypes} = require('sequelize');
 const sequelize = require('../database');
-const UserVacation = require('./user-vacation');
-
+const UserVacation = require('./user-vacation')
 
 const VacationType = sequelize.define('VacationType', {
   id: {

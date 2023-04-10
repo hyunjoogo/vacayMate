@@ -4,7 +4,8 @@ const VacationType = require('../models/vacation-type');
 const Sequelize = require('sequelize');
 
 exports.createUserVacation = async (req, res) => {
-  const {userId, vacationTypeId, remainingDays, totalDays, expirationDate} = req.body;
+  const {userId} = req.params;
+  const {vacationTypeId, remainingDays, totalDays, expirationDate} = req.body;
 
   // TODO 똑같은 휴가 유형이 생성되지 않도록 하는 방법을 생각해 봅시다.
   // vacationType에서 2023년 귀속분 만들고 하나의 컬럼을 갖는 거지.
@@ -32,7 +33,7 @@ exports.createUserVacation = async (req, res) => {
 };
 
 exports.getMyVacationTypes = async (req, res) => {
-  const {nowPage = 1, pageSize = 10, name="", userId} = req.query;
+  const {nowPage = 1, pageSize = 10, name = "", userId} = req.query;
   const offset = (nowPage - 1) * pageSize;
   const limit = Number(pageSize);
 
@@ -58,6 +59,28 @@ exports.getMyVacationTypes = async (req, res) => {
     });
 
     res.status(200).json(userVacations);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({message: '서버 에러 발생'});
+  }
+};
+
+exports.createAnnual = async (req, res) => {
+  // TODO 미들웨어 => 어드민인지 확인할 것
+  // TODO 미들웨어 => 사용자인지 확인할 것
+  const {userId} = req.params;
+
+  try {
+    // 이미 입사일을 입력한 사용자
+    if (req.user.enterDate) {
+      return res.status(400).json({error: '이미 입사일이 입력되어 있습니다.'});
+    }
+    const result = await User.update(
+      {enterDate: "2023-03-09"},
+      {where: {id: userId}}
+    );
+
+    res.status(200).json(result);
   } catch (error) {
     console.error(error);
     res.status(500).json({message: '서버 에러 발생'});
