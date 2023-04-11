@@ -67,6 +67,8 @@ exports.createRequest = async (req, res) => {
     return res.status(400).json({overlaps, error: '휴가신청 기간에 오류가 있습니다.'});
   }
 
+  const transaction = await sequelize.transaction();
+
   try {
     // 해당 유저의 유효한 휴가 타입 가져오기
     const userVacation = await UserVacation.findOne({
@@ -89,8 +91,6 @@ exports.createRequest = async (req, res) => {
     }
 
     // 휴가 요청 생성
-    const transaction = await sequelize.transaction();
-
     const bulkRequests = await VacationRequest.bulkCreate(vacationRequests, {transaction});
 
     // // 사용자가 신청한 휴가유형의 잔여일 업데이트
