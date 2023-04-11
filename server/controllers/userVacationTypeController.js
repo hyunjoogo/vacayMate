@@ -2,6 +2,8 @@ const UserVacation = require('../models/user-vacation');
 const User = require('../models/user');
 const VacationType = require('../models/vacation-type');
 const Sequelize = require('sequelize');
+const {calculateTotalAnnual} = require("../functions/calculateAnnual");
+const sequelize = require("../database");
 
 exports.createUserVacation = async (req, res) => {
   const {userId} = req.params;
@@ -69,20 +71,52 @@ exports.createAnnual = async (req, res) => {
   // TODO 미들웨어 => 어드민인지 확인할 것
   // TODO 미들웨어 => 사용자인지 확인할 것
   const {userId} = req.params;
+  const {enterDate} = req.body;
+  // 트랜젝션 생성
+  const transaction = await sequelize.transaction();
+
+  // 이미 입사일을 입력한 사용자
+  if (req.user.enterDate) {
+    return res.status(400).json({error: '이미 입사일이 입력되어 있습니다.'});
+  }
 
   try {
-    // 이미 입사일을 입력한 사용자
-    if (req.user.enterDate) {
-      return res.status(400).json({error: '이미 입사일이 입력되어 있습니다.'});
-    }
+    // User 테이블 업데이트
     const result = await User.update(
-      {enterDate: "2023-03-09"},
-      {where: {id: userId}}
+      {enterDate},
+      {
+        where: {
+          id: userId
+        },
+        transaction
+      }
     );
+    const {expirationDate, totalAnnualDays} = calculateTotalAnnual(enterDate);
 
-    res.status(200).json(result);
+    // 시스템 휴가 유형 생성
+    const systemUserAnnual = await VacationType.create({
+      name: req.user.userName + "연차",
+      expirationDate: expirationDate
+    },{transaction});
+
+    // user_vacation 테이블에 넣기
+    const newVacation = await UserVacation.create({
+      userId,
+      vacationTypeId: systemUserAnnual.id,
+      remainingDays: totalAnnualDays,
+      totalDays: totalAnnualDays,
+      expirationDate
+    },{transaction});
+
+    await transaction.commit();
+
+    res.status(200).json({result, systemUserAnnual, newVacation});
   } catch (error) {
     console.error(error);
+
+    if (transaction) {
+      await transaction.rollback();
+    }
     res.status(500).json({message: '서버 에러 발생'});
   }
 };
