@@ -24,8 +24,8 @@ app.get("/", async (req, res) => {
 });
 
 app.use("/api/auth", AuthRoute);
-app.use("/api/user", UserRoute);
-app.use("/api/vacation", VacationRoute);
+app.use("/api/:ver/user", UserRoute);
+app.use("/api/:version/vacation", VacationRoute);
 app.use("/time", TimeRoute);
 
 

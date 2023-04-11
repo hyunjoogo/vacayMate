@@ -1,5 +1,6 @@
 const {DataTypes} = require('sequelize');
 const sequelize = require('../database');
+const UserVacation = require('./user-vacation');
 
 const User = sequelize.define('User', {
   id: {
@@ -48,6 +49,9 @@ const User = sequelize.define('User', {
   timestamps: true,      // 1. timestamps 자동 생성 기능 설정
   underscored: true // 2. underscored 옵션을 설정
 });
+
+User.hasMany(UserVacation, { foreignKey: 'user_Id' });
+
 
 User.sync({force: false})
 .then(() => {

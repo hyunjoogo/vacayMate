@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 
+const userController = require('../controllers/user/userController');
 const userVacationTypeController = require("../controllers/userVacationTypeController");
 const isUser = require("../middlewares/isUser");
 const isAdmin = require("../middlewares/isAdmin");
@@ -9,7 +10,7 @@ const isAdmin = require("../middlewares/isAdmin");
 router.get('/');
 
 // 사용자 상세조회
-router.get('/:userId');
+router.get('/:userId',isUser, userController.getMyProfile);
 
 
 // 사용자: 휴가유형 조회

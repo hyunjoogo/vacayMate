@@ -56,7 +56,9 @@ const UserVacation = sequelize.define('UserVacation', {
 
 // UserVacation 모델과 VacationType 모델은 N:1 관계입니다.
 // 여러 개의 UserVacation이 하나의 VacationType 속할 수 있습니다.
-// UserVacation.belongsTo(VacationType, {foreignKey: 'vacationTypeId'});
+// UserVacation.belongsTo(User, { foreignKey: 'userId' });
+UserVacation.belongsTo(VacationType, { foreignKey: 'vacationTypeId' });
+
 
 
 UserVacation.sync({force: false})

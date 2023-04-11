@@ -1,0 +1,17 @@
+### 시스템 휴가 유형 조회/생성/수정
+
+### 시스템 휴가유형 조회
+GET {{host}}/api/vacation?nowPage=1&pageSize=10&name=아
+Authorization: Bearer {{access_token}}
+Content-Type: application/json
+
+### 시스템 휴가유형 생성
+POST {{host}}/api/vacation
+Authorization: Bearer {{access_token}}
+Content-Type: application/json
+
+{
+  "name": "여름휴가-2023",
+  "expirationDate": "2023-12-31",
+  "memo": "2023년도 여름휴가분"
+}

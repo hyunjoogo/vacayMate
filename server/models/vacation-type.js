@@ -1,6 +1,6 @@
 const {DataTypes} = require('sequelize');
 const sequelize = require('../database');
-const UserVacation = require('./user-vacation')
+const UserVacation = require('./user-vacation');
 
 const VacationType = sequelize.define('VacationType', {
   id: {
@@ -39,22 +39,7 @@ const VacationType = sequelize.define('VacationType', {
 
 // VacationType 모델과 UserVacation 모델은 1:N 관계입니다.
 // 하나의 VacationType 여러 개의 UserVacation을 가질 수 있습니다.
-VacationType.hasMany(UserVacation, {foreignKey: 'vacationTypeId'});
-
-VacationType.prototype.hasEnoughRemainingDays = async function (requestedDays) {
-  const remainingDays = this.remaining_days;
-  if (remainingDays < requestedDays) {
-    throw new Error('Not enough remaining days');
-  }
-};
-
-VacationType.prototype.decreaseRemainingDays = async function (requestedDays) {
-  await this.hasEnoughRemainingDays(requestedDays);
-
-  const remainingDays = this.remaining_days - requestedDays;
-  this.remaining_days = remainingDays;
-  await this.save();
-};
+VacationType.belongsToMany(UserVacation, {through: ''});
 
 VacationType.sync({force: false})
 .then(() => {
