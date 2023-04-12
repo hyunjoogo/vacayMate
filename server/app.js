@@ -2,17 +2,17 @@ const express = require("express");
 const morgan = require("morgan");
 const cors = require("cors");
 require("dotenv").config();
-const verifyToken = require("./middlewares/verifyToken");
-const AuthRoute = require("./routes/auth");
-const VacationRoute = require("./routes/vacation");
-const UserRoute = require('./routes/user');
-const TimeRoute = require('./routes/time');
+const db = require('./models/index');
+
 const dayjs = require('dayjs')
 const utc = require('dayjs/plugin/utc');
 dayjs.extend(utc)
 
-
 const app = express();
+const PORT = 3300;
+
+db.sequelize.sync(); //sync 메서드를 사용하면 알아서 MySQL과 연동됨
+
 app.use(morgan("dev"));
 app.use(cors());
 app.use(express.json());
@@ -23,21 +23,8 @@ app.get("/", async (req, res) => {
   res.sendFile(__dirname + "/index.html");
 });
 
-app.use("/api/auth", AuthRoute);
-app.use("/api/:ver/user", UserRoute);
-app.use("/api/:version/vacation", VacationRoute);
-app.use("/time", TimeRoute);
+// router 정의
 
-
-app.use((err, req, res, next) => {
-  res.status(err.status || 500);
-  res.send({
-    status: err.status || 500,
-    message: err.message
-  });
-});
-
-const PORT = 3300;
 app.listen(PORT, () => console.log(`서버 시작됨: http://localhost:${PORT}`));
 
 
