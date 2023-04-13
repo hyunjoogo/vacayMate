@@ -20,7 +20,7 @@ router.patch('/vacation');
 router.get('/request', requestController.getRequest);
 // 휴가사용요청 등록
 // createRequest
-router.post('/request');
+router.post('/request', requestController.createRequest);
 // 휴가사용요청 상세조회
 // getDetailRequest
 router.get('/request/:requestId');

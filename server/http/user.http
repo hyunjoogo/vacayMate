@@ -18,3 +18,20 @@ Content-Type: application/json
 GET {{user}}/1/vacation
 Authorization: Bearer {{access_token}}
 Content-Type: application/json
+
+### 사용자 휴가사용요청 조회
+GET {{user}}/1/request
+Authorization: Bearer {{access_token}}
+Content-Type: application/json
+
+### 사용자 휴가사용요청 등록
+POST {{user}}/1/request
+Authorization: Bearer {{access_token}}
+Content-Type: application/json
+
+{
+  "vacationId": 1,
+  "useDate" : "2023-04-13",
+  "usingType" : "일차",
+  "memo" : "테스트 일차"
+}
