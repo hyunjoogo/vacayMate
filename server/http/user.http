@@ -10,22 +10,22 @@ Content-Type: application/json
 
 
 ### 사용자 상세조회: 나의 정보
-GET {{user}}/1/profile
+GET {{user}}/{{user_id}}/profile
 Authorization: Bearer {{access_token}}
 Content-Type: application/json
 
 ### 사용자 휴가종류 조회
-GET {{user}}/1/vacation
+GET {{user}}/{{user_id}}/vacation
 Authorization: Bearer {{access_token}}
 Content-Type: application/json
 
 ### 사용자 휴가사용요청 조회
-GET {{user}}/1/request
+GET {{user}}/{{user_id}}/request
 Authorization: Bearer {{access_token}}
 Content-Type: application/json
 
 ### 사용자 휴가사용요청 등록
-POST {{user}}/1/request
+POST {{user}}/{{user_id}}/request
 Authorization: Bearer {{access_token}}
 Content-Type: application/json
 
