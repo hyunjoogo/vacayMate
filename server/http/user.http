@@ -1,4 +1,4 @@
 ### 사용자 상세조회: 나의 정보
-GET {{host}}/api/v1/user/1
+sGET {{host}}/api/user/v1/profile/1
 Authorization: Bearer {{access_token}}
 Content-Type: application/json

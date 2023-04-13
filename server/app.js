@@ -6,6 +6,9 @@ const db = require('./models/index');
 
 const dayjs = require('dayjs')
 const utc = require('dayjs/plugin/utc');
+const UserRoute = require('./routes/user')
+const AdminRoute = require('./routes/admin')
+
 dayjs.extend(utc)
 
 const app = express();
@@ -24,6 +27,8 @@ app.get("/", async (req, res) => {
 });
 
 // router 정의
+app.use('/api/user/:ver', UserRoute)
+app.use('/api/admin/:ver', AdminRoute)
 
 app.listen(PORT, () => console.log(`서버 시작됨: http://localhost:${PORT}`));
 
