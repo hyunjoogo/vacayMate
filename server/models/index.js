@@ -17,8 +17,18 @@ db.sequelize = sequelize;
 
 db.User = require("./user")(sequelize, Sequelize);
 db.Vacation = require("./vacation")(sequelize, Sequelize);
+db.Request = require("./request")(sequelize, Sequelize);
 
 db.User.hasMany(db.Vacation, {foreignKey: 'user_id'});
-db.Vacation.belongsTo(db.User, { foreignKey: 'user_id' });
+db.Vacation.belongsTo(db.User, {foreignKey: 'user_id'});
+
+
+db.User.hasMany(db.Request, {foreignKey: 'approved_by'});
+db.User.hasMany(db.Request, {foreignKey: 'refused_by'});
+db.User.hasMany(db.Request, {foreignKey: 'canceled_by'});
+
+db.Request.belongsTo(db.User, {foreignKey: 'approved_by'});
+db.Request.belongsTo(db.User, {foreignKey: 'refused_by'});
+db.Request.belongsTo(db.User, {foreignKey: 'canceled_by'});
 
 module.exports = db;

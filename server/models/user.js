@@ -34,12 +34,14 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
       defaultValue: false
     },
-    created_at : {
+    created_at: {
       allowNull: false,
       type: DataTypes.DATE,
       defaultValue: DataTypes.NOW
     }
-  }, {timestamps:false, charset: "utf8", collate: "utf8_general_ci"});
+  }, {
+    timestamps: false, charset: "utf8", collate: "utf8_general_ci"
+  });
 
   return User;
 };

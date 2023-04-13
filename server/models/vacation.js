@@ -32,7 +32,9 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.DATE,
       allowNull: false
     }
-  }, {timestamps:false, charset: "utf8", collate: "utf8_general_ci"});
+  }, {
+    timestamps:false, charset: "utf8", collate: "utf8_general_ci"
+  });
 
   return Vacation;
 };
