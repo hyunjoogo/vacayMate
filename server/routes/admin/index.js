@@ -17,7 +17,7 @@ router.patch('/members/:memberNo')
 router.patch('/members/:memberNo/role')
 
 // 회원 입사날짜 등록
-router.post('/members/:memberNo/enter-date')
+router.post('/members/:memberNo/enter-date', membersController.createEnterDate)
 
 // 회원 퇴사처리
 router.patch('/members/:memberNo/out')

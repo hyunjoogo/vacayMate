@@ -7,3 +7,12 @@ Content-Type: application/json
 GET {{admin}}/{{user_id}}/members/1
 Authorization: Bearer {{access_token}}
 Content-Type: application/json
+
+### 회원 입사날짜 등록
+POST {{admin}}/{{user_id}}/members/1/enter-date
+Authorization: Bearer {{access_token}}
+Content-Type: application/json
+
+{
+  "enterDate": "2021-02-20"
+}

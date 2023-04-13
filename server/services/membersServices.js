@@ -5,3 +5,8 @@ exports.getMembersListPagination = async (options) => {
   const {count, rows} = await User.findAndCountAll(options);
   return {count, rows};
 };
+
+exports.getMemberByPK = async (memberNo) => {
+  const member = await User.findByPk(memberNo);
+  return member
+};

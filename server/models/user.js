@@ -27,7 +27,7 @@ module.exports = (sequelize, DataTypes) => {
       defaultValue: 'user'
     },
     enter_date: {
-      type: DataTypes.DATE
+      type: DataTypes.DATEONLY
     },
     is_leave: {
       type: DataTypes.BOOLEAN,
