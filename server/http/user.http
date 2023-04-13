@@ -1,4 +1,15 @@
+### 사용자 등록
+POST {{host}}/api/register/{{ver}}
+Authorization: Bearer {{access_token}}
+Content-Type: application/json
+
+{
+  "name": "조윤심",
+  "email": "postam@gmail.com"
+}
+
+
 ### 사용자 상세조회: 나의 정보
-sGET {{host}}/api/user/v1/profile/1
+GET {{host}}/api/user/{{ver}}/profile/1
 Authorization: Bearer {{access_token}}
 Content-Type: application/json

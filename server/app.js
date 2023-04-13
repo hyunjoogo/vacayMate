@@ -8,6 +8,7 @@ const dayjs = require('dayjs')
 const utc = require('dayjs/plugin/utc');
 const UserRoute = require('./routes/user')
 const AdminRoute = require('./routes/admin')
+const RegisterRoute = require('./routes/register')
 
 dayjs.extend(utc)
 
@@ -27,6 +28,7 @@ app.get("/", async (req, res) => {
 });
 
 // router 정의
+app.use('/api/register/:ver', RegisterRoute)
 app.use('/api/user/:ver', UserRoute)
 app.use('/api/admin/:ver', AdminRoute)
 
