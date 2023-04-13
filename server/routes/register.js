@@ -1,10 +1,18 @@
 const express = require('express');
-const VacationServices = require("../services/vacationServices");
 const handleError = require("../exceptions/error-handler");
 const {User} = require("../models");
+const isUser = require("../middlewares/isUser");
 const router = express.Router();
 
-router.post('/', async (req, res) => {
+router.get('/', isUser, async (req, res) => {
+  try {
+    res.status(200).json({});
+  } catch (error) {
+    handleError(res, error);
+  }
+});
+
+router.post('/', isUser, async (req, res) => {
   const {name, email} = req.body;
   try {
     const user = await User.findOne({
@@ -19,5 +27,6 @@ router.post('/', async (req, res) => {
     handleError(res, error);
   }
 });
+
 
 module.exports = router;

@@ -4,13 +4,15 @@ const cors = require("cors");
 require("dotenv").config();
 const db = require('./models/index');
 
-const dayjs = require('dayjs')
+const dayjs = require('dayjs');
 const utc = require('dayjs/plugin/utc');
-const UserRoute = require('./routes/user')
-const AdminRoute = require('./routes/admin')
-const RegisterRoute = require('./routes/register')
+const UserRoute = require('./routes/user');
+const AdminRoute = require('./routes/admin');
+const RegisterRoute = require('./routes/register');
+const isUser = require("./middlewares/isUser");
+const handleError = require("./exceptions/error-handler");
 
-dayjs.extend(utc)
+dayjs.extend(utc);
 
 const app = express();
 const PORT = 3300;
@@ -28,9 +30,10 @@ app.get("/", async (req, res) => {
 });
 
 // router 정의
-app.use('/api/register/:ver', RegisterRoute)
-app.use('/api/user/:ver', UserRoute)
-app.use('/api/admin/:ver', AdminRoute)
+// 세그먼트(:ver)는 미들웨어에서 같은 줄에 있는 애들만 인식한다. (isUser가 Route로 들어가면 :ver를 인식못함)
+app.use('/api/register/:ver', RegisterRoute);
+app.use('/api/user/:ver', isUser, UserRoute);
+app.use('/api/admin/:ver', AdminRoute);
 
 app.listen(PORT, () => console.log(`서버 시작됨: http://localhost:${PORT}`));
 
