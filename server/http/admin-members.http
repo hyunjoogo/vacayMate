@@ -1,0 +1,9 @@
+### 회원 목록조회
+GET {{admin}}/{{user_id}}/members?role=admin
+Authorization: Bearer {{access_token}}
+Content-Type: application/json
+
+### 회원 상세조회
+GET {{admin}}/{{user_id}}/members/1
+Authorization: Bearer {{access_token}}
+Content-Type: application/json

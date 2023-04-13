@@ -1,13 +1,14 @@
 const express = require('express');
+const membersController = require("../../controller/admin/membersController");
 const router = express.Router();
 
 // admin
 
 // 회원정보 목록조회
-router.get('/members')
+router.get('/members', membersController.getMembers)
 
 // 회원정보 상세조회
-router.get('/members/:memberNo')
+router.get('/members/:memberNo', membersController.getMemberDetail)
 
 // 회원정보 수정(부서, 직책)
 router.patch('/members/:memberNo')
