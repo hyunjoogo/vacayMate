@@ -1,3 +1,4 @@
+const RequestStatus = require("../const/request-status");
 module.exports = (sequelize, DataTypes) => {
   const Request = sequelize.define('Request', {
     id: {
@@ -30,11 +31,17 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false
     },
     status: {
-      type: DataTypes.INTEGER, // 대기중, 승인, 취소, 거절, 사용완료
-      allowNull: false
+      type: DataTypes.STRING, // 대기중, 승인, 취소, 거절, 사용완료
+      allowNull: false,
+      defaultValue : RequestStatus.PENDING
     },
     memo: {
       type: DataTypes.TEXT
+    },
+    created_at: {
+      allowNull: false,
+      type: DataTypes.DATE,
+      defaultValue: DataTypes.NOW
     },
     approved_at: {
       type: DataTypes.DATE,
