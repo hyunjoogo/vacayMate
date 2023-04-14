@@ -5,6 +5,8 @@ const {Sequelize} = require("sequelize");
 const membersServices = require('../../services/membersServices');
 const validationError = require("../../exceptions/validation-error");
 const dayjs = require('dayjs');
+const {calculateTotalAnnual} = require("../../functions/calculateAnnual");
+const DateFormat = require('../../const/dateFormat');
 
 exports.getMembers = async (req, res) => {
   const {nowPage = 1, pageSize = 10, name, email, role, enterDate, isLeave} = req.query;
@@ -80,58 +82,50 @@ exports.createEnterDate = async (req, res) => {
   const {memberNo} = req.params;
   const {enterDate} = req.body;
 
-  const format = 'YYYY-MM-DD';
-
-  const isValidFormat = dayjs(enterDate, format, true).format(format) === enterDate;
-  const isValidDate = dayjs(enterDate, format, true).isValid();
+  const isValidFormat = dayjs(enterDate, DateFormat.YYYYMMDD, true).format(DateFormat.YYYYMMDD) === enterDate;
+  const isValidDate = dayjs(enterDate, DateFormat.YYYYMMDD, true).isValid();
 
   const transaction = await sequelize.transaction();
 
   try {
-
     // 유효하지 않은 날짜 형식일 경우
     if (isValidFormat === false || isValidDate === false) {
       return validationError(res, "잘못된 날짜형식입니다.");
     }
 
-    const member = await membersServices.getMemberByPK(memberNo, {transaction});
+    const member = await membersServices.getMemberByPK(memberNo);
 
     // 입사날짜가 이미 입력되어 있는 경우
-    // if (member.enter_date !== null) {
-    //   return validationError(res, "이미 입사날짜가 입력되어 있습니다.");
-    // }
+    if (member.enter_date !== null) {
+      return validationError(res, "이미 입사날짜가 입력되어 있습니다.");
+    }
 
     // 입사날짜 입력하기
     const updatedMember = await member.update({enter_date: enterDate}, {transaction});
 
-    //////// 한번 트랜젝션을 나누고
-
-
     // 회원의 휴가유형을 조회하여 연차 생성이 이미 되어 있으면 에러
-
-    // const memberVacations = await updatedMember.getVacations({
-    //   where : {type : "연차"}
-    // }, {transaction});
     const memberVacations = await Vacation.findOne({
       where : {user_id : memberNo, type : "연차"}
-    }, {transaction})
-    if (memberVacations.length !== 0) {
+    })
+
+    if (memberVacations !== null) {
       return validationError(res, "이미 생성된 연차가 존재합니다.");
     }
 
     // 연차 계산 후 생성하기
+    const {expirationDate, totalAnnualDays} = calculateTotalAnnual(enterDate)
 
     // 생성된 연차 remain, total 테이블에 저장
     const memberAnnual = await updatedMember.createVacation(
       {
         type: "연차",
-        memo: "...", // 메모를 받아야겠네?
-        left_days: 3,
-        total_days: 5,
-        expiration_date: "2023-12-31"
-      }, {transaction});
+        memo: "김현주 연차", // 메모를 받아야겠네?
+        left_days: totalAnnualDays,
+        total_days: totalAnnualDays,
+        expiration_date: expirationDate
+      }, {transaction: transaction});
 
-    // 이 사람의 만료일을 AutoAnnualCreator에게 넘겨주기
+    // TODO 이 사람의 만료일을 AutoAnnualCreator에게 넘겨주기
 
     await transaction.commit();
 
