@@ -27,13 +27,37 @@ exports.checkDuplicateRequest = async (userId, vacationId, request) => {
 
 exports.getDetailRequest = async (requestId) => {
   console.log(requestId);
-  const request = await db.Request.findByPk(requestId,
-    {
-      include: [ db.User, db.Vacation]
-    }
-  );
+  const request = await db.Request.findByPk(requestId, {
+    include: [
+      {
+        model: db.User,
+        as: 'user',
+        attributes: ['id', 'name', 'email']
+      },
+      {
+        model: db.Vacation,
+        as: 'vacation',
+        attributes: ['id', 'left_days', 'total_days']
+      },
+      {
+        model: db.User,
+        as: 'approvedBy',
+        attributes: ['id', 'name', 'email']
+      },
+      {
+        model: db.User,
+        as: 'refusedBy',
+        attributes: ['id', 'name', 'email']
+      },
+      {
+        model: db.User,
+        as: 'canceledBy',
+        attributes: ['id', 'name', 'email']
+      }
+    ]
+  });
 
-  // const user = await db.User.findByPk(request.user_id);
+
 
 
   // 사용자 정보

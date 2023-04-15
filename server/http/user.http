@@ -50,6 +50,6 @@ Content-Type: application/json
 }
 
 ### 사용자 휴가사용요청 상세조회
-GET {{user}}/{{user_id}}/request/47
+GET {{user}}/{{user_id}}/request/50
 Authorization: Bearer {{access_token}}
 Content-Type: application/json
