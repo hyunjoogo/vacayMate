@@ -4,6 +4,7 @@ const profileController = require("../../controller/user/profileController");
 const vacationController = require("../../controller/user/vacationController");
 const requestController = require("../../controller/user/requestController");
 
+// TODO response할 때 카멜케이스로 내려주는 코드 추가할 것
 // 사용자 상세조회
 router.get('/profile', profileController.getProfile)
 

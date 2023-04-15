@@ -2,6 +2,7 @@ const express = require('express');
 const membersController = require("../../controller/admin/membersController");
 const router = express.Router();
 
+// TODO response할 때 카멜케이스로 내려주는 코드 추가할 것
 // admin
 
 // 회원정보 목록조회
