@@ -24,13 +24,22 @@ GET {{user}}/{{user_id}}/request
 Authorization: Bearer {{access_token}}
 Content-Type: application/json
 
-### 사용자 휴가사용요청 등록
+### 사용자 휴가사용요청 등록 (같은 유형의 휴가만 가능)
 POST {{user}}/{{user_id}}/request
 Authorization: Bearer {{access_token}}
 Content-Type: application/json
 
 {
+  "requests": [
+    {
+      "useDate": "2023-04-16",
+      "usingType": "일차"
+    },
+    {
+      "useDate": "2023-04-17",
+      "usingType": "오후반차"
+    }
+  ],
   "vacationId": 22,
-  "useDate" : "2023-04-13",
-  "usingType" : "오전반차"
+  "totalDays": 1.5
 }

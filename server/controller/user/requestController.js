@@ -4,8 +4,10 @@ const VacationServices = require("../../services/vacationServices");
 const validationError = require("../../exceptions/validation-error");
 const isPossibleUsingType = require("../../functions/compareUsingType");
 const dayjs = require('dayjs');
-const isSameOrAfter = require('dayjs/plugin/isSameOrAfter');
-dayjs.extend(isSameOrAfter);
+const RequestServices = require("../../services/requestServices");
+const DateFormat = require("../../const/dateFormat");
+const snakecaseKeys = require('snakecase-keys');
+
 
 exports.getRequest = async (req, res) => {
   const {id: userId} = req.user;
@@ -19,7 +21,8 @@ exports.getRequest = async (req, res) => {
 
 exports.createRequest = async (req, res) => {
   const {id: userId} = req.user;
-  const {vacationId, useDate, usingType, memo} = req.body;
+  const {requests, totalDays, vacationId} = req.body;
+  const today = dayjs().format(DateFormat.YYYYMMDD);
 
   try {
     // 신청한 휴가유형에 문제가 있는지 확인
@@ -30,41 +33,32 @@ exports.createRequest = async (req, res) => {
     if (vacation.user_id !== userId) {
       return validationError(res, "본인의 휴가유형이 아닙니다.");
     }
-    if (vacation.left_days === 0) {
-      return validationError(res, "가능한 휴가일수가 없습니다.");
+    if (vacation.left_days === 0) { // 전체 일수를 받으면 가능
+      return validationError(res, "신청가능한 휴가일수가 없습니다.");
     }
-    if (dayjs(useDate).isSameOrAfter(vacation.expiration_date)) {
+    if (vacation.left_days < totalDays) {
+      return validationError(res, "신청가능한 휴가일수가 부족합니다.");
+    }
+    if (dayjs(today).isAfter(vacation.expiration_date)) {
       return validationError(res, "이미 만료된 휴가유형입니다.");
     }
+    const expiredRequests = requests.filter(v => dayjs(v.useDate).isAfter(vacation.expiration_date));
+    if (expiredRequests.length !== 0) {
+      return validationError(res, "신청한 날짜가 휴가유형의 만료일을 넘었습니다.");
+    }
 
-    // 중복 휴가신청을 막는 코드
-    // 같은 날짜의 요청 가지고 오기
-    const sameUseDateRequests = await Request.findAll(
-      {
-        where: {
-          user_id: userId,
-          use_date: useDate
-        }
-      }
-    );
-    // 없으면 바로 입력
-    if (sameUseDateRequests.length !== 0) {
-      // 신청한 사용타입과 겹치는지 확인
-      const isPossible = isPossibleUsingType(sameUseDateRequests, usingType);
-      if (isPossible === false) {
+    for (const item of requests) {
+      const isPossibleRequest = await RequestServices.checkDuplicateRequest(userId, vacationId, item);
+      if (isPossibleRequest === false) {
         return validationError(res, "이미 신청되어 있는 시간입니다.");
       }
     }
+    const newRequests = requests.map(request => snakecaseKeys({...request, vacationId, userId}));
+    const newRequest = await Request.bulkCreate(newRequests);
 
-    const newRequest = await Request.create({
-      user_id: userId,
-      vacation_id: vacationId,
-      use_date: useDate,
-      using_type: usingType,
-      memo
-    });
+    const updateVacation = await vacation.update({left_days: vacation.left_days - totalDays}, {returning: true});
 
-    res.status(200).json(newRequest);
+    res.status(200).json({newRequest, updateVacation});
   } catch (error) {
     handleError(res, error);
   }

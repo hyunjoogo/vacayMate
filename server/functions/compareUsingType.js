@@ -6,7 +6,7 @@ function filterUsingTypeByStatus(data) {
   return usingTypeList;
 }
 
-function isPossibleUsingType(sameUseDateRequests, usingType) {
+function checkDuplicateUsingType(sameUseDateRequests, usingType) {
   const usingTypeArray = filterUsingTypeByStatus(sameUseDateRequests)
   // 배열요소가 '오전반차'만 있으면 usingType '오후반차' 일 경우 true, 나머지는 false
   if (usingTypeArray.length === 1 && usingTypeArray.includes('오전반차')) {
@@ -41,4 +41,4 @@ function isPossibleUsingType(sameUseDateRequests, usingType) {
 //    - 거절, 취소상태면 겹쳐도 사용해도 되잖아.
 //    - 대기, 승인이면
 
-module.exports = isPossibleUsingType
+module.exports = checkDuplicateUsingType
