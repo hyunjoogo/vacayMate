@@ -1,5 +1,6 @@
-const RequestStatus = require("../const/request-status");
-module.exports = (sequelize, DataTypes) => {
+import * as RequestStatus from "../const/request-status.js";
+
+export default (sequelize, DataTypes) => {
   const Request = sequelize.define('Request', {
     id: {
       type: DataTypes.INTEGER,
@@ -33,7 +34,7 @@ module.exports = (sequelize, DataTypes) => {
     status: {
       type: DataTypes.STRING, // 대기중, 승인, 취소, 거절, 사용완료
       allowNull: false,
-      defaultValue : RequestStatus.PENDING
+      defaultValue: RequestStatus.PENDING
     },
     memo: {
       type: DataTypes.TEXT

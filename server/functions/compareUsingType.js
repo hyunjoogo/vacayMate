@@ -41,4 +41,4 @@ function checkDuplicateUsingType(sameUseDateRequests, usingType) {
 //    - 거절, 취소상태면 겹쳐도 사용해도 되잖아.
 //    - 대기, 승인이면
 
-module.exports = checkDuplicateUsingType
+export default checkDuplicateUsingType;

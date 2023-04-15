@@ -1,15 +1,12 @@
-const handleError = require("../../exceptions/error-handler");
-const VacationServices = require("../../services/vacationServices");
-const validationError = require("../../exceptions/validation-error");
-const isPossibleUsingType = require("../../functions/compareUsingType");
-const dayjs = require('dayjs');
-const RequestServices = require("../../services/requestServices");
-const DateFormat = require("../../const/dateFormat");
-const snakecaseKeys = require('snakecase-keys');
-const db = require("../../models");
+import { db } from "../../models/index.js";
+import handleError from "../../exceptions/error-handler.js";
+import dayjs from "dayjs";
+import * as VacationServices from "../../services/vacationServices.js";
+import validationError from "../../exceptions/validation-error.js";
+import * as RequestServices from "../../services/requestServices.js";
+import { YYYYMMDD } from "../../const/dateFormat.js";
 
-
-exports.getRequest = async (req, res) => {
+const getRequest = async (req, res) => {
   const {id: userId} = req.user;
   try {
     const user = await db.Request.findAll({where: {user_id: userId}});
@@ -19,14 +16,13 @@ exports.getRequest = async (req, res) => {
   }
 };
 
-exports.createRequests = async (req, res) => {
+const createRequests = async (req, res) => {
   const {id: userId} = req.user;
   const {requests, totalDays, vacationId} = req.body;
-  const today = dayjs().format(DateFormat.YYYYMMDD);
+  const today = dayjs().format(YYYYMMDD);
 
   try {
     // 신청한 휴가유형에 문제가 있는지 확인
-    const user = await db.User.findByPk(userId);
     const vacation = await VacationServices.getUserVacationByPK(vacationId);
     if (vacation === null) {
       return validationError(res, "잘못된 휴가유형입니다.");
@@ -71,14 +67,18 @@ exports.createRequests = async (req, res) => {
   }
 };
 
-exports.getDetailRequest = async (req, res) => {
+const getDetailRequest = async (req, res) => {
   const {requestId} = req.params;
 
   try {
     const request = await RequestServices.getDetailRequest(requestId);
+
+
     res.status(200).json(request);
 
   } catch (error) {
     handleError(res, error);
   }
 };
+
+export { getRequest, createRequests, getDetailRequest }

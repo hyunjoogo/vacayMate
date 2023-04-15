@@ -1,7 +1,7 @@
-const dayjs = require('dayjs');
-const DateFormat = require('../const/dateFormat');
+import { YYYYMMDD } from "../const/dateFormat.js";
+import dayjs from "dayjs";
 
-const calculateAnnual = (enterDate) => {
+export const calculateAnnual = (enterDate) => {
   const today = dayjs();
   const diffYears = today.diff(enterDate, 'year');
   const diffMonths = today.diff(enterDate, 'month');
@@ -25,10 +25,10 @@ const calculateAnnual = (enterDate) => {
 };
 
 function getAnnualExpirationDate(hireDate, year) {
-  return dayjs(hireDate).add(year + 1, 'year').subtract(1, 'day').format(DateFormat.YYYYMMDD);
+  return dayjs(hireDate).add(year + 1, 'year').subtract(1, 'day').format(YYYYMMDD);
 }
 
-function calculateTotalAnnual(enterDate) {
+export function calculateTotalAnnual(enterDate) {
   const today = dayjs();
   const diffYears = today.diff(enterDate, 'year');
   const diffMonths = today.diff(enterDate, 'month');
@@ -57,7 +57,3 @@ function calculateTotalAnnual(enterDate) {
   console.log({expirationDate, totalAnnualDays});
   return {expirationDate, totalAnnualDays};
 }
-
-module.exports = {
-  calculateAnnual, calculateTotalAnnual
-};

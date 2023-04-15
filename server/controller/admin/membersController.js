@@ -1,14 +1,16 @@
-const handleError = require("../../exceptions/error-handler");
-const {User, Vacation, Request, sequelize} = require("../../models");
-const {ROLE_TYPE} = require("../../const/admin");
-const {Sequelize} = require("sequelize");
-const membersServices = require('../../services/membersServices');
-const validationError = require("../../exceptions/validation-error");
-const dayjs = require('dayjs');
-const {calculateTotalAnnual} = require("../../functions/calculateAnnual");
-const DateFormat = require('../../const/dateFormat');
+import { Sequelize } from "sequelize";
 
-exports.getMembers = async (req, res) => {
+import * as membersServices from "../../services/membersServices.js";
+import handleError from "../../exceptions/error-handler.js";
+import { db } from "../../models/index.js";
+import { YYYYMMDD } from "../../const/dateFormat.js";
+import dayjs from "dayjs";
+import validationError from "../../exceptions/validation-error.js";
+import { calculateTotalAnnual } from "../../functions/calculateAnnual.js";
+import { ROLE_TYPE } from "../../const/admin.js";
+
+
+const getMembers = async (req, res) => {
   const {nowPage = 1, pageSize = 10, name, email, role, enterDate, isLeave} = req.query;
   const offset = (nowPage - 1) * pageSize;
   const limit = Number(pageSize);
@@ -56,7 +58,7 @@ exports.getMembers = async (req, res) => {
   }
 };
 
-exports.getMemberDetail = async (req, res) => {
+const getMemberDetail = async (req, res) => {
   const {memberNo} = req.params;
 
   try {
@@ -64,11 +66,11 @@ exports.getMemberDetail = async (req, res) => {
     // TODO Service로 옮기기
     const member = await membersServices.getMemberByPK(memberNo);
     // 대상 회원의 휴가종류 가지고 와서 유형별 remain/total 넘겨주기
-    const memberVacations = await Vacation.findAll({
+    const memberVacations = await db.Vacation.findAll({
       where: {user_id: memberNo}
     });
     // 대상 회원의 요청 가지고 와서 상태별 갯수 넘겨주기
-    const memberRequests = await Request.findAll({
+    const memberRequests = await db.Request.findAll({
       where: {user_id: memberNo}
     });
 
@@ -78,14 +80,14 @@ exports.getMemberDetail = async (req, res) => {
   }
 };
 
-exports.createEnterDate = async (req, res) => {
+const createEnterDate = async (req, res) => {
   const {memberNo} = req.params;
   const {enterDate} = req.body;
 
-  const isValidFormat = dayjs(enterDate, DateFormat.YYYYMMDD, true).format(DateFormat.YYYYMMDD) === enterDate;
-  const isValidDate = dayjs(enterDate, DateFormat.YYYYMMDD, true).isValid();
+  const isValidFormat = dayjs(enterDate, YYYYMMDD, true).format(YYYYMMDD) === enterDate;
+  const isValidDate = dayjs(enterDate, YYYYMMDD, true).isValid();
 
-  const transaction = await sequelize.transaction();
+  const transaction = await db.sequelize.transaction();
 
   try {
     // 유효하지 않은 날짜 형식일 경우
@@ -104,8 +106,8 @@ exports.createEnterDate = async (req, res) => {
     const updatedMember = await member.update({enter_date: enterDate}, {transaction});
 
     // 회원의 휴가유형을 조회하여 연차 생성이 이미 되어 있으면 에러
-    const memberVacations = await Vacation.findOne({
-      where : {user_id : memberNo, type : "연차"}
+    const memberVacations = await db.Vacation.findOne({
+      where: {user_id: memberNo, type: "연차"}
     })
 
     if (memberVacations !== null) {
@@ -136,3 +138,6 @@ exports.createEnterDate = async (req, res) => {
     handleError(res, error);
   }
 };
+
+
+export { getMembers, getMemberDetail, createEnterDate }

@@ -1,3 +1,3 @@
-exports.admin = 'admin';
+export const ADMIN = 'admin';
 
-exports.ROLE_TYPE = ['admin', 'user'];
+export const ROLE_TYPE = ['admin', 'user'];

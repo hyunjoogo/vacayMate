@@ -1,5 +1,1 @@
-const YYYYMMDD = 'YYYY-MM-DD';
-
-module.exports = {
-  YYYYMMDD,
-}
+export const YYYYMMDD = 'YYYY-MM-DD';

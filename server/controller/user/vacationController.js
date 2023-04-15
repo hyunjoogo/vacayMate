@@ -1,9 +1,8 @@
-const db = require('../../models/index');
-const handleError = require("../../exceptions/error-handler");
-const VacationServices = require('../../services/vacationServices');
+import * as VacationServices from "../../services/vacationServices.js";
+import handleError from "../../exceptions/error-handler.js";
 
-exports.getVacations = async (req, res) => {
-  const {id : userId} = req.user;
+const getVacations = async (req, res) => {
+  const {id: userId} = req.user;
   try {
     const vacations = await VacationServices.getUserAllVacations(userId);
     res.status(200).json(vacations);
@@ -12,7 +11,7 @@ exports.getVacations = async (req, res) => {
   }
 };
 
-exports.getDetailVacation = async (req, res) => {
+const getDetailVacation = async (req, res) => {
   const {vacationId} = req.params;
 
   try {
@@ -22,3 +21,5 @@ exports.getDetailVacation = async (req, res) => {
     handleError(res, error);
   }
 };
+
+export { getVacations, getDetailVacation }

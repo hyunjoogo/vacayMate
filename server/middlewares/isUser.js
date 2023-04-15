@@ -1,4 +1,4 @@
-const {User} = require("../models");
+import { db } from "../models/index.js";
 
 
 const isUser = async (req, res, next) => {
@@ -6,7 +6,7 @@ const isUser = async (req, res, next) => {
   // 토큰의 userId 대신 :ver 세그먼트 값을 userId로 사용
   // 토큰에서 가지고 오는 테스트 끝나면 꼭 삭제하고 :ver 세크먼트는 'v1', 'v2' 같은 버젼용도로 사용할 것
   const userId = Number(req.params.ver);
-  const user = await User.findByPk(userId);
+  const user = await db.User.findByPk(userId);
   console.log(`User ID: ${userId}`, `Name: ${user.name}`);
 
   if (!user) {
@@ -17,4 +17,4 @@ const isUser = async (req, res, next) => {
   next();
 };
 
-module.exports = isUser;
+export default isUser;
