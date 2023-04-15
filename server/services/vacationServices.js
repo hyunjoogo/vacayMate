@@ -12,6 +12,11 @@ exports.getUserAllVacations = async (userId) => {
 
 // 하나의 휴가유형을 찾는다.
 exports.getUserVacationByPK = async (vacationId) => {
-  const vacation = await db.Vacation.findByPk(vacationId);
+  const vacation = await db.Vacation.findByPk(vacationId ,{
+    include : {
+      model: db.User
+    }
+  });
   return vacation;
 };
+

@@ -22,6 +22,9 @@ db.Request = require("./request")(sequelize, Sequelize);
 db.User.hasMany(db.Vacation, {foreignKey: 'user_id'});
 db.Vacation.belongsTo(db.User, {foreignKey: 'user_id'});
 
+db.Vacation.hasMany(db.Request, {foreignKey: 'vacation_id'});
+db.Request.belongsTo(db.Vacation, {foreignKey: 'vacation_id'});
+
 db.User.hasMany(db.Request, {foreignKey: 'user_id'});
 db.User.hasMany(db.Request, {foreignKey: 'approved_by'});
 db.User.hasMany(db.Request, {foreignKey: 'refused_by'});

@@ -1,4 +1,3 @@
-const {Request, Vacation} = require('../../models/index');
 const handleError = require("../../exceptions/error-handler");
 const VacationServices = require("../../services/vacationServices");
 const validationError = require("../../exceptions/validation-error");
@@ -7,25 +6,27 @@ const dayjs = require('dayjs');
 const RequestServices = require("../../services/requestServices");
 const DateFormat = require("../../const/dateFormat");
 const snakecaseKeys = require('snakecase-keys');
+const db = require("../../models");
 
 
 exports.getRequest = async (req, res) => {
   const {id: userId} = req.user;
   try {
-    const user = await Request.findAll({where: {user_id: userId}});
+    const user = await db.Request.findAll({where: {user_id: userId}});
     res.status(200).json(user);
   } catch (error) {
     handleError(res, error);
   }
 };
 
-exports.createRequest = async (req, res) => {
+exports.createRequests = async (req, res) => {
   const {id: userId} = req.user;
   const {requests, totalDays, vacationId} = req.body;
   const today = dayjs().format(DateFormat.YYYYMMDD);
 
   try {
     // 신청한 휴가유형에 문제가 있는지 확인
+    const user = await db.User.findByPk(userId);
     const vacation = await VacationServices.getUserVacationByPK(vacationId);
     if (vacation === null) {
       return validationError(res, "잘못된 휴가유형입니다.");
@@ -54,11 +55,31 @@ exports.createRequest = async (req, res) => {
       }
     }
     const newRequests = requests.map(request => snakecaseKeys({...request, vacationId, userId}));
-    const newRequest = await Request.bulkCreate(newRequests);
+
+    const newRequest = [];
+    for (const item of newRequests) {
+      const request = await vacation.createRequest(item);
+      newRequest.push(request);
+    }
+
 
     const updateVacation = await vacation.update({left_days: vacation.left_days - totalDays}, {returning: true});
 
     res.status(200).json({newRequest, updateVacation});
+  } catch (error) {
+    handleError(res, error);
+  }
+};
+
+exports.getDetailRequest = async (req, res) => {
+  const {requestId} = req.params;
+
+  try {
+    const request = await RequestServices.getDetailRequest(requestId);
+
+
+    res.status(200).json(request);
+
   } catch (error) {
     handleError(res, error);
   }

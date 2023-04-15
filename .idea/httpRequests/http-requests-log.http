@@ -1,3 +1,80 @@
+GET http://localhost:3300/api/user/1/vacation/22
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0MjZiNmQ3ZDY5NGE3YTkyZDI5MDYxYiIsImlhdCI6MTY4MDc1ODE3NCwiZXhwIjoxNjgxMzYyOTc0fQ.Rvt19pu253LtN435-CSZ5cjfrpNgGdXkGNukQrJlTdg
+Content-Type: application/json
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.6)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+<> 2023-04-15T233020.200.json
+
+###
+
+GET http://localhost:3300/api/user/1/vacation/22
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0MjZiNmQ3ZDY5NGE3YTkyZDI5MDYxYiIsImlhdCI6MTY4MDc1ODE3NCwiZXhwIjoxNjgxMzYyOTc0fQ.Rvt19pu253LtN435-CSZ5cjfrpNgGdXkGNukQrJlTdg
+Content-Type: application/json
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.6)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+<> 2023-04-15T232907.200.json
+
+###
+
+GET http://localhost:3300/api/user/1/vacation/22
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0MjZiNmQ3ZDY5NGE3YTkyZDI5MDYxYiIsImlhdCI6MTY4MDc1ODE3NCwiZXhwIjoxNjgxMzYyOTc0fQ.Rvt19pu253LtN435-CSZ5cjfrpNgGdXkGNukQrJlTdg
+Content-Type: application/json
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.6)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+<> 2023-04-15T232759.200.json
+
+###
+
+GET http://localhost:3300/api/user/1/vacation/22
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0MjZiNmQ3ZDY5NGE3YTkyZDI5MDYxYiIsImlhdCI6MTY4MDc1ODE3NCwiZXhwIjoxNjgxMzYyOTc0fQ.Rvt19pu253LtN435-CSZ5cjfrpNgGdXkGNukQrJlTdg
+Content-Type: application/json
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.6)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+<> 2023-04-15T232734.200.json
+
+###
+
+GET http://localhost:3300/api/user/1/request/47
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0MjZiNmQ3ZDY5NGE3YTkyZDI5MDYxYiIsImlhdCI6MTY4MDc1ODE3NCwiZXhwIjoxNjgxMzYyOTc0fQ.Rvt19pu253LtN435-CSZ5cjfrpNgGdXkGNukQrJlTdg
+Content-Type: application/json
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.6)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+<> 2023-04-15T232713.200.json
+
+###
+
+GET http://localhost:3300/api/user/1/request/47
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0MjZiNmQ3ZDY5NGE3YTkyZDI5MDYxYiIsImlhdCI6MTY4MDc1ODE3NCwiZXhwIjoxNjgxMzYyOTc0fQ.Rvt19pu253LtN435-CSZ5cjfrpNgGdXkGNukQrJlTdg
+Content-Type: application/json
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.6)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+<> 2023-04-15T232656.200.json
+
+###
+
+GET http://localhost:3300/api/user/1/request/47
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0MjZiNmQ3ZDY5NGE3YTkyZDI5MDYxYiIsImlhdCI6MTY4MDc1ODE3NCwiZXhwIjoxNjgxMzYyOTc0fQ.Rvt19pu253LtN435-CSZ5cjfrpNgGdXkGNukQrJlTdg
+Content-Type: application/json
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.6)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+<> 2023-04-15T232637.200.json
+
+###
+
 POST http://localhost:3300/api/user/1/request
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0MjZiNmQ3ZDY5NGE3YTkyZDI5MDYxYiIsImlhdCI6MTY4MDc1ODE3NCwiZXhwIjoxNjgxMzYyOTc0fQ.Rvt19pu253LtN435-CSZ5cjfrpNgGdXkGNukQrJlTdg
 Content-Type: application/json
@@ -21,7 +98,7 @@ Accept-Encoding: br,deflate,gzip,x-gzip
   "totalDays": 1.5
 }
 
-<> 2023-04-15T171654.200.json
+<> 2023-04-15T232401.200.json
 
 ###
 
@@ -40,7 +117,7 @@ Accept-Encoding: br,deflate,gzip,x-gzip
       "usingType": "일차"
     },
     {
-      "useDate": "2023-04-14",
+      "useDate": "2023-04-17",
       "usingType": "오후반차"
     }
   ],
@@ -48,14 +125,25 @@ Accept-Encoding: br,deflate,gzip,x-gzip
   "totalDays": 1.5
 }
 
-<> 2023-04-15T171638.400.json
+<> 2023-04-15T232351.400.json
+
+###
+
+GET http://localhost:3300/api/user/1/request/45
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0MjZiNmQ3ZDY5NGE3YTkyZDI5MDYxYiIsImlhdCI6MTY4MDc1ODE3NCwiZXhwIjoxNjgxMzYyOTc0fQ.Rvt19pu253LtN435-CSZ5cjfrpNgGdXkGNukQrJlTdg
+Content-Type: application/json
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.6)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+<> 2023-04-15T220634.200.json
 
 ###
 
 POST http://localhost:3300/api/user/1/request
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0MjZiNmQ3ZDY5NGE3YTkyZDI5MDYxYiIsImlhdCI6MTY4MDc1ODE3NCwiZXhwIjoxNjgxMzYyOTc0fQ.Rvt19pu253LtN435-CSZ5cjfrpNgGdXkGNukQrJlTdg
 Content-Type: application/json
-Content-Length: 204
+Content-Length: 212
 Connection: Keep-Alive
 User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.6)
 Accept-Encoding: br,deflate,gzip,x-gzip
@@ -63,26 +151,97 @@ Accept-Encoding: br,deflate,gzip,x-gzip
 {
   "requests": [
     {
-      "useDate": "2023-04-15",
+      "useDate": "2023-04-16",
       "usingType": "일차"
     },
     {
-      "useDate": "2023-04-14",
+      "useDate": "2023-04-17",
+      "usingType": "오후반차"
+    }
+  ],
+  "vacationId": 22,
+  "totalDays": 1.5
+}
+
+<> 2023-04-15T220623.200.json
+
+###
+
+POST http://localhost:3300/api/user/1/request
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0MjZiNmQ3ZDY5NGE3YTkyZDI5MDYxYiIsImlhdCI6MTY4MDc1ODE3NCwiZXhwIjoxNjgxMzYyOTc0fQ.Rvt19pu253LtN435-CSZ5cjfrpNgGdXkGNukQrJlTdg
+Content-Type: application/json
+Content-Length: 212
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.6)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+{
+  "requests": [
+    {
+      "useDate": "2023-04-16",
       "usingType": "일차"
+    },
+    {
+      "useDate": "2023-04-17",
+      "usingType": "오후반차"
     }
   ],
   "vacationId": 22,
-  "totalDays": 2
+  "totalDays": 1.5
 }
 
-<> 2023-04-15T171623.200.json
+<> 2023-04-15T220617.400.json
+
+###
+
+GET http://localhost:3300/api/user/1/request/43
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0MjZiNmQ3ZDY5NGE3YTkyZDI5MDYxYiIsImlhdCI6MTY4MDc1ODE3NCwiZXhwIjoxNjgxMzYyOTc0fQ.Rvt19pu253LtN435-CSZ5cjfrpNgGdXkGNukQrJlTdg
+Content-Type: application/json
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.6)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+<> 2023-04-15T220613.200.json
+
+###
+
+GET http://localhost:3300/api/user/1/request/43
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0MjZiNmQ3ZDY5NGE3YTkyZDI5MDYxYiIsImlhdCI6MTY4MDc1ODE3NCwiZXhwIjoxNjgxMzYyOTc0fQ.Rvt19pu253LtN435-CSZ5cjfrpNgGdXkGNukQrJlTdg
+Content-Type: application/json
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.6)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+<> 2023-04-15T220232.200.json
+
+###
+
+GET http://localhost:3300/api/user/1/request/43
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0MjZiNmQ3ZDY5NGE3YTkyZDI5MDYxYiIsImlhdCI6MTY4MDc1ODE3NCwiZXhwIjoxNjgxMzYyOTc0fQ.Rvt19pu253LtN435-CSZ5cjfrpNgGdXkGNukQrJlTdg
+Content-Type: application/json
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.6)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+<> 2023-04-15T215622.200.json
+
+###
+
+GET http://localhost:3300/api/user/1/request/43
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0MjZiNmQ3ZDY5NGE3YTkyZDI5MDYxYiIsImlhdCI6MTY4MDc1ODE3NCwiZXhwIjoxNjgxMzYyOTc0fQ.Rvt19pu253LtN435-CSZ5cjfrpNgGdXkGNukQrJlTdg
+Content-Type: application/json
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.6)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+<> 2023-04-15T215600.200.json
 
 ###
 
 POST http://localhost:3300/api/user/1/request
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0MjZiNmQ3ZDY5NGE3YTkyZDI5MDYxYiIsImlhdCI6MTY4MDc1ODE3NCwiZXhwIjoxNjgxMzYyOTc0fQ.Rvt19pu253LtN435-CSZ5cjfrpNgGdXkGNukQrJlTdg
 Content-Type: application/json
-Content-Length: 210
+Content-Length: 212
 Connection: Keep-Alive
 User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.6)
 Accept-Encoding: br,deflate,gzip,x-gzip
@@ -90,26 +249,26 @@ Accept-Encoding: br,deflate,gzip,x-gzip
 {
   "requests": [
     {
-      "useDate": "2023-04-13",
+      "useDate": "2023-04-16",
       "usingType": "일차"
     },
     {
-      "useDate": "2023-04-13",
+      "useDate": "2023-04-17",
       "usingType": "오후반차"
     }
   ],
   "vacationId": 22,
-  "totalDays": 1
+  "totalDays": 1.5
 }
 
-<> 2023-04-15T171535.400.json
+<> 2023-04-15T215543.200.json
 
 ###
 
 POST http://localhost:3300/api/user/1/request
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0MjZiNmQ3ZDY5NGE3YTkyZDI5MDYxYiIsImlhdCI6MTY4MDc1ODE3NCwiZXhwIjoxNjgxMzYyOTc0fQ.Rvt19pu253LtN435-CSZ5cjfrpNgGdXkGNukQrJlTdg
 Content-Type: application/json
-Content-Length: 138
+Content-Length: 212
 Connection: Keep-Alive
 User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.6)
 Accept-Encoding: br,deflate,gzip,x-gzip
@@ -117,95 +276,26 @@ Accept-Encoding: br,deflate,gzip,x-gzip
 {
   "requests": [
     {
-      "useDate": "2023-04-13",
-      "usingType": "오후반차"
-    }
-  ],
-  "vacationId": 22,
-  "totalDays": 1
-}
-
-<> 2023-04-15T171524.400.json
-
-###
-
-POST http://localhost:3300/api/user/1/request
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0MjZiNmQ3ZDY5NGE3YTkyZDI5MDYxYiIsImlhdCI6MTY4MDc1ODE3NCwiZXhwIjoxNjgxMzYyOTc0fQ.Rvt19pu253LtN435-CSZ5cjfrpNgGdXkGNukQrJlTdg
-Content-Type: application/json
-Content-Length: 138
-Connection: Keep-Alive
-User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.6)
-Accept-Encoding: br,deflate,gzip,x-gzip
-
-{
-  "requests": [
-    {
-      "useDate": "2023-04-13",
-      "usingType": "오전반차"
-    }
-  ],
-  "vacationId": 22,
-  "totalDays": 1
-}
-
-<> 2023-04-15T171516.400.json
-
-###
-
-POST http://localhost:3300/api/user/1/request
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0MjZiNmQ3ZDY5NGE3YTkyZDI5MDYxYiIsImlhdCI6MTY4MDc1ODE3NCwiZXhwIjoxNjgxMzYyOTc0fQ.Rvt19pu253LtN435-CSZ5cjfrpNgGdXkGNukQrJlTdg
-Content-Type: application/json
-Content-Length: 132
-Connection: Keep-Alive
-User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.6)
-Accept-Encoding: br,deflate,gzip,x-gzip
-
-{
-  "requests": [
-    {
-      "useDate": "2023-04-13",
+      "useDate": "2023-04-16",
       "usingType": "일차"
-    }
-  ],
-  "vacationId": 22,
-  "totalDays": 1
-}
-
-<> 2023-04-15T171505.400.json
-
-###
-
-POST http://localhost:3300/api/user/1/request
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0MjZiNmQ3ZDY5NGE3YTkyZDI5MDYxYiIsImlhdCI6MTY4MDc1ODE3NCwiZXhwIjoxNjgxMzYyOTc0fQ.Rvt19pu253LtN435-CSZ5cjfrpNgGdXkGNukQrJlTdg
-Content-Type: application/json
-Content-Length: 216
-Connection: Keep-Alive
-User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.6)
-Accept-Encoding: br,deflate,gzip,x-gzip
-
-{
-  "requests": [
-    {
-      "useDate": "2023-04-13",
-      "usingType": "오전반차"
     },
     {
-      "useDate": "2023-04-13",
+      "useDate": "2023-04-17",
       "usingType": "오후반차"
     }
   ],
   "vacationId": 22,
-  "totalDays": 1
+  "totalDays": 1.5
 }
 
-<> 2023-04-15T171106.200.json
+<> 2023-04-15T215459.500.json
 
 ###
 
 POST http://localhost:3300/api/user/1/request
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0MjZiNmQ3ZDY5NGE3YTkyZDI5MDYxYiIsImlhdCI6MTY4MDc1ODE3NCwiZXhwIjoxNjgxMzYyOTc0fQ.Rvt19pu253LtN435-CSZ5cjfrpNgGdXkGNukQrJlTdg
 Content-Type: application/json
-Content-Length: 216
+Content-Length: 212
 Connection: Keep-Alive
 User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.6)
 Accept-Encoding: br,deflate,gzip,x-gzip
@@ -213,26 +303,26 @@ Accept-Encoding: br,deflate,gzip,x-gzip
 {
   "requests": [
     {
-      "useDate": "2023-04-13",
-      "usingType": "오전반차"
+      "useDate": "2023-04-16",
+      "usingType": "일차"
     },
     {
-      "useDate": "2023-04-13",
+      "useDate": "2023-04-17",
       "usingType": "오후반차"
     }
   ],
   "vacationId": 22,
-  "totalDays": 1
+  "totalDays": 1.5
 }
 
-<> 2023-04-15T171005.200.json
+<> 2023-04-15T215225.500.json
 
 ###
 
 POST http://localhost:3300/api/user/1/request
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0MjZiNmQ3ZDY5NGE3YTkyZDI5MDYxYiIsImlhdCI6MTY4MDc1ODE3NCwiZXhwIjoxNjgxMzYyOTc0fQ.Rvt19pu253LtN435-CSZ5cjfrpNgGdXkGNukQrJlTdg
 Content-Type: application/json
-Content-Length: 216
+Content-Length: 212
 Connection: Keep-Alive
 User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.6)
 Accept-Encoding: br,deflate,gzip,x-gzip
@@ -240,26 +330,26 @@ Accept-Encoding: br,deflate,gzip,x-gzip
 {
   "requests": [
     {
-      "useDate": "2023-04-13",
-      "usingType": "오전반차"
+      "useDate": "2023-04-16",
+      "usingType": "일차"
     },
     {
-      "useDate": "2023-04-13",
+      "useDate": "2023-04-17",
       "usingType": "오후반차"
     }
   ],
   "vacationId": 22,
-  "totalDays": 1
+  "totalDays": 1.5
 }
 
-<> 2023-04-15T170924.200.json
+<> 2023-04-15T215119.500.json
 
 ###
 
 POST http://localhost:3300/api/user/1/request
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0MjZiNmQ3ZDY5NGE3YTkyZDI5MDYxYiIsImlhdCI6MTY4MDc1ODE3NCwiZXhwIjoxNjgxMzYyOTc0fQ.Rvt19pu253LtN435-CSZ5cjfrpNgGdXkGNukQrJlTdg
 Content-Type: application/json
-Content-Length: 216
+Content-Length: 212
 Connection: Keep-Alive
 User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.6)
 Accept-Encoding: br,deflate,gzip,x-gzip
@@ -267,26 +357,26 @@ Accept-Encoding: br,deflate,gzip,x-gzip
 {
   "requests": [
     {
-      "useDate": "2023-04-13",
-      "usingType": "오전반차"
+      "useDate": "2023-04-16",
+      "usingType": "일차"
     },
     {
-      "useDate": "2023-04-13",
+      "useDate": "2023-04-17",
       "usingType": "오후반차"
     }
   ],
   "vacationId": 22,
-  "totalDays": 1
+  "totalDays": 1.5
 }
 
-<> 2023-04-15T170845.200.json
+<> 2023-04-15T215032.500.json
 
 ###
 
 POST http://localhost:3300/api/user/1/request
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0MjZiNmQ3ZDY5NGE3YTkyZDI5MDYxYiIsImlhdCI6MTY4MDc1ODE3NCwiZXhwIjoxNjgxMzYyOTc0fQ.Rvt19pu253LtN435-CSZ5cjfrpNgGdXkGNukQrJlTdg
 Content-Type: application/json
-Content-Length: 216
+Content-Length: 212
 Connection: Keep-Alive
 User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.6)
 Accept-Encoding: br,deflate,gzip,x-gzip
@@ -294,26 +384,26 @@ Accept-Encoding: br,deflate,gzip,x-gzip
 {
   "requests": [
     {
-      "useDate": "2023-04-13",
-      "usingType": "오전반차"
+      "useDate": "2023-04-16",
+      "usingType": "일차"
     },
     {
-      "useDate": "2023-04-13",
+      "useDate": "2023-04-17",
       "usingType": "오후반차"
     }
   ],
   "vacationId": 22,
-  "totalDays": 1
+  "totalDays": 1.5
 }
 
-<> 2023-04-15T170835.400.json
+<> 2023-04-15T215003.500.json
 
 ###
 
 POST http://localhost:3300/api/user/1/request
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0MjZiNmQ3ZDY5NGE3YTkyZDI5MDYxYiIsImlhdCI6MTY4MDc1ODE3NCwiZXhwIjoxNjgxMzYyOTc0fQ.Rvt19pu253LtN435-CSZ5cjfrpNgGdXkGNukQrJlTdg
 Content-Type: application/json
-Content-Length: 216
+Content-Length: 212
 Connection: Keep-Alive
 User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.6)
 Accept-Encoding: br,deflate,gzip,x-gzip
@@ -321,26 +411,37 @@ Accept-Encoding: br,deflate,gzip,x-gzip
 {
   "requests": [
     {
-      "useDate": "2023-04-13",
-      "usingType": "오전반차"
+      "useDate": "2023-04-16",
+      "usingType": "일차"
     },
     {
-      "useDate": "2023-04-13",
+      "useDate": "2023-04-17",
       "usingType": "오후반차"
     }
   ],
   "vacationId": 22,
-  "totalDays": 1
+  "totalDays": 1.5
 }
 
-<> 2023-04-15T170814.500.json
+<> 2023-04-15T214329.500.json
+
+###
+
+GET http://localhost:3300/api/user/1/request/41
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0MjZiNmQ3ZDY5NGE3YTkyZDI5MDYxYiIsImlhdCI6MTY4MDc1ODE3NCwiZXhwIjoxNjgxMzYyOTc0fQ.Rvt19pu253LtN435-CSZ5cjfrpNgGdXkGNukQrJlTdg
+Content-Type: application/json
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.6)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+<> 2023-04-15T214110.200.json
 
 ###
 
 POST http://localhost:3300/api/user/1/request
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0MjZiNmQ3ZDY5NGE3YTkyZDI5MDYxYiIsImlhdCI6MTY4MDc1ODE3NCwiZXhwIjoxNjgxMzYyOTc0fQ.Rvt19pu253LtN435-CSZ5cjfrpNgGdXkGNukQrJlTdg
 Content-Type: application/json
-Content-Length: 216
+Content-Length: 212
 Connection: Keep-Alive
 User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.6)
 Accept-Encoding: br,deflate,gzip,x-gzip
@@ -348,26 +449,26 @@ Accept-Encoding: br,deflate,gzip,x-gzip
 {
   "requests": [
     {
-      "useDate": "2023-04-13",
-      "usingType": "오전반차"
+      "useDate": "2023-04-16",
+      "usingType": "일차"
     },
     {
-      "useDate": "2023-04-13",
+      "useDate": "2023-04-17",
       "usingType": "오후반차"
     }
   ],
   "vacationId": 22,
-  "totalDays": 1
+  "totalDays": 1.5
 }
 
-<> 2023-04-15T170402.500.json
+<> 2023-04-15T214059.400.json
 
 ###
 
 POST http://localhost:3300/api/user/1/request
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0MjZiNmQ3ZDY5NGE3YTkyZDI5MDYxYiIsImlhdCI6MTY4MDc1ODE3NCwiZXhwIjoxNjgxMzYyOTc0fQ.Rvt19pu253LtN435-CSZ5cjfrpNgGdXkGNukQrJlTdg
 Content-Type: application/json
-Content-Length: 216
+Content-Length: 212
 Connection: Keep-Alive
 User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.6)
 Accept-Encoding: br,deflate,gzip,x-gzip
@@ -375,26 +476,125 @@ Accept-Encoding: br,deflate,gzip,x-gzip
 {
   "requests": [
     {
-      "useDate": "2023-04-13",
-      "usingType": "오전반차"
+      "useDate": "2023-04-16",
+      "usingType": "일차"
     },
     {
-      "useDate": "2023-04-13",
+      "useDate": "2023-04-17",
       "usingType": "오후반차"
     }
   ],
   "vacationId": 22,
-  "totalDays": 1
+  "totalDays": 1.5
 }
 
-<> 2023-04-15T170235.200.json
+<> 2023-04-15T214031.200.json
+
+###
+
+GET http://localhost:3300/api/user/1/request/39
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0MjZiNmQ3ZDY5NGE3YTkyZDI5MDYxYiIsImlhdCI6MTY4MDc1ODE3NCwiZXhwIjoxNjgxMzYyOTc0fQ.Rvt19pu253LtN435-CSZ5cjfrpNgGdXkGNukQrJlTdg
+Content-Type: application/json
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.6)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+<> 2023-04-15T214021.200.json
+
+###
+
+GET http://localhost:3300/api/user/1/vacation/22
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0MjZiNmQ3ZDY5NGE3YTkyZDI5MDYxYiIsImlhdCI6MTY4MDc1ODE3NCwiZXhwIjoxNjgxMzYyOTc0fQ.Rvt19pu253LtN435-CSZ5cjfrpNgGdXkGNukQrJlTdg
+Content-Type: application/json
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.6)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+<> 2023-04-15T213643.200.json
+
+###
+
+GET http://localhost:3300/api/user/1/vacation/22
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0MjZiNmQ3ZDY5NGE3YTkyZDI5MDYxYiIsImlhdCI6MTY4MDc1ODE3NCwiZXhwIjoxNjgxMzYyOTc0fQ.Rvt19pu253LtN435-CSZ5cjfrpNgGdXkGNukQrJlTdg
+Content-Type: application/json
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.6)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+<> 2023-04-15T212941.200.json
+
+###
+
+GET http://localhost:3300/api/user/1/vacation/22
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0MjZiNmQ3ZDY5NGE3YTkyZDI5MDYxYiIsImlhdCI6MTY4MDc1ODE3NCwiZXhwIjoxNjgxMzYyOTc0fQ.Rvt19pu253LtN435-CSZ5cjfrpNgGdXkGNukQrJlTdg
+Content-Type: application/json
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.6)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+<> 2023-04-15T212908.200.json
+
+###
+
+GET http://localhost:3300/api/user/1/vacation/22
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0MjZiNmQ3ZDY5NGE3YTkyZDI5MDYxYiIsImlhdCI6MTY4MDc1ODE3NCwiZXhwIjoxNjgxMzYyOTc0fQ.Rvt19pu253LtN435-CSZ5cjfrpNgGdXkGNukQrJlTdg
+Content-Type: application/json
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.6)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+<> 2023-04-15T212738.200.json
+
+###
+
+GET http://localhost:3300/api/user/1/request/39
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0MjZiNmQ3ZDY5NGE3YTkyZDI5MDYxYiIsImlhdCI6MTY4MDc1ODE3NCwiZXhwIjoxNjgxMzYyOTc0fQ.Rvt19pu253LtN435-CSZ5cjfrpNgGdXkGNukQrJlTdg
+Content-Type: application/json
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.6)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+<> 2023-04-15T212310.200.json
+
+###
+
+GET http://localhost:3300/api/user/1/request/39
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0MjZiNmQ3ZDY5NGE3YTkyZDI5MDYxYiIsImlhdCI6MTY4MDc1ODE3NCwiZXhwIjoxNjgxMzYyOTc0fQ.Rvt19pu253LtN435-CSZ5cjfrpNgGdXkGNukQrJlTdg
+Content-Type: application/json
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.6)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+<> 2023-04-15T212256.500.json
+
+###
+
+GET http://localhost:3300/api/user/1/request/39
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0MjZiNmQ3ZDY5NGE3YTkyZDI5MDYxYiIsImlhdCI6MTY4MDc1ODE3NCwiZXhwIjoxNjgxMzYyOTc0fQ.Rvt19pu253LtN435-CSZ5cjfrpNgGdXkGNukQrJlTdg
+Content-Type: application/json
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.6)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+<> 2023-04-15T200914.200.json
+
+###
+
+GET http://localhost:3300/api/user/1/request/39
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0MjZiNmQ3ZDY5NGE3YTkyZDI5MDYxYiIsImlhdCI6MTY4MDc1ODE3NCwiZXhwIjoxNjgxMzYyOTc0fQ.Rvt19pu253LtN435-CSZ5cjfrpNgGdXkGNukQrJlTdg
+Content-Type: application/json
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.6)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+<> 2023-04-15T200827.200.json
 
 ###
 
 POST http://localhost:3300/api/user/1/request
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0MjZiNmQ3ZDY5NGE3YTkyZDI5MDYxYiIsImlhdCI6MTY4MDc1ODE3NCwiZXhwIjoxNjgxMzYyOTc0fQ.Rvt19pu253LtN435-CSZ5cjfrpNgGdXkGNukQrJlTdg
 Content-Type: application/json
-Content-Length: 216
+Content-Length: 212
 Connection: Keep-Alive
 User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.6)
 Accept-Encoding: br,deflate,gzip,x-gzip
@@ -402,26 +602,26 @@ Accept-Encoding: br,deflate,gzip,x-gzip
 {
   "requests": [
     {
-      "useDate": "2023-04-13",
-      "usingType": "오전반차"
+      "useDate": "2023-04-16",
+      "usingType": "일차"
     },
     {
-      "useDate": "2023-04-13",
+      "useDate": "2023-04-17",
       "usingType": "오후반차"
     }
   ],
   "vacationId": 22,
-  "totalDays": 1
+  "totalDays": 1.5
 }
 
-<> 2023-04-15T165825.200.json
+<> 2023-04-15T200808.200.json
 
 ###
 
 POST http://localhost:3300/api/user/1/request
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0MjZiNmQ3ZDY5NGE3YTkyZDI5MDYxYiIsImlhdCI6MTY4MDc1ODE3NCwiZXhwIjoxNjgxMzYyOTc0fQ.Rvt19pu253LtN435-CSZ5cjfrpNgGdXkGNukQrJlTdg
 Content-Type: application/json
-Content-Length: 216
+Content-Length: 212
 Connection: Keep-Alive
 User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.6)
 Accept-Encoding: br,deflate,gzip,x-gzip
@@ -429,902 +629,162 @@ Accept-Encoding: br,deflate,gzip,x-gzip
 {
   "requests": [
     {
-      "useDate": "2023-04-13",
-      "usingType": "오전반차"
+      "useDate": "2023-04-16",
+      "usingType": "일차"
     },
     {
-      "useDate": "2023-04-13",
+      "useDate": "2023-04-17",
       "usingType": "오후반차"
     }
   ],
   "vacationId": 22,
-  "totalDays": 1
+  "totalDays": 1.5
 }
 
-<> 2023-04-15T165622.200.json
+<> 2023-04-15T200738.500.json
 
 ###
 
-POST http://localhost:3300/api/user/1/request
+GET http://localhost:3300/api/user/1/request/33
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0MjZiNmQ3ZDY5NGE3YTkyZDI5MDYxYiIsImlhdCI6MTY4MDc1ODE3NCwiZXhwIjoxNjgxMzYyOTc0fQ.Rvt19pu253LtN435-CSZ5cjfrpNgGdXkGNukQrJlTdg
 Content-Type: application/json
-Content-Length: 216
 Connection: Keep-Alive
 User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.6)
 Accept-Encoding: br,deflate,gzip,x-gzip
 
-{
-  "requests": [
-    {
-      "useDate": "2023-04-13",
-      "usingType": "오전반차"
-    },
-    {
-      "useDate": "2023-04-13",
-      "usingType": "오후반차"
-    }
-  ],
-  "vacationId": 22,
-  "totalDays": 1
-}
-
-<> 2023-04-15T165556.200.json
+<> 2023-04-15T200720.200.json
 
 ###
 
-POST http://localhost:3300/api/user/1/request
+GET http://localhost:3300/api/user/1/request/33
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0MjZiNmQ3ZDY5NGE3YTkyZDI5MDYxYiIsImlhdCI6MTY4MDc1ODE3NCwiZXhwIjoxNjgxMzYyOTc0fQ.Rvt19pu253LtN435-CSZ5cjfrpNgGdXkGNukQrJlTdg
 Content-Type: application/json
-Content-Length: 216
 Connection: Keep-Alive
 User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.6)
 Accept-Encoding: br,deflate,gzip,x-gzip
 
-{
-  "requests": [
-    {
-      "useDate": "2023-04-13",
-      "usingType": "오전반차"
-    },
-    {
-      "useDate": "2023-04-13",
-      "usingType": "오후반차"
-    }
-  ],
-  "vacationId": 22,
-  "totalDays": 1
-}
-
-<> 2023-04-15T165540.200.json
+<> 2023-04-15T200530.200.json
 
 ###
 
-POST http://localhost:3300/api/user/1/request
+GET http://localhost:3300/api/user/1/request/33
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0MjZiNmQ3ZDY5NGE3YTkyZDI5MDYxYiIsImlhdCI6MTY4MDc1ODE3NCwiZXhwIjoxNjgxMzYyOTc0fQ.Rvt19pu253LtN435-CSZ5cjfrpNgGdXkGNukQrJlTdg
 Content-Type: application/json
-Content-Length: 216
 Connection: Keep-Alive
 User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.6)
 Accept-Encoding: br,deflate,gzip,x-gzip
 
-{
-  "requests": [
-    {
-      "useDate": "2023-04-13",
-      "usingType": "오전반차"
-    },
-    {
-      "useDate": "2023-04-13",
-      "usingType": "오후반차"
-    }
-  ],
-  "vacationId": 22,
-  "totalDays": 1
-}
-
-<> 2023-04-15T165519.200.json
+<> 2023-04-15T200515.200.json
 
 ###
 
-POST http://localhost:3300/api/user/1/request
+GET http://localhost:3300/api/user/1/request/33
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0MjZiNmQ3ZDY5NGE3YTkyZDI5MDYxYiIsImlhdCI6MTY4MDc1ODE3NCwiZXhwIjoxNjgxMzYyOTc0fQ.Rvt19pu253LtN435-CSZ5cjfrpNgGdXkGNukQrJlTdg
 Content-Type: application/json
-Content-Length: 216
 Connection: Keep-Alive
 User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.6)
 Accept-Encoding: br,deflate,gzip,x-gzip
 
-{
-  "requests": [
-    {
-      "useDate": "2023-04-13",
-      "usingType": "오전반차"
-    },
-    {
-      "useDate": "2023-04-13",
-      "usingType": "오후반차"
-    }
-  ],
-  "vacationId": 22,
-  "totalDays": 1
-}
-
-<> 2023-04-15T164940.500.json
+<> 2023-04-15T200354.200.json
 
 ###
 
-POST http://localhost:3300/api/user/1/request
+GET http://localhost:3300/api/user/1/request/33
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0MjZiNmQ3ZDY5NGE3YTkyZDI5MDYxYiIsImlhdCI6MTY4MDc1ODE3NCwiZXhwIjoxNjgxMzYyOTc0fQ.Rvt19pu253LtN435-CSZ5cjfrpNgGdXkGNukQrJlTdg
 Content-Type: application/json
-Content-Length: 216
 Connection: Keep-Alive
 User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.6)
 Accept-Encoding: br,deflate,gzip,x-gzip
 
-{
-  "requests": [
-    {
-      "useDate": "2023-04-13",
-      "usingType": "오전반차"
-    },
-    {
-      "useDate": "2023-04-13",
-      "usingType": "오후반차"
-    }
-  ],
-  "vacationId": 22,
-  "totalDays": 1
-}
-
-<> 2023-04-15T164828.500.json
+<> 2023-04-15T200346.200.json
 
 ###
 
-POST http://localhost:3300/api/user/1/request
+GET http://localhost:3300/api/user/1/request/33
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0MjZiNmQ3ZDY5NGE3YTkyZDI5MDYxYiIsImlhdCI6MTY4MDc1ODE3NCwiZXhwIjoxNjgxMzYyOTc0fQ.Rvt19pu253LtN435-CSZ5cjfrpNgGdXkGNukQrJlTdg
 Content-Type: application/json
-Content-Length: 216
 Connection: Keep-Alive
 User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.6)
 Accept-Encoding: br,deflate,gzip,x-gzip
 
-{
-  "requests": [
-    {
-      "useDate": "2023-04-13",
-      "usingType": "오전반차"
-    },
-    {
-      "useDate": "2023-04-13",
-      "usingType": "오후반차"
-    }
-  ],
-  "vacationId": 22,
-  "totalDays": 1
-}
-
-<> 2023-04-15T164821.400.json
+<> 2023-04-15T200326.200.json
 
 ###
 
-POST http://localhost:3300/api/user/1/request
+GET http://localhost:3300/api/user/1/request/33
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0MjZiNmQ3ZDY5NGE3YTkyZDI5MDYxYiIsImlhdCI6MTY4MDc1ODE3NCwiZXhwIjoxNjgxMzYyOTc0fQ.Rvt19pu253LtN435-CSZ5cjfrpNgGdXkGNukQrJlTdg
 Content-Type: application/json
-Content-Length: 138
 Connection: Keep-Alive
 User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.6)
 Accept-Encoding: br,deflate,gzip,x-gzip
 
-{
-  "requests": [
-    {
-      "useDate": "2023-04-13",
-      "usingType": "오전반차"
-    }
-  ],
-  "vacationId": 22,
-  "totalDays": 1
-}
-
-<> 2023-04-15T164300.500.json
+<> 2023-04-15T200305.500.json
 
 ###
 
-POST http://localhost:3300/api/user/1/request
+GET http://localhost:3300/api/user/1/request/33
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0MjZiNmQ3ZDY5NGE3YTkyZDI5MDYxYiIsImlhdCI6MTY4MDc1ODE3NCwiZXhwIjoxNjgxMzYyOTc0fQ.Rvt19pu253LtN435-CSZ5cjfrpNgGdXkGNukQrJlTdg
 Content-Type: application/json
-Content-Length: 138
 Connection: Keep-Alive
 User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.6)
 Accept-Encoding: br,deflate,gzip,x-gzip
 
-{
-  "requests": [
-    {
-      "useDate": "2023-04-13",
-      "usingType": "오전반차"
-    }
-  ],
-  "vacationId": 22,
-  "totalDays": 1
-}
-
-<> 2023-04-15T164201.200.json
+<> 2023-04-15T200244.200.json
 
 ###
 
-POST http://localhost:3300/api/user/1/request
+GET http://localhost:3300/api/user/1/request/33
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0MjZiNmQ3ZDY5NGE3YTkyZDI5MDYxYiIsImlhdCI6MTY4MDc1ODE3NCwiZXhwIjoxNjgxMzYyOTc0fQ.Rvt19pu253LtN435-CSZ5cjfrpNgGdXkGNukQrJlTdg
 Content-Type: application/json
-Content-Length: 216
 Connection: Keep-Alive
 User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.6)
 Accept-Encoding: br,deflate,gzip,x-gzip
 
-{
-  "requests": [
-    {
-      "useDate": "2023-04-13",
-      "usingType": "오전반차"
-    },
-    {
-      "useDate": "2023-04-13",
-      "usingType": "오후반차"
-    }
-  ],
-  "vacationId": 22,
-  "totalDays": 1
-}
-
-<> 2023-04-15T164145.400.json
+<> 2023-04-15T200100.200.json
 
 ###
 
-POST http://localhost:3300/api/user/1/request
+GET http://localhost:3300/api/user/1/request/33
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0MjZiNmQ3ZDY5NGE3YTkyZDI5MDYxYiIsImlhdCI6MTY4MDc1ODE3NCwiZXhwIjoxNjgxMzYyOTc0fQ.Rvt19pu253LtN435-CSZ5cjfrpNgGdXkGNukQrJlTdg
 Content-Type: application/json
-Content-Length: 216
 Connection: Keep-Alive
 User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.6)
 Accept-Encoding: br,deflate,gzip,x-gzip
 
-{
-  "requests": [
-    {
-      "useDate": "2023-04-13",
-      "usingType": "오전반차"
-    },
-    {
-      "useDate": "2023-04-13",
-      "usingType": "오후반차"
-    }
-  ],
-  "vacationId": 22,
-  "totalDays": 1
-}
-
-<> 2023-04-15T163357.400.json
+<> 2023-04-15T195500.200.json
 
 ###
 
-POST http://localhost:3300/api/user/1/request
+GET http://localhost:3300/api/user/1/request/33
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0MjZiNmQ3ZDY5NGE3YTkyZDI5MDYxYiIsImlhdCI6MTY4MDc1ODE3NCwiZXhwIjoxNjgxMzYyOTc0fQ.Rvt19pu253LtN435-CSZ5cjfrpNgGdXkGNukQrJlTdg
 Content-Type: application/json
-Content-Length: 216
 Connection: Keep-Alive
 User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.6)
 Accept-Encoding: br,deflate,gzip,x-gzip
 
-{
-  "requests": [
-    {
-      "useDate": "2023-04-13",
-      "usingType": "오전반차"
-    },
-    {
-      "useDate": "2023-04-13",
-      "usingType": "오후반차"
-    }
-  ],
-  "vacationId": 22,
-  "totalDays": 1
-}
-
-<> 2023-04-15T163314.200.json
+<> 2023-04-15T195009.200.json
 
 ###
 
-POST http://localhost:3300/api/user/1/request
+GET http://localhost:3300/api/user/1/request/33
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0MjZiNmQ3ZDY5NGE3YTkyZDI5MDYxYiIsImlhdCI6MTY4MDc1ODE3NCwiZXhwIjoxNjgxMzYyOTc0fQ.Rvt19pu253LtN435-CSZ5cjfrpNgGdXkGNukQrJlTdg
 Content-Type: application/json
-Content-Length: 216
 Connection: Keep-Alive
 User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.6)
 Accept-Encoding: br,deflate,gzip,x-gzip
 
-{
-  "requests": [
-    {
-      "useDate": "2023-04-13",
-      "usingType": "오전반차"
-    },
-    {
-      "useDate": "2023-04-13",
-      "usingType": "오후반차"
-    }
-  ],
-  "vacationId": 22,
-  "totalDays": 1
-}
-
-<> 2023-04-15T163254.400.json
+<> 2023-04-15T194935.500.json
 
 ###
 
-POST http://localhost:3300/api/user/1/request
+GET http://localhost:3300/api/user/1/request/33
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0MjZiNmQ3ZDY5NGE3YTkyZDI5MDYxYiIsImlhdCI6MTY4MDc1ODE3NCwiZXhwIjoxNjgxMzYyOTc0fQ.Rvt19pu253LtN435-CSZ5cjfrpNgGdXkGNukQrJlTdg
 Content-Type: application/json
-Content-Length: 216
 Connection: Keep-Alive
 User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.6)
 Accept-Encoding: br,deflate,gzip,x-gzip
 
-{
-  "requests": [
-    {
-      "useDate": "2023-04-13",
-      "usingType": "오전반차"
-    },
-    {
-      "useDate": "2023-04-13",
-      "usingType": "오후반차"
-    }
-  ],
-  "vacationId": 22,
-  "totalDays": 1
-}
-
-<> 2023-04-15T163229.400.json
-
-###
-
-POST http://localhost:3300/api/user/1/request
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0MjZiNmQ3ZDY5NGE3YTkyZDI5MDYxYiIsImlhdCI6MTY4MDc1ODE3NCwiZXhwIjoxNjgxMzYyOTc0fQ.Rvt19pu253LtN435-CSZ5cjfrpNgGdXkGNukQrJlTdg
-Content-Type: application/json
-Content-Length: 216
-Connection: Keep-Alive
-User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.6)
-Accept-Encoding: br,deflate,gzip,x-gzip
-
-{
-  "requests": [
-    {
-      "useDate": "2023-04-13",
-      "usingType": "오전반차"
-    },
-    {
-      "useDate": "2023-04-13",
-      "usingType": "오후반차"
-    }
-  ],
-  "vacationId": 22,
-  "totalDays": 1
-}
-
-<> 2023-04-15T163205.400.json
-
-###
-
-POST http://localhost:3300/api/user/1/request
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0MjZiNmQ3ZDY5NGE3YTkyZDI5MDYxYiIsImlhdCI6MTY4MDc1ODE3NCwiZXhwIjoxNjgxMzYyOTc0fQ.Rvt19pu253LtN435-CSZ5cjfrpNgGdXkGNukQrJlTdg
-Content-Type: application/json
-Content-Length: 216
-Connection: Keep-Alive
-User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.6)
-Accept-Encoding: br,deflate,gzip,x-gzip
-
-{
-  "requests": [
-    {
-      "useDate": "2023-04-13",
-      "usingType": "오전반차"
-    },
-    {
-      "useDate": "2023-04-13",
-      "usingType": "오후반차"
-    }
-  ],
-  "vacationId": 22,
-  "totalDays": 1
-}
-
-<> 2023-04-15T163137.500.json
-
-###
-
-POST http://localhost:3300/api/user/1/request
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0MjZiNmQ3ZDY5NGE3YTkyZDI5MDYxYiIsImlhdCI6MTY4MDc1ODE3NCwiZXhwIjoxNjgxMzYyOTc0fQ.Rvt19pu253LtN435-CSZ5cjfrpNgGdXkGNukQrJlTdg
-Content-Type: application/json
-Content-Length: 216
-Connection: Keep-Alive
-User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.6)
-Accept-Encoding: br,deflate,gzip,x-gzip
-
-{
-  "requests": [
-    {
-      "useDate": "2023-04-13",
-      "usingType": "오전반차"
-    },
-    {
-      "useDate": "2023-04-13",
-      "usingType": "오후반차"
-    }
-  ],
-  "vacationId": 22,
-  "totalDays": 1
-}
-
-<> 2023-04-15T162621.200.json
-
-###
-
-POST http://localhost:3300/api/user/1/request
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0MjZiNmQ3ZDY5NGE3YTkyZDI5MDYxYiIsImlhdCI6MTY4MDc1ODE3NCwiZXhwIjoxNjgxMzYyOTc0fQ.Rvt19pu253LtN435-CSZ5cjfrpNgGdXkGNukQrJlTdg
-Content-Type: application/json
-Content-Length: 216
-Connection: Keep-Alive
-User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.6)
-Accept-Encoding: br,deflate,gzip,x-gzip
-
-{
-  "requests": [
-    {
-      "useDate": "2024-04-13",
-      "usingType": "오전반차"
-    },
-    {
-      "useDate": "2023-04-13",
-      "usingType": "오후반차"
-    }
-  ],
-  "vacationId": 22,
-  "totalDays": 1
-}
-
-<> 2023-04-15T162308.400.json
-
-###
-
-POST http://localhost:3300/api/user/1/request
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0MjZiNmQ3ZDY5NGE3YTkyZDI5MDYxYiIsImlhdCI6MTY4MDc1ODE3NCwiZXhwIjoxNjgxMzYyOTc0fQ.Rvt19pu253LtN435-CSZ5cjfrpNgGdXkGNukQrJlTdg
-Content-Type: application/json
-Content-Length: 216
-Connection: Keep-Alive
-User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.6)
-Accept-Encoding: br,deflate,gzip,x-gzip
-
-{
-  "requests": [
-    {
-      "useDate": "2024-04-13",
-      "usingType": "오전반차"
-    },
-    {
-      "useDate": "2023-04-13",
-      "usingType": "오후반차"
-    }
-  ],
-  "vacationId": 22,
-  "totalDays": 1
-}
-
-<> 2023-04-15T162249.200.json
-
-###
-
-POST http://localhost:3300/api/user/1/request
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0MjZiNmQ3ZDY5NGE3YTkyZDI5MDYxYiIsImlhdCI6MTY4MDc1ODE3NCwiZXhwIjoxNjgxMzYyOTc0fQ.Rvt19pu253LtN435-CSZ5cjfrpNgGdXkGNukQrJlTdg
-Content-Type: application/json
-Content-Length: 216
-Connection: Keep-Alive
-User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.6)
-Accept-Encoding: br,deflate,gzip,x-gzip
-
-{
-  "requests": [
-    {
-      "useDate": "2024-04-13",
-      "usingType": "오전반차"
-    },
-    {
-      "useDate": "2023-04-13",
-      "usingType": "오후반차"
-    }
-  ],
-  "vacationId": 22,
-  "totalDays": 1
-}
-
-<> 2023-04-15T162239.200.json
-
-###
-
-POST http://localhost:3300/api/user/1/request
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0MjZiNmQ3ZDY5NGE3YTkyZDI5MDYxYiIsImlhdCI6MTY4MDc1ODE3NCwiZXhwIjoxNjgxMzYyOTc0fQ.Rvt19pu253LtN435-CSZ5cjfrpNgGdXkGNukQrJlTdg
-Content-Type: application/json
-Content-Length: 216
-Connection: Keep-Alive
-User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.6)
-Accept-Encoding: br,deflate,gzip,x-gzip
-
-{
-  "requests": [
-    {
-      "useDate": "2024-04-13",
-      "usingType": "오전반차"
-    },
-    {
-      "useDate": "2023-04-13",
-      "usingType": "오후반차"
-    }
-  ],
-  "vacationId": 22,
-  "totalDays": 1
-}
-
-<> 2023-04-15T162209.200.json
-
-###
-
-POST http://localhost:3300/api/user/1/request
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0MjZiNmQ3ZDY5NGE3YTkyZDI5MDYxYiIsImlhdCI6MTY4MDc1ODE3NCwiZXhwIjoxNjgxMzYyOTc0fQ.Rvt19pu253LtN435-CSZ5cjfrpNgGdXkGNukQrJlTdg
-Content-Type: application/json
-Content-Length: 216
-Connection: Keep-Alive
-User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.6)
-Accept-Encoding: br,deflate,gzip,x-gzip
-
-{
-  "requests": [
-    {
-      "useDate": "2023-04-13",
-      "usingType": "오전반차"
-    },
-    {
-      "useDate": "2023-04-13",
-      "usingType": "오후반차"
-    }
-  ],
-  "vacationId": 22,
-  "totalDays": 1
-}
-
-<> 2023-04-15T162050.400.json
-
-###
-
-POST http://localhost:3300/api/user/1/request
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0MjZiNmQ3ZDY5NGE3YTkyZDI5MDYxYiIsImlhdCI6MTY4MDc1ODE3NCwiZXhwIjoxNjgxMzYyOTc0fQ.Rvt19pu253LtN435-CSZ5cjfrpNgGdXkGNukQrJlTdg
-Content-Type: application/json
-Content-Length: 216
-Connection: Keep-Alive
-User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.6)
-Accept-Encoding: br,deflate,gzip,x-gzip
-
-{
-  "requests": [
-    {
-      "useDate": "2023-04-13",
-      "usingType": "오전반차"
-    },
-    {
-      "useDate": "2023-04-13",
-      "usingType": "오후반차"
-    }
-  ],
-  "vacationId": 22,
-  "totalDays": 1
-}
-
-<> 2023-04-15T162012.500.json
-
-###
-
-POST http://localhost:3300/api/user/1/request
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0MjZiNmQ3ZDY5NGE3YTkyZDI5MDYxYiIsImlhdCI6MTY4MDc1ODE3NCwiZXhwIjoxNjgxMzYyOTc0fQ.Rvt19pu253LtN435-CSZ5cjfrpNgGdXkGNukQrJlTdg
-Content-Type: application/json
-Content-Length: 216
-Connection: Keep-Alive
-User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.6)
-Accept-Encoding: br,deflate,gzip,x-gzip
-
-{
-  "requests": [
-    {
-      "useDate": "2023-04-13",
-      "usingType": "오전반차"
-    },
-    {
-      "useDate": "2023-04-13",
-      "usingType": "오후반차"
-    }
-  ],
-  "vacationId": 22,
-  "totalDays": 1
-}
-
-<> 2023-04-15T162007.500.json
-
-###
-
-POST http://localhost:3300/api/user/1/request
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0MjZiNmQ3ZDY5NGE3YTkyZDI5MDYxYiIsImlhdCI6MTY4MDc1ODE3NCwiZXhwIjoxNjgxMzYyOTc0fQ.Rvt19pu253LtN435-CSZ5cjfrpNgGdXkGNukQrJlTdg
-Content-Type: application/json
-Content-Length: 216
-Connection: Keep-Alive
-User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.6)
-Accept-Encoding: br,deflate,gzip,x-gzip
-
-{
-  "requests": [
-    {
-      "useDate": "2023-04-13",
-      "usingType": "오전반차"
-    },
-    {
-      "useDate": "2023-04-13",
-      "usingType": "오후반차"
-    }
-  ],
-  "vacationId": 22,
-  "totalDays": 1
-}
-
-<> 2023-04-15T161919.500.json
-
-###
-
-POST http://localhost:3300/api/user/1/request
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0MjZiNmQ3ZDY5NGE3YTkyZDI5MDYxYiIsImlhdCI6MTY4MDc1ODE3NCwiZXhwIjoxNjgxMzYyOTc0fQ.Rvt19pu253LtN435-CSZ5cjfrpNgGdXkGNukQrJlTdg
-Content-Type: application/json
-Content-Length: 216
-Connection: Keep-Alive
-User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.6)
-Accept-Encoding: br,deflate,gzip,x-gzip
-
-{
-  "requests": [
-    {
-      "useDate": "2023-04-13",
-      "usingType": "오전반차"
-    },
-    {
-      "useDate": "2023-04-13",
-      "usingType": "오후반차"
-    }
-  ],
-  "vacationId": 22,
-  "totalDays": 1
-}
-
-<> 2023-04-15T161827.400.json
-
-###
-
-POST http://localhost:3300/api/user/1/request
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0MjZiNmQ3ZDY5NGE3YTkyZDI5MDYxYiIsImlhdCI6MTY4MDc1ODE3NCwiZXhwIjoxNjgxMzYyOTc0fQ.Rvt19pu253LtN435-CSZ5cjfrpNgGdXkGNukQrJlTdg
-Content-Type: application/json
-Content-Length: 216
-Connection: Keep-Alive
-User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.6)
-Accept-Encoding: br,deflate,gzip,x-gzip
-
-{
-  "requests": [
-    {
-      "useDate": "2023-04-13",
-      "usingType": "오전반차"
-    },
-    {
-      "useDate": "2023-04-13",
-      "usingType": "오후반차"
-    }
-  ],
-  "vacationId": 22,
-  "totalDays": 1
-}
-
-<> 2023-04-15T161738.200.json
-
-###
-
-POST http://localhost:3300/api/user/1/request
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0MjZiNmQ3ZDY5NGE3YTkyZDI5MDYxYiIsImlhdCI6MTY4MDc1ODE3NCwiZXhwIjoxNjgxMzYyOTc0fQ.Rvt19pu253LtN435-CSZ5cjfrpNgGdXkGNukQrJlTdg
-Content-Type: application/json
-Content-Length: 216
-Connection: Keep-Alive
-User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.6)
-Accept-Encoding: br,deflate,gzip,x-gzip
-
-{
-  "requests": [
-    {
-      "useDate": "2023-04-13",
-      "usingType": "오전반차"
-    },
-    {
-      "useDate": "2023-04-13",
-      "usingType": "오후반차"
-    }
-  ],
-  "vacationId": 22,
-  "totalDays": 1
-}
-
-<> 2023-04-15T161321.200.json
-
-###
-
-POST http://localhost:3300/api/user/1/request
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0MjZiNmQ3ZDY5NGE3YTkyZDI5MDYxYiIsImlhdCI6MTY4MDc1ODE3NCwiZXhwIjoxNjgxMzYyOTc0fQ.Rvt19pu253LtN435-CSZ5cjfrpNgGdXkGNukQrJlTdg
-Content-Type: application/json
-Content-Length: 216
-Connection: Keep-Alive
-User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.6)
-Accept-Encoding: br,deflate,gzip,x-gzip
-
-{
-  "requests": [
-    {
-      "useDate": "2023-04-13",
-      "usingType": "오전반차"
-    },
-    {
-      "useDate": "2023-04-13",
-      "usingType": "오후반차"
-    }
-  ],
-  "vacationId": 22,
-  "totalDays": 1
-}
-
-<> 2023-04-15T161305.200.json
-
-###
-
-POST http://localhost:3300/api/user/1/request
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0MjZiNmQ3ZDY5NGE3YTkyZDI5MDYxYiIsImlhdCI6MTY4MDc1ODE3NCwiZXhwIjoxNjgxMzYyOTc0fQ.Rvt19pu253LtN435-CSZ5cjfrpNgGdXkGNukQrJlTdg
-Content-Type: application/json
-Content-Length: 216
-Connection: Keep-Alive
-User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.6)
-Accept-Encoding: br,deflate,gzip,x-gzip
-
-{
-  "requests": [
-    {
-      "useDate": "2023-04-13",
-      "usingType": "오전반차"
-    },
-    {
-      "useDate": "2023-04-13",
-      "usingType": "오후반차"
-    }
-  ],
-  "vacationId": 22,
-  "totalDays": 1
-}
-
-<> 2023-04-15T161257.200.json
-
-###
-
-POST http://localhost:3300/api/user/1/request
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0MjZiNmQ3ZDY5NGE3YTkyZDI5MDYxYiIsImlhdCI6MTY4MDc1ODE3NCwiZXhwIjoxNjgxMzYyOTc0fQ.Rvt19pu253LtN435-CSZ5cjfrpNgGdXkGNukQrJlTdg
-Content-Type: application/json
-Content-Length: 216
-Connection: Keep-Alive
-User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.6)
-Accept-Encoding: br,deflate,gzip,x-gzip
-
-{
-  "requests": [
-    {
-      "useDate": "2023-04-13",
-      "usingType": "오전반차"
-    },
-    {
-      "useDate": "2023-04-13",
-      "usingType": "오후반차"
-    }
-  ],
-  "vacationId": 22,
-  "totalDays": 1
-}
-
-<> 2023-04-15T161216.200.json
-
-###
-
-POST http://localhost:3300/api/user/1/request
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0MjZiNmQ3ZDY5NGE3YTkyZDI5MDYxYiIsImlhdCI6MTY4MDc1ODE3NCwiZXhwIjoxNjgxMzYyOTc0fQ.Rvt19pu253LtN435-CSZ5cjfrpNgGdXkGNukQrJlTdg
-Content-Type: application/json
-Content-Length: 216
-Connection: Keep-Alive
-User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.6)
-Accept-Encoding: br,deflate,gzip,x-gzip
-
-{
-  "requests": [
-    {
-      "useDate": "2023-04-13",
-      "usingType": "오전반차"
-    },
-    {
-      "useDate": "2023-04-13",
-      "usingType": "오후반차"
-    }
-  ],
-  "vacationId": 22,
-  "totalDays": 1
-}
-
-<> 2023-04-15T161206.200.json
-
-###
-
-POST http://localhost:3300/api/user/1/request
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0MjZiNmQ3ZDY5NGE3YTkyZDI5MDYxYiIsImlhdCI6MTY4MDc1ODE3NCwiZXhwIjoxNjgxMzYyOTc0fQ.Rvt19pu253LtN435-CSZ5cjfrpNgGdXkGNukQrJlTdg
-Content-Type: application/json
-Content-Length: 216
-Connection: Keep-Alive
-User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.6)
-Accept-Encoding: br,deflate,gzip,x-gzip
-
-{
-  "requests": [
-    {
-      "useDate": "2023-04-13",
-      "usingType": "오전반차"
-    },
-    {
-      "useDate": "2023-04-13",
-      "usingType": "오후반차"
-    }
-  ],
-  "vacationId": 22,
-  "totalDays": 1
-}
-
-<> 2023-04-15T161028.200.json
-
-###
-
-POST http://localhost:3300/api/user/1/request
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0MjZiNmQ3ZDY5NGE3YTkyZDI5MDYxYiIsImlhdCI6MTY4MDc1ODE3NCwiZXhwIjoxNjgxMzYyOTc0fQ.Rvt19pu253LtN435-CSZ5cjfrpNgGdXkGNukQrJlTdg
-Content-Type: application/json
-Content-Length: 216
-Connection: Keep-Alive
-User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.6)
-Accept-Encoding: br,deflate,gzip,x-gzip
-
-{
-  "requests": [
-    {
-      "useDate": "2023-04-13",
-      "usingType": "오전반차"
-    },
-    {
-      "useDate": "2023-04-13",
-      "usingType": "오후반차"
-    }
-  ],
-  "vacationId": 22,
-  "totalDays": 1
-}
-
-<> 2023-04-15T160935.200.json
+<> 2023-04-15T194818.500.json
 
 ###
 

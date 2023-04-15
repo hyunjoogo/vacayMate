@@ -11,3 +11,14 @@ exports.getVacations = async (req, res) => {
     handleError(res, error);
   }
 };
+
+exports.getDetailVacation = async (req, res) => {
+  const {vacationId} = req.params;
+
+  try {
+    const vacation = await VacationServices.getUserVacationByPK(vacationId);
+    res.status(200).json(vacation);
+  } catch (error) {
+    handleError(res, error);
+  }
+};
