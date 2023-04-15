@@ -26,7 +26,6 @@ exports.checkDuplicateRequest = async (userId, vacationId, request) => {
 };
 
 exports.getDetailRequest = async (requestId) => {
-  console.log(requestId);
   const request = await db.Request.findByPk(requestId, {
     include: [
       {
@@ -56,6 +55,54 @@ exports.getDetailRequest = async (requestId) => {
       }
     ]
   });
+
+  const {id, use_date, status, created_at,user, vacation} = request;
+
+  const result = {
+    userId: user.id,
+    userName: user.name,
+    userEmail: user.email,
+
+    vacationId: vacation.id,
+    vacationName: vacation.name,
+
+    useDate : use_date,
+    status,
+
+    createdAt : created_at,
+    approvedInfo : approved_by === null ? null : {
+
+    }
+
+
+  };
+
+  //   const result = {
+//     id, userId,
+//     userName: user.name,
+//
+//     vacationTypeId : vacationType.id,
+//     vacationTypeName : vacationType.name,
+//
+//     vacationStartDate: vacationStartDate,
+//     vacationEndDate: vacationEndDate,
+//     vacationTimeType: vacationTimeType,
+//     totalVacationDays: totalVacationDays,
+//
+//     status,
+//     isApproved: !!approvedByUser,
+//     approvedByUserName: approvedByUser ? approvedByUser.name : null,
+//     approvedByUserId: approvedByUser ? approvedByUser.id : null,
+//     approvedAt: approvedByUser ? approvedAt : null,
+//     isRefused: !!refusedByUser,
+//     refusedByUserName: refusedByUser ? refusedByUser.name : null,
+//     refusedByUserId: refusedByUser ? refusedByUser.id : null,
+//     refusedAt: refusedByUser ? refusedAt : null,
+//     isCanceled: !!canceledByUser,
+//     canceledByUserName: canceledByUser ? canceledByUser.name : null,
+//     canceledByUserId: canceledByUser ? canceledByUser.id : null,
+//     canceledAt: canceledByUser ? canceledAt : null,
+//   };
 
   // 입맛에 맞게 변형해서 리턴해줄 것
 

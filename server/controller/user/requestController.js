@@ -76,8 +76,6 @@ exports.getDetailRequest = async (req, res) => {
 
   try {
     const request = await RequestServices.getDetailRequest(requestId);
-
-
     res.status(200).json(request);
 
   } catch (error) {
