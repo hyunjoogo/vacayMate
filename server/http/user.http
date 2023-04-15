@@ -30,8 +30,7 @@ Authorization: Bearer {{access_token}}
 Content-Type: application/json
 
 {
-  "vacationId": 1,
+  "vacationId": 22,
   "useDate" : "2023-04-13",
-  "usingType" : "일차",
-  "memo" : "테스트 일차"
+  "usingType" : "오전반차"
 }
