@@ -72,8 +72,6 @@ const getDetailRequest = async (req, res) => {
 
   try {
     const request = await RequestServices.getDetailRequest(requestId);
-
-
     res.status(200).json(request);
 
   } catch (error) {
@@ -81,4 +79,26 @@ const getDetailRequest = async (req, res) => {
   }
 };
 
-export { getRequest, createRequests, getDetailRequest }
+const cancelRequest = async (req, res) => {
+  const {requestId} = req.params;
+
+  try {
+    //
+    /* FLOW 요청 취소하기
+    1. 요청을 가지고 온다.
+    2. 가지고 온 요청의 상태가 pending, approved이면 취소를 할 수 있다. canceled, refused 는 불가
+    3. 취소를 하면 요청의 상태를 canceled로 변경하고 취소일시, 취소자를 넣어준다.
+    4. 그리고 요청의 vacation을 원복시킨다.
+    // 휴가요청시 using_type + using_day를 하나 만들어야겠다.
+     */
+
+
+    const request = await RequestServices.cancelRequest(requestId);
+    res.status(200).json(request);
+
+  } catch (error) {
+    handleError(res, error);
+  }
+}
+
+export { getRequest, createRequests, getDetailRequest, cancelRequest}

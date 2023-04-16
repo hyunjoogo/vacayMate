@@ -26,6 +26,6 @@ UserRouter.post('/request', requestController.createRequests);
 UserRouter.get('/request/:requestId', requestController.getDetailRequest);
 // 휴가사용요청 취소
 // cancelRequest
-UserRouter.get('/request/cancel/:requestId');
+UserRouter.get('/request/cancel/:requestId', requestController.cancelRequest);
 
 export default UserRouter;

@@ -100,12 +100,12 @@ const getDetailRequest = async (requestId) => {
       refused_at: refusedAt
     },
   };
-
-
-  // 입맛에 맞게 변형해서 리턴해줄 것
-
-  return result;
+  return request;
 };
+const cancelRequest = async (requestId) => {
+
+
+}
 
 
 export { checkDuplicateRequest, getDetailRequest }
