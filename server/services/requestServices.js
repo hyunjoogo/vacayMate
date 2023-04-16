@@ -1,7 +1,7 @@
 // 중복 요청이 있으면 false를 리턴하는 함수
 import { db } from "../models/index.js";
 import checkDuplicateUsingType from "../functions/compareUsingType.js";
-
+import camelCase from 'camelcase';
 
 const checkDuplicateRequest = async (userId, vacationId, request) => {
   const {useDate, usingType} = request;
@@ -36,7 +36,7 @@ const getDetailRequest = async (requestId) => {
       {
         model: db.Vacation,
         as: 'vacation',
-        attributes: ['id', 'left_days', 'total_days']
+        attributes: ['id', 'type', 'left_days', 'total_days']
       },
       {
         model: db.User,
@@ -56,29 +56,55 @@ const getDetailRequest = async (requestId) => {
     ]
   });
 
-  const {id, use_date, status, created_at, user, vacation} = request;
+  const {
+    id, use_date, status, created_at, user, vacation, memo,
+    approved_by, approvedBy, approvedAt,
+    canceled_by, canceledBy, canceledAt,
+    refused_by, refusedBy, refusedAt
+  } = request;
 
   const result = {
+    id,
     userId: user.id,
     userName: user.name,
     userEmail: user.email,
 
-    vacationId: vacation.id,
-    vacationName: vacation.name,
+    vacation: {
+      id: vacation.id,
+      type: vacation.type,
+      leftDays: vacation.left_days,
+      totalDays: vacation.total_days
+    },
 
     useDate: use_date,
     status,
+    memo,
 
     createdAt: created_at,
-    approvedInfo: approved_by === null ? null : {}
-
-
+    approvedInfo: approved_by === null ? null : {
+      id: approvedBy.id,
+      name: approvedBy.name,
+      email: approvedBy.email,
+      approved_at: approvedAt
+    },
+    canceledInfo: canceled_by === null ? null : {
+      id: canceledBy.id,
+      name: canceledBy.name,
+      email: canceledBy.email,
+      canceled_at: canceledAt
+    },
+    refusedInfo: refused_by === null ? null : {
+      id: refusedBy.id,
+      name: refusedBy.name,
+      email: refusedBy.email,
+      refused_at: refusedAt
+    },
   };
 
 
   // 입맛에 맞게 변형해서 리턴해줄 것
 
-  return request;
+  return result;
 };
 
 
