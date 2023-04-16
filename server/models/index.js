@@ -34,7 +34,7 @@ db.Request.belongsTo(db.Vacation, {foreignKey: 'vacation_id', as: 'vacation'});
 
 db.User.hasMany(db.Request, {foreignKey: 'user_id', as: 'user'});
 db.Request.belongsTo(db.User, {foreignKey: 'user_id', as: 'user'});
-console.log('여기');
+
 db.User.hasMany(db.Request, {foreignKey: 'approved_by', as: 'approvedBy'});
 db.Request.belongsTo(db.User, {foreignKey: 'approved_by', as: 'approvedBy'});
 
@@ -43,4 +43,5 @@ db.Request.belongsTo(db.User, {foreignKey: 'refused_by', as: 'refusedBy'});
 
 db.User.hasMany(db.Request, {foreignKey: 'canceled_by', as: 'canceledBy'});
 db.Request.belongsTo(db.User, {foreignKey: 'canceled_by', as: 'canceledBy'});
+
 export { db };

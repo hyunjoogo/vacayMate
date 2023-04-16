@@ -2,6 +2,7 @@
 import { db } from "../models/index.js";
 import checkDuplicateUsingType from "../functions/compareUsingType.js";
 import camelCase from 'camelcase';
+import validationError from "../exceptions/validation-error.js";
 
 const checkDuplicateRequest = async (userId, vacationId, request) => {
   const {useDate, usingType} = request;
@@ -55,7 +56,9 @@ const getDetailRequest = async (requestId) => {
       }
     ]
   });
-
+  if (request === null) {
+    return null
+  }
   const {
     id, use_date, status, created_at, user, vacation, memo,
     approved_by, approvedBy, approvedAt,
@@ -100,8 +103,9 @@ const getDetailRequest = async (requestId) => {
       refused_at: refusedAt
     },
   };
-  return request;
+  return result;
 };
+
 const cancelRequest = async (requestId) => {
 
 
