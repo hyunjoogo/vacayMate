@@ -31,6 +31,10 @@ export default (sequelize, DataTypes) => {
       type: DataTypes.STRING, // 일차, 오전반차, 오후반차
       allowNull: false
     },
+    using_day: {
+      type: DataTypes.FLOAT, // 1, 0.5
+      allowNull: false
+    },
     status: {
       type: DataTypes.STRING, // 대기중, 승인, 취소, 거절, 사용완료
       allowNull: false,
