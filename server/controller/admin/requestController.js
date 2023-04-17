@@ -57,10 +57,8 @@ const getRequestsList = async (req, res) => {
 };
 
 const getDetailRequest = async (req, res) => {
-  const {requestId} = req.params;
-
-
   try {
+    const {requestId} = req.params;
     const result = await RequestServices.getDetailRequest(requestId);
     res.status(200).json(result);
   } catch (error) {
@@ -79,4 +77,15 @@ const approveRequest = async (req, res) => {
   }
 };
 
-export { getRequestsList, getDetailRequest, approveRequest };
+const refuseRequest = async (req, res) => {
+  try {
+    const { requestId } = req.params;
+    const { id: userId } = req.user;
+    const {refuseRequest, updateVacation} = await RequestServices.refuseRequest(requestId, userId);
+    res.status(200).json({refuseRequest, updateVacation});
+  } catch (error) {
+    handleError(res, error);
+  }
+};
+
+export { getRequestsList, getDetailRequest, approveRequest, refuseRequest};

@@ -37,7 +37,7 @@ AdminRouter.get('/request/:requestId', requestController.getDetailRequest)
 AdminRouter.post('/request/approve/:requestId', requestController.approveRequest)
 
 // 회원 요청 거절
-AdminRouter.post('/request/refuse/:requestId')
+AdminRouter.post('/request/refuse/:requestId', requestController.refuseRequest)
 
 
 export default AdminRouter;

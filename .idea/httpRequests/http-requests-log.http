@@ -1,3 +1,99 @@
+POST http://localhost:3300/api/admin/1/request/refuse/4
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0MjZiNmQ3ZDY5NGE3YTkyZDI5MDYxYiIsImlhdCI6MTY4MDc1ODE3NCwiZXhwIjoxNjgxMzYyOTc0fQ.Rvt19pu253LtN435-CSZ5cjfrpNgGdXkGNukQrJlTdg
+Content-Type: application/json
+Content-Length: 0
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.6)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+<> 2023-04-18T020116.400.json
+
+###
+
+POST http://localhost:3300/api/admin/1/request/refuse/4
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0MjZiNmQ3ZDY5NGE3YTkyZDI5MDYxYiIsImlhdCI6MTY4MDc1ODE3NCwiZXhwIjoxNjgxMzYyOTc0fQ.Rvt19pu253LtN435-CSZ5cjfrpNgGdXkGNukQrJlTdg
+Content-Type: application/json
+Content-Length: 0
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.6)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+<> 2023-04-18T020109.200.json
+
+###
+
+POST http://localhost:3300/api/admin/1/request/refuse/3
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0MjZiNmQ3ZDY5NGE3YTkyZDI5MDYxYiIsImlhdCI6MTY4MDc1ODE3NCwiZXhwIjoxNjgxMzYyOTc0fQ.Rvt19pu253LtN435-CSZ5cjfrpNgGdXkGNukQrJlTdg
+Content-Type: application/json
+Content-Length: 0
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.6)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+<> 2023-04-18T020053.400.json
+
+###
+
+POST http://localhost:3300/api/admin/1/request/refuse/3
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0MjZiNmQ3ZDY5NGE3YTkyZDI5MDYxYiIsImlhdCI6MTY4MDc1ODE3NCwiZXhwIjoxNjgxMzYyOTc0fQ.Rvt19pu253LtN435-CSZ5cjfrpNgGdXkGNukQrJlTdg
+Content-Type: application/json
+Content-Length: 0
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.6)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+<> 2023-04-18T020050.400.json
+
+###
+
+POST http://localhost:3300/api/admin/1/request/refuse/3
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0MjZiNmQ3ZDY5NGE3YTkyZDI5MDYxYiIsImlhdCI6MTY4MDc1ODE3NCwiZXhwIjoxNjgxMzYyOTc0fQ.Rvt19pu253LtN435-CSZ5cjfrpNgGdXkGNukQrJlTdg
+Content-Type: application/json
+Content-Length: 0
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.6)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+<> 2023-04-18T020015.500.json
+
+###
+
+POST http://localhost:3300/api/admin/1/request/cancel/3
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0MjZiNmQ3ZDY5NGE3YTkyZDI5MDYxYiIsImlhdCI6MTY4MDc1ODE3NCwiZXhwIjoxNjgxMzYyOTc0fQ.Rvt19pu253LtN435-CSZ5cjfrpNgGdXkGNukQrJlTdg
+Content-Type: application/json
+Content-Length: 0
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.6)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+<> 2023-04-18T015956.404.html
+
+###
+
+POST http://localhost:3300/api/admin/1/request/cancel/3
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0MjZiNmQ3ZDY5NGE3YTkyZDI5MDYxYiIsImlhdCI6MTY4MDc1ODE3NCwiZXhwIjoxNjgxMzYyOTc0fQ.Rvt19pu253LtN435-CSZ5cjfrpNgGdXkGNukQrJlTdg
+Content-Type: application/json
+Content-Length: 0
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.6)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+<> 2023-04-18T015944.404.html
+
+###
+
+POST http://localhost:3300/api/admin/1/request/cancel/3
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0MjZiNmQ3ZDY5NGE3YTkyZDI5MDYxYiIsImlhdCI6MTY4MDc1ODE3NCwiZXhwIjoxNjgxMzYyOTc0fQ.Rvt19pu253LtN435-CSZ5cjfrpNgGdXkGNukQrJlTdg
+Content-Type: application/json
+Content-Length: 0
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.6)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+<> 2023-04-18T015858.404.html
+
+###
+
 POST http://localhost:3300/api/admin/1/request/approve/2
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0MjZiNmQ3ZDY5NGE3YTkyZDI5MDYxYiIsImlhdCI6MTY4MDc1ODE3NCwiZXhwIjoxNjgxMzYyOTc0fQ.Rvt19pu253LtN435-CSZ5cjfrpNgGdXkGNukQrJlTdg
 Content-Type: application/json
@@ -481,94 +577,6 @@ User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.6)
 Accept-Encoding: br,deflate,gzip,x-gzip
 
 <> 2023-04-18T005637.200.json
-
-###
-
-GET http://localhost:3300/api/admin/1/request?name="현주"
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0MjZiNmQ3ZDY5NGE3YTkyZDI5MDYxYiIsImlhdCI6MTY4MDc1ODE3NCwiZXhwIjoxNjgxMzYyOTc0fQ.Rvt19pu253LtN435-CSZ5cjfrpNgGdXkGNukQrJlTdg
-Content-Type: application/json
-Connection: Keep-Alive
-User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.6)
-Accept-Encoding: br,deflate,gzip,x-gzip
-
-<> 2023-04-18T005418.200.json
-
-###
-
-GET http://localhost:3300/api/admin/1/request?name="현주"
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0MjZiNmQ3ZDY5NGE3YTkyZDI5MDYxYiIsImlhdCI6MTY4MDc1ODE3NCwiZXhwIjoxNjgxMzYyOTc0fQ.Rvt19pu253LtN435-CSZ5cjfrpNgGdXkGNukQrJlTdg
-Content-Type: application/json
-Connection: Keep-Alive
-User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.6)
-Accept-Encoding: br,deflate,gzip,x-gzip
-
-<> 2023-04-18T005321.200.json
-
-###
-
-GET http://localhost:3300/api/admin/1/request?name="현주"
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0MjZiNmQ3ZDY5NGE3YTkyZDI5MDYxYiIsImlhdCI6MTY4MDc1ODE3NCwiZXhwIjoxNjgxMzYyOTc0fQ.Rvt19pu253LtN435-CSZ5cjfrpNgGdXkGNukQrJlTdg
-Content-Type: application/json
-Connection: Keep-Alive
-User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.6)
-Accept-Encoding: br,deflate,gzip,x-gzip
-
-<> 2023-04-18T005316.200.json
-
-###
-
-GET http://localhost:3300/api/admin/1/request?startDate=2023-04-17&endDate=2023-04-17
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0MjZiNmQ3ZDY5NGE3YTkyZDI5MDYxYiIsImlhdCI6MTY4MDc1ODE3NCwiZXhwIjoxNjgxMzYyOTc0fQ.Rvt19pu253LtN435-CSZ5cjfrpNgGdXkGNukQrJlTdg
-Content-Type: application/json
-Connection: Keep-Alive
-User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.6)
-Accept-Encoding: br,deflate,gzip,x-gzip
-
-<> 2023-04-18T005237.200.json
-
-###
-
-GET http://localhost:3300/api/admin/1/request?startDate=2023-04-17&endDate=2023-04-17
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0MjZiNmQ3ZDY5NGE3YTkyZDI5MDYxYiIsImlhdCI6MTY4MDc1ODE3NCwiZXhwIjoxNjgxMzYyOTc0fQ.Rvt19pu253LtN435-CSZ5cjfrpNgGdXkGNukQrJlTdg
-Content-Type: application/json
-Connection: Keep-Alive
-User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.6)
-Accept-Encoding: br,deflate,gzip,x-gzip
-
-<> 2023-04-17T220647.200.json
-
-###
-
-GET http://localhost:3300/api/admin/1/request?startDate=2023-04-17&endDate=2023-04-17
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0MjZiNmQ3ZDY5NGE3YTkyZDI5MDYxYiIsImlhdCI6MTY4MDc1ODE3NCwiZXhwIjoxNjgxMzYyOTc0fQ.Rvt19pu253LtN435-CSZ5cjfrpNgGdXkGNukQrJlTdg
-Content-Type: application/json
-Connection: Keep-Alive
-User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.6)
-Accept-Encoding: br,deflate,gzip,x-gzip
-
-<> 2023-04-17T220439.200.json
-
-###
-
-GET http://localhost:3300/api/admin/1/request?startDate=2023-04-17&endDate=2023-04-17
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0MjZiNmQ3ZDY5NGE3YTkyZDI5MDYxYiIsImlhdCI6MTY4MDc1ODE3NCwiZXhwIjoxNjgxMzYyOTc0fQ.Rvt19pu253LtN435-CSZ5cjfrpNgGdXkGNukQrJlTdg
-Content-Type: application/json
-Connection: Keep-Alive
-User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.6)
-Accept-Encoding: br,deflate,gzip,x-gzip
-
-<> 2023-04-17T215542.200.json
-
-###
-
-GET http://localhost:3300/api/admin/1/request?endDate=2023-04-16&endDate=2023-04-17
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0MjZiNmQ3ZDY5NGE3YTkyZDI5MDYxYiIsImlhdCI6MTY4MDc1ODE3NCwiZXhwIjoxNjgxMzYyOTc0fQ.Rvt19pu253LtN435-CSZ5cjfrpNgGdXkGNukQrJlTdg
-Content-Type: application/json
-Connection: Keep-Alive
-User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.6)
-Accept-Encoding: br,deflate,gzip,x-gzip
-
-<> 2023-04-17T215520.200.json
 
 ###
 

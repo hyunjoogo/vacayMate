@@ -32,3 +32,12 @@ Content-Type: application/json
 POST {{admin}}/{{user_id}}/request/approve/2
 Authorization: Bearer {{access_token}}
 Content-Type: application/json
+
+{
+  "message": "잘 다녀오세요."
+}
+
+### 회원요청 승인
+POST {{admin}}/{{user_id}}/request/refuse/4
+Authorization: Bearer {{access_token}}
+Content-Type: application/json
