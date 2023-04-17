@@ -94,7 +94,9 @@ const cancelRequest = async (req, res) => {
   try {
     const {id: userId} = req.user;
     const {requestId} = req.params;
-    const {canceledRequest, updateVacation} = await RequestServices.cancelRequest(requestId, userId);
+    const {message} = req.body;
+
+    const {canceledRequest, updateVacation} = await RequestServices.cancelRequest(requestId, userId, message);
     res.status(200).json({canceledRequest, updateVacation});
   } catch (error) {
     handleError(res, error);

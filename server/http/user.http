@@ -61,16 +61,26 @@ Content-Type: application/json
     {
       "useDate": "2023-04-17",
       "usingType": "오전반차",
-      "usingDay" : 0.5
+      "usingDay": 0.5
     },
     {
       "useDate": "2023-04-18",
       "usingType": "일차",
-      "usingDay" : 1
+      "usingDay": 1
+    },
+    {
+      "useDate": "2023-04-20",
+      "usingType": "일차",
+      "usingDay": 1
+    },
+    {
+      "useDate": "2023-04-21",
+      "usingType": "일차",
+      "usingDay": 1
     }
   ],
   "vacationId": 22,
-  "totalDays": 1.5
+  "totalDays": 3.5
 }
 
 ### 사용자 휴가사용요청 상세조회
@@ -80,3 +90,9 @@ Content-Type: application/json
 
 ### 사용자 휴가요청 취소
 POST {{user}}/{{user_id}}/request/cancel/1
+Authorization: Bearer {{access_token}}
+Content-Type: application/json
+
+{
+  "message": "개인사정으로 인한 취소"
+}

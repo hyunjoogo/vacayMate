@@ -61,7 +61,7 @@ const getDetailRequest = async (requestId) => {
     ]
   });
   if (request === null) {
-    throw new CustomError(400, "존재하지 않는 휴가요청입니다.")
+    throw new CustomError(400, "존재하지 않는 휴가요청입니다.");
   }
   const {
     id, use_date, status, created_at, user, vacation, memo,
@@ -163,7 +163,7 @@ const getRequestsList = async ({nowPage = 1, pageSize = 10, name, usingType, sta
   };
 };
 
-const cancelRequest = async (requestId, userId) => {
+const cancelRequest = async (requestId, userId, message) => {
   /* FLOW 요청 취소하기
 1. 요청을 가지고 온다.
 2. 가지고 온 요청의 상태가 pending, approved이면 취소를 할 수 있다. canceled, refused 는 불가
@@ -185,7 +185,8 @@ const cancelRequest = async (requestId, userId) => {
     const canceledRequest = await request.update({
       status: CANCELED,
       canceled_by: userId,
-      canceled_at: dayjs.utc()
+      canceled_at: dayjs.utc(),
+      canceled_memo: message
     }, {transaction});
     // 해당 요청의 vacation 사용한건 원복시키기
     const literal = db.Sequelize.literal(`\`left_days\` + ${request.using_day}`);
@@ -209,8 +210,7 @@ const cancelRequest = async (requestId, userId) => {
 
 };
 
-const approveRequest = async (requestId, userId) => {
-
+const approveRequest = async (requestId, userId, message) => {
   /* FLOW 요청 승인하기
   1. 요청을 가지고 온다.
   2. 가지고 온 요청의 상태가 pending 일때만 승인을 할 수 있다. approved, canceled, refused 는 불가
@@ -231,12 +231,12 @@ const approveRequest = async (requestId, userId) => {
         status: APPROVED,
         approved_by: userId,
         approved_at: dayjs.utc(),
+        approved_memo: message
       },
       {transaction}
     );
 
     await transaction.commit();
-
     return approvedRequest;
   } catch (error) {
     await transaction.rollback();
@@ -244,7 +244,7 @@ const approveRequest = async (requestId, userId) => {
   }
 };
 
-const refuseRequest = async (requestId, userId) => {
+const refuseRequest = async (requestId, userId, message) => {
   /* FLOW 요청 승인하기
     1. 요청을 가지고 온다.
     2. 가지고 온 요청의 상태가 pending 일때만 승인을 할 수 있다. approved, canceled, refused 는 불가
@@ -265,9 +265,8 @@ const refuseRequest = async (requestId, userId) => {
         status: REFUSED,
         refused_by: userId,
         refused_at: dayjs.utc(),
-      },
-      {transaction}
-    );
+        refused_memo: message
+      }, {transaction});
 
     const literal = db.Sequelize.literal(`\`left_days\` + ${request.using_day}`);
     await db.Vacation.update(
@@ -283,7 +282,6 @@ const refuseRequest = async (requestId, userId) => {
     const updateVacation = await db.Vacation.findByPk(request.vacation_id, {transaction});
 
     await transaction.commit();
-
     return {refusedRequest, updateVacation};
   } catch (error) {
     await transaction.rollback();

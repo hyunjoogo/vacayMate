@@ -70,7 +70,8 @@ const approveRequest = async (req, res) => {
   try {
     const {requestId} = req.params;
     const {id: userId} = req.user;
-    const approvedRequest = await RequestServices.approveRequest(requestId, userId);
+    const {message} = req.body;
+    const approvedRequest = await RequestServices.approveRequest(requestId, userId, message);
     res.status(200).json(approvedRequest);
   } catch (error) {
     handleError(res, error);
@@ -82,8 +83,10 @@ const refuseRequest = async (req, res) => {
   try {
     const {requestId} = req.params;
     const {id: userId} = req.user;
-    const {refuseRequest, updateVacation} = await RequestServices.refuseRequest(requestId, userId);
-    res.status(200).json({refuseRequest, updateVacation});
+    const {message} = req.body;
+
+    const {refusedRequest, updateVacation} = await RequestServices.refuseRequest(requestId, userId, message);
+    res.status(200).json({refusedRequest, updateVacation});
   } catch (error) {
     handleError(res, error);
   }

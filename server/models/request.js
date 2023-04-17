@@ -60,6 +60,9 @@ export default (sequelize, DataTypes) => {
         key: 'id'
       }
     },
+    approved_memo : {
+      type: DataTypes.TEXT
+    },
     refused_at: {
       type: DataTypes.DATE,
       allowNull: true
@@ -72,6 +75,9 @@ export default (sequelize, DataTypes) => {
         key: 'id'
       }
     },
+    refused_memo : {
+      type: DataTypes.TEXT
+    },
     canceled_at: {
       type: DataTypes.DATE,
       allowNull: true
@@ -83,6 +89,9 @@ export default (sequelize, DataTypes) => {
         model: 'Users',
         key: 'id'
       }
+    },
+    canceled_memo : {
+      type: DataTypes.TEXT
     }
   }, {
     timestamps: false, charset: "utf8", collate: "utf8_general_ci"
