@@ -101,7 +101,7 @@ const getDetailRequest = async (requestId) => {
       name: canceledBy.name,
       email: canceledBy.email,
       canceledAt: canceled_at,
-      refusedMemo : refused_memo
+      canceledMemo : canceled_memo
     },
     refusedInfo: refused_by === null ? null : {
       id: refusedBy.id,
