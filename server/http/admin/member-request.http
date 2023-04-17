@@ -1,24 +1,34 @@
-### 회원 목록조회 (검색조건 없음)
+### 회원요청 목록조회 (검색조건 없음)
 GET {{admin}}/{{user_id}}/request
 Authorization: Bearer {{access_token}}
 Content-Type: application/json
 
-### 회원 목록조회 (기간검색)
+### 회원요청 목록조회 (기간검색)
 GET {{admin}}/{{user_id}}/request?startDate=2023-04-17&endDate=2023-04-17
 Authorization: Bearer {{access_token}}
 Content-Type: application/json
 
-### 회원 목록조회 (name)
+### 회원요청 목록조회 (name)
 GET {{admin}}/{{user_id}}/request?name=현주
 Authorization: Bearer {{access_token}}
 Content-Type: application/json
 
-### 회원 목록조회 (사용타입)
+### 회원요청 목록조회 (사용타입)
 GET {{admin}}/{{user_id}}/request?usingType=오후반차
 Authorization: Bearer {{access_token}}
 Content-Type: application/json
 
-### 회원 목록조회 (상태)
+### 회원요청 목록조회 (상태)
 GET {{admin}}/{{user_id}}/request?status=canceled
+Authorization: Bearer {{access_token}}
+Content-Type: application/json
+
+### 회원요청 상세조회
+GET {{admin}}/{{user_id}}/request/1
+Authorization: Bearer {{access_token}}
+Content-Type: application/json
+
+### 회원요청 승인
+POST {{admin}}/{{user_id}}/request/approve/2
 Authorization: Bearer {{access_token}}
 Content-Type: application/json

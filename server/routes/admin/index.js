@@ -34,10 +34,10 @@ AdminRouter.get('/request', requestController.getRequestsList)
 AdminRouter.get('/request/:requestId', requestController.getDetailRequest)
 
 // 회원 요청 승인
-AdminRouter.post('/request/:requestId/approve')
+AdminRouter.post('/request/approve/:requestId', requestController.approveRequest)
 
 // 회원 요청 거절
-AdminRouter.post('/request/:requestId/refuse')
+AdminRouter.post('/request/refuse/:requestId')
 
 
 export default AdminRouter;
