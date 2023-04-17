@@ -68,19 +68,20 @@ const getDetailRequest = async (req, res) => {
 
 const approveRequest = async (req, res) => {
   try {
-    const { requestId } = req.params;
-    const { id: userId } = req.user;
+    const {requestId} = req.params;
+    const {id: userId} = req.user;
     const approvedRequest = await RequestServices.approveRequest(requestId, userId);
     res.status(200).json(approvedRequest);
   } catch (error) {
     handleError(res, error);
   }
+
 };
 
 const refuseRequest = async (req, res) => {
   try {
-    const { requestId } = req.params;
-    const { id: userId } = req.user;
+    const {requestId} = req.params;
+    const {id: userId} = req.user;
     const {refuseRequest, updateVacation} = await RequestServices.refuseRequest(requestId, userId);
     res.status(200).json({refuseRequest, updateVacation});
   } catch (error) {
@@ -88,4 +89,4 @@ const refuseRequest = async (req, res) => {
   }
 };
 
-export { getRequestsList, getDetailRequest, approveRequest, refuseRequest};
+export { getRequestsList, getDetailRequest, approveRequest, refuseRequest };

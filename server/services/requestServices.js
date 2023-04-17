@@ -4,7 +4,9 @@ import checkDuplicateUsingType from "../functions/compareUsingType.js";
 import { Sequelize } from "sequelize";
 import { YYYYMMDD } from "../const/dateFormat.js";
 import dayjs from "dayjs";
-import { APPROVED, PENDING, REFUSED } from "../const/request-status.js";
+import { APPROVED, CANCELED, PENDING, REFUSED } from "../const/request-status.js";
+import validationError from "../exceptions/validation-error.js";
+import { CustomError } from "../exceptions/CustomError.js";
 
 const checkDuplicateRequest = async (userId, vacationId, request) => {
   const {useDate, usingType} = request;
@@ -59,7 +61,7 @@ const getDetailRequest = async (requestId) => {
     ]
   });
   if (request === null) {
-    return null;
+    throw new CustomError(400, "존재하지 않는 휴가요청입니다.")
   }
   const {
     id, use_date, status, created_at, user, vacation, memo,
@@ -108,8 +110,6 @@ const getDetailRequest = async (requestId) => {
   return result;
 };
 
-const cancelRequest = async (requestId) => {
-};
 
 const getRequestsList = async ({nowPage = 1, pageSize = 10, name, usingType, status, startDate, endDate, userId}) => {
   const offset = (nowPage - 1) * pageSize;
@@ -163,6 +163,52 @@ const getRequestsList = async ({nowPage = 1, pageSize = 10, name, usingType, sta
   };
 };
 
+const cancelRequest = async (requestId, userId) => {
+  /* FLOW 요청 취소하기
+1. 요청을 가지고 온다.
+2. 가지고 온 요청의 상태가 pending, approved이면 취소를 할 수 있다. canceled, refused 는 불가
+3. 취소를 하면 요청의 상태를 canceled로 변경하고 취소일시, 취소자를 넣어준다.
+4. 그리고 요청의 vacation을 원복시킨다.
+ */
+
+  const transaction = await db.sequelize.transaction();
+
+
+  try {
+    // 요청 가지고 오기
+    const request = await db.Request.findByPk(requestId);
+    // 상태가 취소, 거절이면 취소할 수 없음
+    if (request.status === CANCELED || request.status === REFUSED) {
+      throw new CustomError(400, "취소되거나 거절된 휴가요청은 최소할 수 없습니다.");
+    }
+    // 요청 상태를 canceled로 변경, 취소일시, 취소자를 넣어준다.
+    const canceledRequest = await request.update({
+      status: CANCELED,
+      canceled_by: userId,
+      canceled_at: dayjs.utc()
+    }, {transaction});
+    // 해당 요청의 vacation 사용한건 원복시키기
+    const literal = db.Sequelize.literal(`\`left_days\` + ${request.using_day}`);
+    await db.Vacation.update(
+      {left_days: literal},
+      {
+        where: {
+          id: request.vacation_id
+        },
+        transaction,
+      });
+    // 업데이트된 vacation 가지고 오기
+    const updateVacation = await db.Vacation.findByPk(request.vacation_id, {transaction});
+
+    await transaction.commit();
+    return {canceledRequest, updateVacation};
+  } catch (error) {
+    await transaction.rollback();
+    throw error;
+  }
+
+};
+
 const approveRequest = async (requestId, userId) => {
 
   /* FLOW 요청 승인하기
@@ -177,7 +223,7 @@ const approveRequest = async (requestId, userId) => {
     const request = await db.Request.findByPk(requestId);
 
     if (request.status !== PENDING) {
-      throw {errorCode: 400, message: "대기 상태일때만 가능합니다."};
+      throw new CustomError(400, "대기 상태일때만 가능합니다.");
     }
 
     const approvedRequest = await request.update(
@@ -211,7 +257,7 @@ const refuseRequest = async (requestId, userId) => {
     const request = await db.Request.findByPk(requestId);
 
     if (request.status !== PENDING) {
-      throw {errorCode: 400, message: "대기 상태일때만 가능합니다."};
+      throw new CustomError(400, "대기 상태일때만 가능합니다.");
     }
 
     const refusedRequest = await request.update(
@@ -245,4 +291,4 @@ const refuseRequest = async (requestId, userId) => {
   }
 };
 
-export { checkDuplicateRequest, getDetailRequest, getRequestsList, approveRequest , refuseRequest};
+export { checkDuplicateRequest, getDetailRequest, getRequestsList, cancelRequest, approveRequest, refuseRequest };
