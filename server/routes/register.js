@@ -6,7 +6,6 @@ import handleError from "../exceptions/error-handler.js";
 
 const RegisterRouter = express.Router();
 
-// FLOW
 RegisterRouter.get('/', isUser, async (req, res) => {
   try {
     res.status(200).json({});

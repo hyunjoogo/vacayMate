@@ -1,8 +1,9 @@
 // 중복 요청이 있으면 false를 리턴하는 함수
 import { db } from "../models/index.js";
 import checkDuplicateUsingType from "../functions/compareUsingType.js";
-import camelCase from 'camelcase';
-import validationError from "../exceptions/validation-error.js";
+import { Sequelize } from "sequelize";
+import { YYYYMMDD } from "../const/dateFormat.js";
+import dayjs from "dayjs";
 
 const checkDuplicateRequest = async (userId, vacationId, request) => {
   const {useDate, usingType} = request;
@@ -57,7 +58,7 @@ const getDetailRequest = async (requestId) => {
     ]
   });
   if (request === null) {
-    return null
+    return null;
   }
   const {
     id, use_date, status, created_at, user, vacation, memo,
@@ -107,9 +108,58 @@ const getDetailRequest = async (requestId) => {
 };
 
 const cancelRequest = async (requestId) => {
+};
 
+const getRequestsList = async ({nowPage = 1, pageSize = 10, name, usingType, status, startDate, endDate, userId}) => {
+  const offset = (nowPage - 1) * pageSize;
+  const limit = Number(pageSize);
 
-}
+  const where = {
+    user_id: userId
+  };
+  let searchName = '';
+  if (name) {
+    searchName = name;
+    where['$user.name$'] = {[Sequelize.Op.like]: `%${searchName}%`};
+  }
+  if (usingType) {
+    where.using_type = usingType;
+  }
+  if (status) {
+    where.status = status;
+  }
+  if (startDate === undefined && endDate === undefined) {
+    const today = dayjs();
+    const start = today.subtract(1, 'month').format(YYYYMMDD);
+    const end = today.add(1, 'month').format(YYYYMMDD);
+    where.use_date = {[Sequelize.Op.between]: [start, end]};
+  } else {
+    const start = startDate ? dayjs(startDate) : dayjs(endDate).subtract(1, 'month');
+    const end = endDate ? dayjs(endDate) : dayjs(startDate).add(1, 'month');
+    where.use_date = { [Sequelize.Op.between]: [start.format(YYYYMMDD), end.format(YYYYMMDD)] };
+  }
 
+  const {count, rows} = await db.Request.findAndCountAll({
+    include: {
+      model: db.User,
+      as: 'user',
+    },
+    where,
+    order: [['created_at', 'DESC']],
+    offset,
+    limit
+  });
+  const totalPages = Math.ceil(count / limit);
 
-export { checkDuplicateRequest, getDetailRequest }
+  return {
+    data: rows,
+    page: {
+      nowPage: Number(nowPage),
+      pageSize: limit,
+      totalPages: totalPages,
+      totalCount: count
+    }
+  };
+};
+
+export { checkDuplicateRequest, getDetailRequest, getRequestsList };

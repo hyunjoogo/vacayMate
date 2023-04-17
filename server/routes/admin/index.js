@@ -1,5 +1,7 @@
 import express from "express";
 import * as membersController from "../../controller/admin/membersController.js";
+import * as requestController from "../../controller/admin/requestController.js";
+
 
 const AdminRouter = express.Router();
 
@@ -26,7 +28,7 @@ AdminRouter.patch('/members/:memberNo/out')
 
 
 // 회원 요청 목록조회
-AdminRouter.get('/request')
+AdminRouter.get('/request', requestController.getRequestsList)
 
 // 회원 요청 상세조회
 AdminRouter.get('/request/:requestId')
