@@ -2,8 +2,10 @@ import handleError from "../../exceptions/error-handler.js";
 import * as RequestServices from "../../services/requestServices.js";
 import { isValidDateFormat } from "../../functions/isValidDateFormat.js";
 import validationError from "../../exceptions/validation-error.js";
-import { REQUEST_STATUS_LIST } from "../../const/request-status.js";
+import { APPROVED, REQUEST_STATUS_LIST } from "../../const/request-status.js";
 import { USING_TYPE_LIST } from "../../const/vacation-using-type.js";
+import { db } from "../../models/index.js";
+import dayjs from "dayjs";
 
 const getRequestsList = async (req, res) => {
   const {id: userId} = req.user;
@@ -55,7 +57,26 @@ const getRequestsList = async (req, res) => {
 };
 
 const getDetailRequest = async (req, res) => {
+  const {requestId} = req.params;
 
+
+  try {
+    const result = await RequestServices.getDetailRequest(requestId);
+    res.status(200).json(result);
+  } catch (error) {
+    handleError(res, error);
+  }
 };
 
-export { getRequestsList, getDetailRequest };
+const approveRequest = async (req, res) => {
+  try {
+    const { requestId } = req.params;
+    const { id: userId } = req.user;
+    const approvedRequest = await RequestServices.approveRequest(requestId, userId);
+    res.status(200).json(approvedRequest);
+  } catch (error) {
+    handleError(res, error);
+  }
+};
+
+export { getRequestsList, getDetailRequest, approveRequest };

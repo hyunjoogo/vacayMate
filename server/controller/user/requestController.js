@@ -8,6 +8,7 @@ import validationError from "../../exceptions/validation-error.js";
 import * as RequestServices from "../../services/requestServices.js";
 import { YYYYMMDD } from "../../const/dateFormat.js";
 import snakecaseKeys from "snakecase-keys";
+import { CANCELED, REFUSED } from "../../const/request-status.js";
 
 dayjs.extend(utc);
 
@@ -103,23 +104,21 @@ const cancelRequest = async (req, res) => {
 
   try {
     // TODO 이걸 서비스로 어떻게 나누지?
-    // FLOW 요청 취소하기
-    /*
+    /* FLOW 요청 취소하기
     1. 요청을 가지고 온다.
     2. 가지고 온 요청의 상태가 pending, approved이면 취소를 할 수 있다. canceled, refused 는 불가
     3. 취소를 하면 요청의 상태를 canceled로 변경하고 취소일시, 취소자를 넣어준다.
     4. 그리고 요청의 vacation을 원복시킨다.
-    // 휴가요청시 using_type + using_day를 하나 만들어야겠다.
      */
     // 요청 가지고 오기
     const request = await db.Request.findByPk(requestId);
     // 상태가 취소, 거절이면 취소할 수 없음
-    if (request.status === 'canceled' || request.status === 'refused') {
+    if (request.status === CANCELED || request.status === REFUSED) {
       return validationError(res, "취소되거나 거절된 휴가요청은 최소할 수 없습니다.")
     }
     // 요청 상태를 canceled로 변경, 취소일시, 취소자를 넣어준다.
-    const updateRequest = await request.update({
-      status: 'canceled',
+    const canceledRequest = await request.update({
+      status: CANCELED,
       canceled_by: userId,
       canceled_at: dayjs.utc()
     }, {transaction});
@@ -139,7 +138,7 @@ const cancelRequest = async (req, res) => {
     const updateVacation = await db.Vacation.findByPk(request.vacation_id, {transaction});
 
     await transaction.commit();
-    res.status(200).json({updateRequest, updateVacation});
+    res.status(200).json({canceledRequest, updateVacation});
   } catch (error) {
     await transaction.rollback();
     handleError(res, error);

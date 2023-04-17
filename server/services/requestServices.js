@@ -4,6 +4,7 @@ import checkDuplicateUsingType from "../functions/compareUsingType.js";
 import { Sequelize } from "sequelize";
 import { YYYYMMDD } from "../const/dateFormat.js";
 import dayjs from "dayjs";
+import { APPROVED, PENDING } from "../const/request-status.js";
 
 const checkDuplicateRequest = async (userId, vacationId, request) => {
   const {useDate, usingType} = request;
@@ -162,4 +163,39 @@ const getRequestsList = async ({nowPage = 1, pageSize = 10, name, usingType, sta
   };
 };
 
-export { checkDuplicateRequest, getDetailRequest, getRequestsList };
+const approveRequest = async (requestId, userId) => {
+
+  /* FLOW 요청 승인하기
+  1. 요청을 가지고 온다.
+  2. 가지고 온 요청의 상태가 pending 일때만 승인을 할 수 있다. approved, canceled, refused 는 불가
+  3. 승인을 하면 요청의 상태를 approved로 변경하고 승인일시, 승인자를 넣어준다.
+ */
+
+  const transaction = await db.sequelize.transaction();
+
+  try {
+    const request = await db.Request.findByPk(requestId);
+
+    if (request.status !== PENDING) {
+      throw {errorCode: 400, message: "대기 상태일때만 가능합니다."};
+    }
+
+    const approvedRequest = await request.update(
+      {
+        status: APPROVED,
+        approved_by: userId,
+        approved_at: dayjs.utc(),
+      },
+      {transaction}
+    );
+
+    await transaction.commit();
+
+    return approvedRequest;
+  } catch (error) {
+    await transaction.rollback();
+    throw error;
+  }
+};
+
+export { checkDuplicateRequest, getDetailRequest, getRequestsList, approveRequest };
