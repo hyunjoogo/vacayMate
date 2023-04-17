@@ -123,9 +123,11 @@ const getRequestsList = async ({nowPage = 1, pageSize = 10, name, usingType, sta
     where['$user.name$'] = {[Sequelize.Op.like]: `%${searchName}%`};
   }
   if (usingType) {
+    console.log(usingType);
     where.using_type = usingType;
   }
   if (status) {
+    console.log(status);
     where.status = status;
   }
   if (startDate === undefined && endDate === undefined) {
@@ -145,7 +147,7 @@ const getRequestsList = async ({nowPage = 1, pageSize = 10, name, usingType, sta
       as: 'user',
     },
     where,
-    order: [['created_at', 'DESC']],
+    order: [['use_date', 'ASC'], ['created_at', 'ASC']],
     offset,
     limit
   });

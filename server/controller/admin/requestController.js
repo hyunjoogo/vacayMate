@@ -1,14 +1,33 @@
 import handleError from "../../exceptions/error-handler.js";
 import * as RequestServices from "../../services/requestServices.js";
+import { isValidDateFormat } from "../../functions/isValidDateFormat.js";
+import validationError from "../../exceptions/validation-error.js";
+import { REQUEST_STATUS_LIST } from "../../const/request-status.js";
+import { USING_TYPE_LIST } from "../../const/vacation-using-type.js";
 
 const getRequestsList = async (req, res) => {
   const {id: userId} = req.user;
   const {nowPage = 1, pageSize = 10, name, usingType, status, startDate, endDate} = req.query;
 
-  // TODO 날짜 포맷이 맞는지 확인하는 로직
-  // TODO 이름이 두글자 이상인지 확인
-  // TODO 요청의 상태가 rule에 맞는지
-  // TODO 사용타입이 rule에 맞는지
+  // 날짜 포맷이 맞는지 확인하는 로직
+  if (startDate && isValidDateFormat(startDate) === false) {
+    return validationError(res, "검색 시작일을 YYYY-MM-DD에 맞춰주세요.");
+  }
+  if (endDate && isValidDateFormat(endDate) === false) {
+    return validationError(res, "검색 종료일을 YYYY-MM-DD에 맞춰주세요.");
+  }
+  // 이름이 두글자 이상인지 확인
+  if (name && name.length < 2) {
+    return validationError(res, "이름을 두글자 이상 입력해주세요.");
+  }
+  // 요청의 상태가 rule에 맞는지
+  if (status && REQUEST_STATUS_LIST.includes(status) === false) {
+    return validationError(res, "잘못된 사용요청 상태입니다.");
+  }
+  // 사용타입이 rule에 맞는지
+  if (usingType && USING_TYPE_LIST.includes(usingType) === false) {
+    return validationError(res, "잘못된 요청 사용유형입니다.");
+  }
   /* FLOW
   1. 검색조건 : 요청자 이름, 요청의 사용타입(일차, 오전반차, 오후반차), 요청의 상태
       - 이름 : 두글자 이상으로 제한
