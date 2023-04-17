@@ -65,9 +65,9 @@ const getDetailRequest = async (requestId) => {
   }
   const {
     id, use_date, status, created_at, user, vacation, memo,
-    approved_by, approvedBy, approvedAt,
-    canceled_by, canceledBy, canceledAt,
-    refused_by, refusedBy, refusedAt
+    approved_by, approvedBy, approved_at, approved_memo,
+    canceled_by, canceledBy, canceled_at, canceled_memo,
+    refused_by, refusedBy, refused_at, refused_memo,
   } = request;
 
   const result = {
@@ -92,19 +92,23 @@ const getDetailRequest = async (requestId) => {
       id: approvedBy.id,
       name: approvedBy.name,
       email: approvedBy.email,
-      approved_at: approvedAt
+      approvedAt: approved_at,
+      approvedMemo : approved_memo
+
     },
     canceledInfo: canceled_by === null ? null : {
       id: canceledBy.id,
       name: canceledBy.name,
       email: canceledBy.email,
-      canceled_at: canceledAt
+      canceledAt: canceled_at,
+      refusedMemo : refused_memo
     },
     refusedInfo: refused_by === null ? null : {
       id: refusedBy.id,
       name: refusedBy.name,
       email: refusedBy.email,
-      refused_at: refusedAt
+      refusedAt: refused_at,
+      refusedMemo: refused_memo
     },
   };
   return result;
