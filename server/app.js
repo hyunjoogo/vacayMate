@@ -9,6 +9,7 @@ import RegisterRouter from "./routes/register.js";
 import UserRouter from './routes/user/index.js'
 import AdminRouter from './routes/admin/index.js'
 import isUser from "./middlewares/isUser.js";
+import isAdmin from "./middlewares/isAdmin.js";
 
 
 db.sequelize.sync();
@@ -32,7 +33,7 @@ app.get("/", async (req, res) => {
 // 세그먼트(:ver)는 미들웨어에서 같은 줄에 있는 애들만 인식한다. (isUser가 Route로 들어가면 :ver를 인식못함)
 app.use('/api/register/:ver', RegisterRouter);
 app.use('/api/user/:ver', isUser, UserRouter);
-app.use('/api/admin/:ver', AdminRouter);
+app.use('/api/admin/:ver', isAdmin, AdminRouter);
 
 app.listen(PORT, () => console.log(`서버 시작됨: http://localhost:${PORT}`));
 
