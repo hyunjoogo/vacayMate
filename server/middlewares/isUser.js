@@ -7,7 +7,7 @@ const isUser = async (req, res, next) => {
   // 토큰에서 가지고 오는 테스트 끝나면 꼭 삭제하고 :ver 세크먼트는 'v1', 'v2' 같은 버젼용도로 사용할 것
   const userId = Number(req.params.ver);
   const user = await db.User.findByPk(userId);
-  console.log(`User ID: ${userId}`, `Name: ${user.name}`);
+  console.log(`User ID: ${userId}`, `Name: ${user.name}`, `isAdmin: ${user.role === 'admin'}`);
 
   if (!user) {
     res.status(400).json({success: false, message: '존재하지 않는 사용자입니다.'});

@@ -5,7 +5,6 @@ import { Sequelize } from "sequelize";
 import { YYYYMMDD } from "../const/dateFormat.js";
 import dayjs from "dayjs";
 import { APPROVED, CANCELED, PENDING, REFUSED } from "../const/request-status.js";
-import validationError from "../exceptions/validation-error.js";
 import { CustomError } from "../exceptions/CustomError.js";
 
 const checkDuplicateRequest = async (userId, vacationId, request) => {
@@ -93,7 +92,7 @@ const getDetailRequest = async (requestId) => {
       name: approvedBy.name,
       email: approvedBy.email,
       approvedAt: approved_at,
-      approvedMemo : approved_memo
+      approvedMemo: approved_memo
 
     },
     canceledInfo: canceled_by === null ? null : {
@@ -101,7 +100,7 @@ const getDetailRequest = async (requestId) => {
       name: canceledBy.name,
       email: canceledBy.email,
       canceledAt: canceled_at,
-      canceledMemo : canceled_memo
+      canceledMemo: canceled_memo
     },
     refusedInfo: refused_by === null ? null : {
       id: refusedBy.id,
@@ -126,11 +125,9 @@ const getRequestsList = async ({nowPage = 1, pageSize = 10, name, usingType, sta
     where['$user.name$'] = {[Sequelize.Op.like]: `%${searchName}%`};
   }
   if (usingType) {
-    console.log(usingType);
     where.using_type = usingType;
   }
   if (status) {
-    console.log(status);
     where.status = status;
   }
   if (startDate === undefined && endDate === undefined) {
