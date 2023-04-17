@@ -219,10 +219,8 @@ const approveRequest = async (requestId, userId, message) => {
  */
 
   const transaction = await db.sequelize.transaction();
-
   try {
     const request = await db.Request.findByPk(requestId);
-
     if (request.status !== PENDING) {
       throw new CustomError(400, "대기 상태일때만 가능합니다.");
     }
