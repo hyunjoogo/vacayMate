@@ -8,8 +8,6 @@ import validationError from "../../exceptions/validation-error.js";
 import * as RequestServices from "../../services/requestServices.js";
 import { YYYYMMDD } from "../../const/dateFormat.js";
 import snakecaseKeys from "snakecase-keys";
-import { CANCELED, REFUSED } from "../../const/request-status.js";
-import { CustomError } from "../../exceptions/CustomError.js";
 
 dayjs.extend(utc);
 
