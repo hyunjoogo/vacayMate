@@ -114,9 +114,7 @@ const getRequestsList = async ({nowPage = 1, pageSize = 10, name, usingType, sta
   const offset = (nowPage - 1) * pageSize;
   const limit = Number(pageSize);
 
-  const where = {
-    user_id: userId
-  };
+  const where = {};
   let searchName = '';
   if (name) {
     searchName = name;
@@ -138,7 +136,7 @@ const getRequestsList = async ({nowPage = 1, pageSize = 10, name, usingType, sta
   } else {
     const start = startDate ? dayjs(startDate) : dayjs(endDate).subtract(1, 'month');
     const end = endDate ? dayjs(endDate) : dayjs(startDate).add(1, 'month');
-    where.use_date = { [Sequelize.Op.between]: [start.format(YYYYMMDD), end.format(YYYYMMDD)] };
+    where.use_date = {[Sequelize.Op.between]: [start.format(YYYYMMDD), end.format(YYYYMMDD)]};
   }
 
   const {count, rows} = await db.Request.findAndCountAll({

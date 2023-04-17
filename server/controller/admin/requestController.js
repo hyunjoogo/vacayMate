@@ -54,4 +54,8 @@ const getRequestsList = async (req, res) => {
   }
 };
 
-export { getRequestsList };
+const getDetailRequest = async (req, res) => {
+
+};
+
+export { getRequestsList, getDetailRequest };

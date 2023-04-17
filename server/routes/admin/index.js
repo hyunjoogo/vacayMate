@@ -31,7 +31,7 @@ AdminRouter.patch('/members/:memberNo/out')
 AdminRouter.get('/request', requestController.getRequestsList)
 
 // 회원 요청 상세조회
-AdminRouter.get('/request/:requestId')
+AdminRouter.get('/request/:requestId', requestController.getDetailRequest)
 
 // 회원 요청 승인
 AdminRouter.post('/request/:requestId/approve')
