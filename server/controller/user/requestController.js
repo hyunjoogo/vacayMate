@@ -1,13 +1,12 @@
 import dayjs from "dayjs";
 import utc from 'dayjs/plugin/utc.js';
-
 import { db } from "../../models/index.js";
 import handleError from "../../exceptions/error-handler.js";
 import * as VacationServices from "../../services/vacationServices.js";
-import validationError from "../../exceptions/validation-error.js";
 import * as RequestServices from "../../services/requestServices.js";
 import { YYYYMMDD } from "../../const/dateFormat.js";
 import snakecaseKeys from "snakecase-keys";
+import { CustomError } from "../../exceptions/CustomError.js";
 
 dayjs.extend(utc);
 
@@ -33,29 +32,29 @@ const createRequests = async (req, res) => {
     // 신청한 휴가유형에 문제가 있는지 확인
     const vacation = await VacationServices.getUserVacationByPK(vacationId);
     if (vacation === null) {
-      return validationError(res, "잘못된 휴가유형입니다.");
+      throw new CustomError(400, "잘못된 휴가유형입니다.");
     }
     if (vacation.user_id !== userId) {
-      return validationError(res, "본인의 휴가유형이 아닙니다.");
+      throw new CustomError(400, "본인의 휴가유형이 아닙니다.");
     }
     if (vacation.left_days === 0) { // 전체 일수를 받으면 가능
-      return validationError(res, "신청가능한 휴가일수가 없습니다.");
+      throw new CustomError(400, "신청가능한 휴가일수가 없습니다.");
     }
     if (vacation.left_days < totalDays) {
-      return validationError(res, "신청가능한 휴가일수가 부족합니다.");
+      throw new CustomError(400, "신청가능한 휴가일수가 부족합니다.");
     }
     if (dayjs(today).isAfter(vacation.expiration_date)) {
-      return validationError(res, "이미 만료된 휴가유형입니다.");
+      throw new CustomError(400, "이미 만료된 휴가유형입니다.");
     }
     const expiredRequests = requests.filter(v => dayjs(v.useDate).isAfter(vacation.expiration_date));
     if (expiredRequests.length !== 0) {
-      return validationError(res, "신청한 날짜가 휴가유형의 만료일을 넘었습니다.");
+      throw new CustomError(400, "신청한 날짜가 휴가유형의 만료일을 넘었습니다.");
     }
 
     for (const item of requests) {
       const isPossibleRequest = await RequestServices.checkDuplicateRequest(userId, vacationId, item);
       if (isPossibleRequest === false) {
-        return validationError(res, "이미 신청되어 있는 시간입니다.");
+        throw new CustomError(400, "이미 신청되어 있는 시간입니다.");
       }
     }
     const newRequests = requests.map(request => snakecaseKeys({...request, vacationId, userId}));
