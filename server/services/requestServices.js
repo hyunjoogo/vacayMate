@@ -171,10 +171,7 @@ const cancelRequest = async (requestId, userId, message) => {
 3. 취소를 하면 요청의 상태를 canceled로 변경하고 취소일시, 취소자를 넣어준다.
 4. 그리고 요청의 vacation을 원복시킨다.
  */
-
   const transaction = await db.sequelize.transaction();
-
-
   try {
     // 요청 가지고 오기
     const request = await db.Request.findByPk(requestId);

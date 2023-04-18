@@ -11,60 +11,25 @@ import { CustomError } from "../../exceptions/CustomError.js";
 
 
 const getMembers = async (req, res) => {
-  const {nowPage = 1, pageSize = 10, name, email, role, enterDate, isLeave} = req.query;
-  const offset = (nowPage - 1) * pageSize;
-  const limit = Number(pageSize);
-
   try {
-    const where = {};
-
-    if (name) {
-      where.name = {
-        [Sequelize.Op.like]: `%${name}%`
-      };
-    }
-    if (email) {
-      where.email = {
-        [Sequelize.Op.like]: `%${email}%`
-      };
-    }
-    if (ROLE_TYPE.includes(role)) {
-      where.role = role;
-    }
-    if (isLeave === 'true' || isLeave === 'false') {
-      where.is_leave = isLeave === 'true';
-    }
-
-    const {count, rows} = await membersServices.getMembersListPagination({
-      where,
-      order: [['created_at', 'DESC']],
-      offset,
-      limit
+    const {nowPage = 1, pageSize = 10, name, email, role, isLeave} = req.query;
+    const result = await membersServices.getMembersListPagination({
+      nowPage, pageSize, name, email, role, isLeave
     });
-    const totalPages = Math.ceil(count / limit);
-
-    res.status(200).json({
-      data: rows,
-      page: {
-        nowPage: Number(nowPage),
-        pageSize: limit,
-        totalPages: totalPages,
-        totalCount: count
-      }
-    });
-
+    res.status(200).json(result);
   } catch (error) {
     handleError(res, error);
   }
 };
 
 const getMemberDetail = async (req, res) => {
-  const {memberNo} = req.params;
+
 
   try {
     // TODO Validation 생각해보기
     // TODO Service로 옮기기
-    const member = await membersServices.getMemberByPK(memberNo);
+    const {memberNo} = req.params;
+    const member = await membersServices.getMemberDetail(memberNo);
     // 대상 회원의 휴가종류 가지고 와서 유형별 remain/total 넘겨주기
     const memberVacations = await db.Vacation.findAll({
       where: {user_id: memberNo}
@@ -108,14 +73,14 @@ const createEnterDate = async (req, res) => {
     // 회원의 휴가유형을 조회하여 연차 생성이 이미 되어 있으면 에러
     const memberVacations = await db.Vacation.findOne({
       where: {user_id: memberNo, type: "연차"}
-    })
+    });
 
     if (memberVacations !== null) {
       throw new CustomError(400, "이미 생성된 연차가 존재합니다.");
     }
 
     // 연차 계산 후 생성하기
-    const {expirationDate, totalAnnualDays} = calculateTotalAnnual(enterDate)
+    const {expirationDate, totalAnnualDays} = calculateTotalAnnual(enterDate);
 
     // 생성된 연차 remain, total 테이블에 저장
     const memberAnnual = await updatedMember.createVacation(
@@ -139,5 +104,4 @@ const createEnterDate = async (req, res) => {
   }
 };
 
-
-export { getMembers, getMemberDetail, createEnterDate }
+export { getMembers, getMemberDetail, createEnterDate };
