@@ -5,9 +5,9 @@ import handleError from "../../exceptions/error-handler.js";
 import { db } from "../../models/index.js";
 import { YYYYMMDD } from "../../const/dateFormat.js";
 import dayjs from "dayjs";
-import validationError from "../../exceptions/validation-error.js";
 import { calculateTotalAnnual } from "../../functions/calculateAnnual.js";
 import { ROLE_TYPE } from "../../const/admin.js";
+import { CustomError } from "../../exceptions/CustomError.js";
 
 
 const getMembers = async (req, res) => {
@@ -92,14 +92,14 @@ const createEnterDate = async (req, res) => {
   try {
     // 유효하지 않은 날짜 형식일 경우
     if (isValidFormat === false || isValidDate === false) {
-      return validationError(res, "잘못된 날짜형식입니다.");
+      throw new CustomError(400, "잘못된 날짜형식입니다.");
     }
 
     const member = await membersServices.getMemberByPK(memberNo);
 
     // 입사날짜가 이미 입력되어 있는 경우
     if (member.enter_date !== null) {
-      return validationError(res, "이미 입사날짜가 입력되어 있습니다.");
+      throw new CustomError(400, "이미 입사날짜가 입력되어 있습니다.");
     }
 
     // 입사날짜 입력하기
@@ -111,7 +111,7 @@ const createEnterDate = async (req, res) => {
     })
 
     if (memberVacations !== null) {
-      return validationError(res, "이미 생성된 연차가 존재합니다.");
+      throw new CustomError(400, "이미 생성된 연차가 존재합니다.");
     }
 
     // 연차 계산 후 생성하기
