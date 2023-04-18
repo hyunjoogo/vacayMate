@@ -2,16 +2,7 @@ import { db } from "../models/index.js";
 import { Sequelize } from "sequelize";
 import { ROLE_TYPE } from "../const/admin.js";
 
-const getMembersListPagination = async (
-  {
-    nowPage = 1,
-    pageSize = 10,
-    name,
-    email,
-    role,
-    isLeave
-  }
-) => {
+const getMembersListPagination = async ({nowPage = 1, pageSize = 10, name, email, role, isLeave}) => {
   const offset = (nowPage - 1) * pageSize;
   const limit = Number(pageSize);
 
@@ -47,8 +38,22 @@ const getMembersListPagination = async (
 };
 
 const getMemberDetail = async (memberNo) => {
-  const member = await db.User.findByPk(memberNo);
-  return member;
+  const result = await db.User.findOne({
+    where: {id: memberNo},
+    include: [
+      {
+        model: db.Vacation,
+      },
+      {
+        model: db.Request,
+        as: 'user', // Update the alias to 'requests'
+        separate: true, // Add separate: true to perform the query separately
+        where: { user_id: memberNo }, // Add a where condition to filter based on the user_id
+      },
+    ],
+  });
+
+  return result;
 };
 
 export { getMemberDetail, getMembersListPagination };

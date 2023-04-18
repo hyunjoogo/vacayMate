@@ -1,12 +1,9 @@
-import { Sequelize } from "sequelize";
-
 import * as membersServices from "../../services/membersServices.js";
 import handleError from "../../exceptions/error-handler.js";
 import { db } from "../../models/index.js";
 import { YYYYMMDD } from "../../const/dateFormat.js";
 import dayjs from "dayjs";
 import { calculateTotalAnnual } from "../../functions/calculateAnnual.js";
-import { ROLE_TYPE } from "../../const/admin.js";
 import { CustomError } from "../../exceptions/CustomError.js";
 
 
@@ -24,22 +21,15 @@ const getMembers = async (req, res) => {
 
 const getMemberDetail = async (req, res) => {
 
-
   try {
     // TODO Validation 생각해보기
-    // TODO Service로 옮기기
+
+    /* FLOW 멤버 상세정보
+    1. memberNo으로
+     */
     const {memberNo} = req.params;
     const member = await membersServices.getMemberDetail(memberNo);
-    // 대상 회원의 휴가종류 가지고 와서 유형별 remain/total 넘겨주기
-    const memberVacations = await db.Vacation.findAll({
-      where: {user_id: memberNo}
-    });
-    // 대상 회원의 요청 가지고 와서 상태별 갯수 넘겨주기
-    const memberRequests = await db.Request.findAll({
-      where: {user_id: memberNo}
-    });
-
-    res.status(200).json({member, memberVacations, memberRequests});
+    res.status(200).json(member);
   } catch (error) {
     handleError(res, error);
   }
