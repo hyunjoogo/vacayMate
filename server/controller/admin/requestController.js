@@ -69,6 +69,7 @@ const approveRequest = async (req, res) => {
     const {requestId} = req.params;
     const {id: userId} = req.user;
     const {message} = req.body;
+
     const approvedRequest = await RequestServices.approveRequest(requestId, userId, message);
     res.status(200).json(approvedRequest);
   } catch (error) {

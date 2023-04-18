@@ -6,7 +6,6 @@ import dayjs from "dayjs";
 import { calculateTotalAnnual } from "../../functions/calculateAnnual.js";
 import { CustomError } from "../../exceptions/CustomError.js";
 
-
 const getMembers = async (req, res) => {
   try {
     const {nowPage = 1, pageSize = 10, name, email, role, isLeave} = req.query;
@@ -20,13 +19,8 @@ const getMembers = async (req, res) => {
 };
 
 const getMemberDetail = async (req, res) => {
-
   try {
     // TODO Validation 생각해보기
-
-    /* FLOW 멤버 상세정보
-    1. memberNo으로
-     */
     const {memberNo} = req.params;
     const member = await membersServices.getMemberDetail(memberNo);
     res.status(200).json(member);
