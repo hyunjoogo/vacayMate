@@ -162,7 +162,7 @@ const getDetailRequest = async (requestId) => {
   return result;
 };
 
-const getRequestsList = async ({nowPage = 1, pageSize = 10, name, usingType, status, startDate, endDate, userId}) => {
+const getRequestsList = async ({nowPage = 1, pageSize = 10, name, usingType, status, startDate, endDate}) => {
   const offset = (nowPage - 1) * pageSize;
   const limit = Number(pageSize);
 
