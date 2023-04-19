@@ -1,4 +1,5 @@
-.idea
+.idea/
+.idea/httpRequests/http-requests-log.http
 
 */node_modules
 

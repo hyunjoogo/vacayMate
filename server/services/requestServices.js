@@ -1,4 +1,3 @@
-// 중복 요청이 있으면 false를 리턴하는 함수
 import { db } from "../models/index.js";
 import checkDuplicateUsingType from "../functions/compareUsingType.js";
 import { Sequelize } from "sequelize";
@@ -6,6 +5,9 @@ import { YYYYMMDD } from "../const/dateFormat.js";
 import dayjs from "dayjs";
 import { APPROVED, CANCELED, PENDING, REFUSED } from "../const/request-status.js";
 import { CustomError } from "../exceptions/CustomError.js";
+import * as VacationServices from "./vacationServices.js";
+import snakecaseKeys from "snakecase-keys";
+
 
 const checkDuplicateRequest = async (userId, vacationId, request) => {
   const {useDate, usingType} = request;
@@ -15,10 +17,11 @@ const checkDuplicateRequest = async (userId, vacationId, request) => {
     {
       where: {
         user_id: userId,
-        use_date: useDate
+        use_date: useDate,
       }
     }
   );
+
   if (sameUseDateRequests.length !== 0) {
     // 신청한 사용타입과 겹치는지 확인
     const isPossible = checkDuplicateUsingType(sameUseDateRequests, usingType);
@@ -27,6 +30,52 @@ const checkDuplicateRequest = async (userId, vacationId, request) => {
     }
   }
   return true;
+};
+
+const createRequests = async ({requests: userRequests, userId, totalDays, vacationId}, transaction) => {
+  const today = dayjs().format(YYYYMMDD);
+  const vacation = await VacationServices.getUserVacationByPK(vacationId);
+
+  if (!vacation) {
+    throw new CustomError(400, "잘못된 휴가유형입니다.");
+  }
+  if (vacation.user_id !== userId) {
+    throw new CustomError(400, "본인의 휴가유형이 아닙니다.");
+  }
+  if (vacation.left_days === 0) {
+    throw new CustomError(400, "신청가능한 휴가일수가 없습니다.");
+  }
+  if (vacation.left_days < totalDays) {
+    throw new CustomError(400, "신청가능한 휴가일수가 부족합니다.");
+  }
+  if (dayjs(today).isAfter(vacation.expiration_date)) {
+    throw new CustomError(400, "This vacation type has already expired.");
+  }
+  const expiredRequests = userRequests.filter(request => dayjs(request.useDate).isAfter(vacation.expiration_date));
+  if (expiredRequests.length !== 0) {
+    throw new CustomError(400, "신청한 날짜가 휴가유형의 만료일을 넘었습니다.");
+  }
+
+  for (const request of userRequests) {
+    const isPossibleRequest = await checkDuplicateRequest(userId, vacationId, request);
+    if (isPossibleRequest === false) {
+      throw new CustomError(400, "이미 신청되어 있는 시간입니다.");
+    }
+  }
+
+  const newRequestsForQuery = userRequests.map(request => snakecaseKeys({...request, vacationId, userId}));
+
+  const newRequest = [];
+  for (const item of newRequestsForQuery) {
+    const request = await db.Request.create(item, {transaction});
+    newRequest.push(request);
+  }
+
+  const updateVacation = await vacation.update({left_days: vacation.left_days - totalDays}, {
+    transaction,
+    returning: true
+  });
+  return updateVacation;
 };
 
 const getDetailRequest = async (requestId) => {
@@ -113,8 +162,7 @@ const getDetailRequest = async (requestId) => {
   return result;
 };
 
-
-const getRequestsList = async ({nowPage = 1, pageSize = 10, name, usingType, status, startDate, endDate, userId}) => {
+const getRequestsList = async ({nowPage = 1, pageSize = 10, name, usingType, status, startDate, endDate}) => {
   const offset = (nowPage - 1) * pageSize;
   const limit = Number(pageSize);
 
@@ -171,10 +219,7 @@ const cancelRequest = async (requestId, userId, message) => {
 3. 취소를 하면 요청의 상태를 canceled로 변경하고 취소일시, 취소자를 넣어준다.
 4. 그리고 요청의 vacation을 원복시킨다.
  */
-
   const transaction = await db.sequelize.transaction();
-
-
   try {
     // 요청 가지고 오기
     const request = await db.Request.findByPk(requestId);
@@ -288,4 +333,12 @@ const refuseRequest = async (requestId, userId, message) => {
   }
 };
 
-export { checkDuplicateRequest, getDetailRequest, getRequestsList, cancelRequest, approveRequest, refuseRequest };
+export {
+  checkDuplicateRequest,
+  createRequests,
+  getDetailRequest,
+  getRequestsList,
+  cancelRequest,
+  approveRequest,
+  refuseRequest
+};

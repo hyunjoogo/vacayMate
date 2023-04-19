@@ -1,18 +1,19 @@
 ### 회원 목록조회
-GET {{admin}}/{{user_id}}/members?role=admin
+GET {{admin}}/{{user_id}}/members
 Authorization: Bearer {{access_token}}
 Content-Type: application/json
 
 ### 회원 상세조회
-GET {{admin}}/{{user_id}}/members/1
+GET {{admin}}/{{user_id}}/members/3
 Authorization: Bearer {{access_token}}
 Content-Type: application/json
 
 ### 회원 입사날짜 등록
-POST {{admin}}/{{user_id}}/members/1/enter-date
+POST {{admin}}/{{user_id}}/members/3/enter-date
 Authorization: Bearer {{access_token}}
 Content-Type: application/json
 
 {
-  "enterDate": "2021-02-20"
+  "enterDate": "2023-02-20",
+  "annualMemo" : "잘 생성해주세요."
 }
