@@ -1,14 +1,13 @@
-// 날짜 포맷이 맞는지 확인하는 로직
-import { isValidDateFormat } from "../../functions/isValidDateFormat.js";
 import { CustomError } from "../../exceptions/CustomError.js";
 import { REQUEST_STATUS_LIST } from "../../const/request-status.js";
 import { USING_TYPE_LIST } from "../../const/vacation-using-type.js";
+import { isValidDate } from "../../functions/valid/isValidDate.js";
 
 export const validateQuery = ({startDate, endDate, name, status, usingType}) => {
-  if (startDate && isValidDateFormat(startDate) === false) {
+  if (startDate && isValidDate(startDate) === false) {
     throw new CustomError(400, "검색 시작일을 YYYY-MM-DD에 맞춰주세요.");
   }
-  if (endDate && isValidDateFormat(endDate) === false) {
+  if (endDate && isValidDate(endDate) === false) {
     throw new CustomError(400, "검색 종료일을 YYYY-MM-DD에 맞춰주세요.");
   }
 // 이름이 두글자 이상인지 확인

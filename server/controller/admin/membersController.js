@@ -1,10 +1,9 @@
 import * as membersServices from "../../services/membersServices.js";
+import * as vacationServices from "../../services/vacationServices.js";
 import handleError from "../../exceptions/error-handler.js";
 import { db } from "../../models/index.js";
-import { YYYYMMDD } from "../../const/dateFormat.js";
-import dayjs from "dayjs";
-import { calculateTotalAnnual } from "../../functions/calculateAnnual.js";
 import { CustomError } from "../../exceptions/CustomError.js";
+import { isValidDate } from "../../functions/valid/isValidDate.js";
 
 const getMembers = async (req, res) => {
   try {
@@ -31,57 +30,31 @@ const getMemberDetail = async (req, res) => {
 
 const createEnterDate = async (req, res) => {
   const {memberNo} = req.params;
-  const {enterDate} = req.body;
+  const {enterDate, annualMemo} = req.body;
 
-  const isValidFormat = dayjs(enterDate, YYYYMMDD, true).format(YYYYMMDD) === enterDate;
-  const isValidDate = dayjs(enterDate, YYYYMMDD, true).isValid();
+  // 유효하지 않은 날짜 형식일 경우
+  if (isValidDate(enterDate)) {
+    throw new CustomError(400, "잘못된 날짜형식입니다.");
+  }
 
+  /* FLOW
+    1. 사용자의 정보에 입사일을 입력한다.
+    2. 사용자의 휴가유형 중 '연차'가 있는지 확인한다.
+    3. 연차 계산 수식을 이용해서 지금까지 생성된 연차와 연차 만료일을 구한다.
+    4. 이 정보를 토대로 사용자의 휴가유형 중 '연차'를 생성해준다.
+    5. 연차 자동 생성 스케줄러에 연차 만료일과 사용자의 ID를 추가해준다.
+   */
   const transaction = await db.sequelize.transaction();
-
   try {
-    // 유효하지 않은 날짜 형식일 경우
-    if (isValidFormat === false || isValidDate === false) {
-      throw new CustomError(400, "잘못된 날짜형식입니다.");
-    }
+    const updatedMember = await membersServices.addMemberEnterDate(memberNo, enterDate, transaction);
+    const memberVacations = await vacationServices.createAnnualVacation(updatedMember, {
+      enterDate,
+      annualMemo
+    }, transaction);
 
-    const member = await membersServices.getMemberByPK(memberNo);
-
-    // 입사날짜가 이미 입력되어 있는 경우
-    if (member.enter_date !== null) {
-      throw new CustomError(400, "이미 입사날짜가 입력되어 있습니다.");
-    }
-
-    // 입사날짜 입력하기
-    const updatedMember = await member.update({enter_date: enterDate}, {transaction});
-
-    // 회원의 휴가유형을 조회하여 연차 생성이 이미 되어 있으면 에러
-    const memberVacations = await db.Vacation.findOne({
-      where: {user_id: memberNo, type: "연차"}
-    });
-
-    if (memberVacations !== null) {
-      throw new CustomError(400, "이미 생성된 연차가 존재합니다.");
-    }
-
-    // 연차 계산 후 생성하기
-    const {expirationDate, totalAnnualDays} = calculateTotalAnnual(enterDate);
-
-    // 생성된 연차 remain, total 테이블에 저장
-    const memberAnnual = await updatedMember.createVacation(
-      {
-        type: "연차",
-        memo: "김현주 연차", // 메모를 받아야겠네?
-        left_days: totalAnnualDays,
-        total_days: totalAnnualDays,
-        expiration_date: expirationDate
-      }, {transaction: transaction});
-
-    // TODO 이 사람의 만료일을 AutoAnnualCreator에게 넘겨주기
-
+    // // TODO 이 사람의 만료일을 AutoAnnualCreator에게 넘겨주기
     await transaction.commit();
-
-    res.status(200).json({memberVacations, memberAnnual});
-
+    res.status(200).json({updatedMember, memberVacations});
   } catch (error) {
     await transaction.rollback();
     handleError(res, error);
