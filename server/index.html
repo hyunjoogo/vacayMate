@@ -1,56 +1,30 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Title</title>
-  <script src="https://accounts.google.com/gsi/client" async defer></script></head>
-<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js" async defer></script>
-<script src="https://cdn.jsdelivr.net/npm/dayjs@1/dayjs.min.js" async defer></script>
-
-
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js" async defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/dayjs@1/dayjs.min.js" async defer></script>
+</head>
 <body>
-
-<div id="buttonDiv"></div>
-<button>현재시간</button>
+<h1>회원가입</h1>
 <script>
-  const button = document.querySelector('button');
-
-  button.addEventListener('click', function() {
-    const currentTime = new Date();
-    const utcTime = currentTime.toUTCString();
-    const dayjsTime = dayjs().format()
-    console.log({currentTime, utcTime, dayjsTime});
-    fetch('/time', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        currentTime, utcTime, dayjsTime
-      })
-    }).then(response => {
-      // 응답 처리
-    }).catch(error => {
-      // 오류 처리
-    });
-  })
-
-
   async function handleCredentialResponse(response) {
-    console.log(response);
     try {
       let accessToken = "";
-      const {data} = await axios.post('http://localhost:3300/api/auth/google', {}, {
+      const {data} = await axios.post('http://localhost:3300/api/common/v1/sign-in', {}, {
         headers: {
           Authorization: `Bearer ${response.credential}`
         }
       });
       accessToken = data.accessToken;
-      console.log('가입완료', {accessToken})
+      console.log('가입완료', {accessToken});
     } catch (err) {
       console.error(err);
     }
   }
+
   window.onload = function () {
     google.accounts.id.initialize({
       client_id: "739307502412-ee4ur6b7e48b9dl1upbsgk1sej8s1o3o.apps.googleusercontent.com",
@@ -58,10 +32,10 @@
     });
     google.accounts.id.renderButton(
       document.getElementById("buttonDiv"),
-      { theme: "outline", size: "large" }  // customization attributes
+      {theme: "outline", size: "large"}  // customization attributes
     );
     google.accounts.id.prompt(); // also display the One Tap dialog
-  }
+  };
 </script>
 </body>
 </html>
