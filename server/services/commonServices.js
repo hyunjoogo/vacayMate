@@ -1,6 +1,8 @@
 import { CustomError } from "../exceptions/CustomError.js";
 import { OAuth2Client } from "google-auth-library";
 import { db } from "../models/index.js";
+import { signAccessToken, signRefreshToken } from "../helpers/jwt_helper.js";
+import redisCli from "../helpers/init_redis.js";
 
 const oAuth2Client = new OAuth2Client(process.env.GOOGLE_CLIENT_ID, process.env.GOOGLE_CLIENT_PASSWORD);
 
@@ -22,7 +24,7 @@ const verifyGoogleToken = async (req) => {
   const payload = ticket.getPayload();
   if (payload) {
     req.userId = payload['sub'];
-    console.log(payload);
+    // console.log(payload);
   }
 
   return payload;
@@ -48,14 +50,28 @@ const createUser = async (googleInfo) => {
 };
 
 const generateToken = async (user) => {
-  // const accessToken = await signAccessToken(user.id)
-  // const refreshToken = await signRefreshToken(user.id)
+  const accessToken = await signAccessToken(user);
+  const refreshToken = await signRefreshToken(user);
 
-  const accessToken = "accessToken";
-  const refreshToken = "refreshToken";
+  redisCli.SET('20', refreshToken, {
+    EX: 365 * 24 * 60 * 60
+  }, (err, reply) => {
+    if (err) {
+      console.log(err.message)
+    }
+  });
+
 
   return {accessToken, refreshToken};
-
 };
 
-export { verifyGoogleToken, createUser, generateToken };
+const findUser = async (email) => {
+  const user = await db.User.findOne({
+    where: {
+      email
+    }
+  });
+  return user;
+};
+
+export { verifyGoogleToken, createUser, generateToken, findUser };

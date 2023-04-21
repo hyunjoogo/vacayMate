@@ -20,8 +20,6 @@ db.sequelize.sync();
 const app = express();
 const PORT = 3300;
 
-// db.sequelize.sync(); //sync 메서드를 사용하면 알아서 MySQL과 연동됨
-
 app.use(morgan("dev"));
 app.use(cors());
 app.use(express.json());
