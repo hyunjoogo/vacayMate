@@ -8,5 +8,5 @@
 server/http/http-client.env.json
 server/http/http-client.private.env.json
 server/index.html
-server/dump.rdb
 server/http/login.http
+server/dump.rdb
