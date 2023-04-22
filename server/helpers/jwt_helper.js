@@ -1,7 +1,10 @@
 import jwt from 'jsonwebtoken';
 import redisClient from './init_redis.js';
 import { CustomError } from "../exceptions/CustomError.js";
+import dayjs from "dayjs";
+import { ACCESS_TOKEN_EXPIRE_TIME, ISSUER, REFRESH_TOKEN_EXPIRE_TIME } from "../const/tokenConfig.js";
 
+// 새로운 accessToken을 생성하는 함수
 const signAccessToken = (user) => {
   return new Promise((resolve, reject) => {
     const payload = {
@@ -11,8 +14,8 @@ const signAccessToken = (user) => {
     };
     const secret = process.env.ACCESS_TOKEN_SECRET;
     const options = {
-      expiresIn: '1h',
-      issuer: 'Vacay-Mate',
+      expiresIn: ACCESS_TOKEN_EXPIRE_TIME,
+      issuer: ISSUER,
       audience: String(user.id),
     };
     jwt.sign(payload, secret, options, (err, token) => {
@@ -25,6 +28,7 @@ const signAccessToken = (user) => {
   });
 };
 
+// 클라이언트로부터 들어온 token을 검증
 const verifyAccessToken = async (token) => {
   // if (!req.headers['authorization']) return next(createError.Unauthorized())
   // const authHeader = req.headers['authorization']
@@ -52,24 +56,24 @@ const signRefreshToken = async (user) => {
     };
     const secret = process.env.REFRESH_TOKEN_SECRET;
     const options = {
-      expiresIn: '1y',
-      issuer: 'Vacay-Mate',
+      expiresIn: REFRESH_TOKEN_EXPIRE_TIME,
+      issuer: ISSUER,
       audience: String(user.id),
     };
-
-    const refreshToken = await jwt.sign(payload, secret, options, (err, token) => {
-      if (err) {
-        console.error(err);
-        throw new Error('JWT 토큰 생성 과정에서 오류가 발생했습니다.');
-      }
-      console.log('내부', token);
-      return token;
-    });
-
-    console.log(refreshToken);
-
+    /*
+    코드1 : const refreshToken = await jwt.sign(payload, secret, options);
     return refreshToken;
+    코드2 :return await jwt.sign(payload, secret, options)
+    코드1과 코드2는 같은 결과를 가지고 온다.
+    하지만 await를 바로 리턴하지 않고 변수로 할당하여 리턴(코드1)하는 이유는
+    await가 리턴하는 값에 대한 예외처리가 필요할 때 (에러 핸들링이 아님) 바로 사용이 가능하기 때문
+     */
+    const refreshToken = await jwt.sign(payload, secret, options);
+    await redisClient.SET(String(user.id), refreshToken, {EX: 365 * 24 * 60 * 60});
+    return refreshToken;
+
   } catch (error) {
+    console.log(error);
     throw new CustomError('401', error.message);
   }
 };
@@ -78,24 +82,17 @@ const signRefreshToken = async (user) => {
 const verifyRefreshToken = async (refreshToken) => {
   try {
     // Refresh Token 검증
-    const userPayload = await jwt.verify(refreshToken, process.env.REFRESH_TOKEN_SECRET, (err, contents) => {
-      if (err) {
-        console.error(err);
-        throw new Error('RefreshToken 변조 의심');
-      }
-      return contents;
-    });
-    // Redis에 저장된 데이터 중 사용자의 id를 키로 가지고 있는 값과 같은지 검증
+    const userPayload = await jwt.verify(refreshToken, process.env.REFRESH_TOKEN_SECRET);
+    const expirationTime = userPayload.exp;
+    const isExpired = dayjs().unix() >= expirationTime;
+    if (isExpired) {
+      await redisClient.get(String(userPayload.id));
+      throw new Error("토큰 시간 만료입니다.")
+    }
+    // Redis 값과 같은지 검증
     const userId = userPayload.id;
-    const redisRefreshToken = await redisClient.get(String(userId), (err, result) => {
-      if (err) {
-        console.error(err);
-        throw new Error('Redis에 정보가 없습니다.');
-      }
-      return result;
-    });
+    const redisRefreshToken = await redisClient.get(userId);
     if (redisRefreshToken !== refreshToken) throw new Error("Redis의 값과 Refresh Token이 다릅니다.");
-
     return userPayload;
   } catch (error) {
     throw new CustomError('401', error.message);

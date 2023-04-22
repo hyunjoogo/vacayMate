@@ -21,14 +21,15 @@ const verifyGoogleToken = async (req) => {
     idToken: token,
     audience: process.env.GOOGLE_CLIENT_ID,
   });
+
   // 구글인증서버에서 가지고 있는 정보를 가지고 온다.
   // 본문 데이터
   const payload = ticket.getPayload(); //
   if (payload) {
     req.userId = payload['sub'];
-    console.log(payload);
+    // console.log('구글토큰 내부 Payload', payload);
   }
-
+  console.log(ticket, payload);
   return payload;
 };
 

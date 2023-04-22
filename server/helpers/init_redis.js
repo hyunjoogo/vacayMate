@@ -16,5 +16,15 @@ await client.ping();
 
 const redisClient = client.v4;
 
+redisClient.get = (key) => {
+  return new Promise((resolve, reject) => {
+    client.get(String(key), (err, data) => {
+      if (err) reject(err);
+      resolve(data);
+    });
+  });
+}
+
+
 export default redisClient;
 
