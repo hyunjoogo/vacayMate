@@ -10,3 +10,4 @@ server/http/http-client.private.env.json
 server/index.html
 server/http/login.http
 server/dump.rdb
+server/http/login.http
