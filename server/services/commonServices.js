@@ -2,7 +2,7 @@ import { CustomError } from "../exceptions/CustomError.js";
 import { OAuth2Client } from "google-auth-library";
 import { db } from "../models/index.js";
 import { signAccessToken, signRefreshToken } from "../helpers/jwt_helper.js";
-import redisCli from "../helpers/init_redis.js";
+import redisClient from "../helpers/init_redis.js";
 
 const oAuth2Client = new OAuth2Client(process.env.GOOGLE_CLIENT_ID, process.env.GOOGLE_CLIENT_PASSWORD);
 
@@ -21,12 +21,15 @@ const verifyGoogleToken = async (req) => {
     idToken: token,
     audience: process.env.GOOGLE_CLIENT_ID,
   });
-  const payload = ticket.getPayload();
+
+  // 구글인증서버에서 가지고 있는 정보를 가지고 온다.
+  // 본문 데이터
+  const payload = ticket.getPayload(); //
   if (payload) {
     req.userId = payload['sub'];
-    // console.log(payload);
+    // console.log('구글토큰 내부 Payload', payload);
   }
-
+  console.log(ticket, payload);
   return payload;
 };
 
@@ -49,18 +52,10 @@ const createUser = async (googleInfo) => {
   return newUser;
 };
 
+
 const generateToken = async (user) => {
   const accessToken = await signAccessToken(user);
   const refreshToken = await signRefreshToken(user);
-
-  redisCli.SET('20', refreshToken, {
-    EX: 365 * 24 * 60 * 60
-  }, (err, reply) => {
-    if (err) {
-      console.log(err.message)
-    }
-  });
-
 
   return {accessToken, refreshToken};
 };
