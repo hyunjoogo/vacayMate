@@ -4,33 +4,6 @@ import { db } from "../models/index.js";
 import { signAccessToken, signRefreshToken } from "../helpers/jwt_helper.js";
 import redisClient from "../helpers/init_redis.js";
 
-const oAuth2Client = new OAuth2Client(process.env.GOOGLE_CLIENT_ID, process.env.GOOGLE_CLIENT_PASSWORD);
-
-// 클라이언트에서 전송한 JWT(JSON Web Token)를 구글 OAuth2 클라이언트 라이브러리(google-auth-library)를 사용하여 검증합니다.
-// 이를 통해, JWT가 유효한지 확인하고, JWT에 포함된 사용자 정보를 추출합니다.
-const verifyGoogleToken = async (req) => {
-  const authHeader = req.headers.authorization;
-  if (!authHeader) {
-    throw new CustomError(401, "구글 토큰에 문제가 발생했습니다.",);
-  }
-  const token = authHeader.split(' ')[1];
-  // JWT를 구글 서버로 보내 검증을 요청하는 기능을 수행
-  // audience 매개변수에는, 해당 JWT를 생성한 클라이언트 ID를 전달합니다.
-  // 이를 통해, JWT가 해당 클라이언트에서 생성된 것인지 확인합니다.
-  const ticket = await oAuth2Client.verifyIdToken({
-    idToken: token,
-    audience: process.env.GOOGLE_CLIENT_ID,
-  });
-
-  // 구글인증서버에서 가지고 있는 정보를 가지고 온다.
-  // 본문 데이터
-  const payload = ticket.getPayload(); //
-  if (payload) {
-    req.userId = payload['sub'];
-    // console.log('구글토큰 내부 Payload', payload);
-  }
-  return payload;
-};
 
 const createUser = async (googleInfo) => {
   // const emaila = "hyunjoogo@tuneit.io";
@@ -55,6 +28,7 @@ const createUser = async (googleInfo) => {
 const generateToken = async (user) => {
   const accessToken = await signAccessToken(user);
   const refreshToken = await signRefreshToken(user);
+  await redisClient.SET(String(user.id), refreshToken, {EX: 365 * 24 * 60 * 60});
 
   return {accessToken, refreshToken};
 };
@@ -68,4 +42,4 @@ const findUser = async (email) => {
   return user;
 };
 
-export { verifyGoogleToken, createUser, generateToken, findUser };
+export { createUser, generateToken, findUser };

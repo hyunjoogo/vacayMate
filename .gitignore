@@ -11,3 +11,4 @@ server/index.html
 server/http/login.http
 server/dump.rdb
 
+/server/migrations/*

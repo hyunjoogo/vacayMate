@@ -61,7 +61,6 @@ const signRefreshToken = async (user) => {
     await가 리턴하는 값에 대한 예외처리가 필요할 때 (에러 핸들링이 아님) 바로 사용이 가능하기 때문
      */
     const refreshToken = await jwt.sign(payload, secret, options);
-    await redisClient.SET(String(user.id), refreshToken, {EX: 365 * 24 * 60 * 60});
     return refreshToken;
 
   } catch (error) {
