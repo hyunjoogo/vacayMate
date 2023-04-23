@@ -6,7 +6,6 @@ import redisClient from "../helpers/init_redis.js";
 
 
 const createUser = async (googleInfo) => {
-  // const emaila = "hyunjoogo@tuneit.io";
   const isExist = await db.User.findOne({
     where: {
       email: googleInfo.email
@@ -18,7 +17,7 @@ const createUser = async (googleInfo) => {
   const newUser = await db.User.create({
     name: googleInfo.name,
     email: googleInfo.email,
-    // 사진?
+    user_img : googleInfo.picture
   });
 
   return newUser;
