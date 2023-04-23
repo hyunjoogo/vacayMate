@@ -2,6 +2,8 @@ import handleError from "../../exceptions/error-handler.js";
 import * as CommonServices from "../../services/commonServices.js";
 import { CustomError } from "../../exceptions/CustomError.js";
 import { signAccessToken, verifyRefreshToken } from "../../helpers/jwt_helper.js";
+import { findUser } from "../../services/commonServices.js";
+import { db } from "../../models/index.js";
 
 const signIn = async (req, res) => {
   /* FLOW
@@ -54,7 +56,8 @@ const refreshToken = async (req, res) => {
     //   2. 새로운 액세스토큰 생성
     const accessToken = await signAccessToken(userPayload);
     //   3. 클라이언트로 사용자의 정보와 토큰들을 보내준다.
-    res.send({user: userPayload, token: {accessToken}});
+    const user = await db.User.findByPk(userPayload.id);
+    res.send({user, token: {accessToken}});
   } catch (error) {
     console.log(error);
     handleError(res, error);
