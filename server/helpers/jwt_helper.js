@@ -1,7 +1,6 @@
 import jwt from 'jsonwebtoken';
 import redisClient from './init_redis.js';
 import { CustomError } from "../exceptions/CustomError.js";
-import dayjs from "dayjs";
 import { ACCESS_TOKEN_EXPIRE_TIME, ISSUER, PAYLOAD, REFRESH_TOKEN_EXPIRE_TIME } from "../const/tokenConfig.js";
 
 // 새로운 accessToken을 생성하는 함수
@@ -25,20 +24,19 @@ const signAccessToken = (user) => {
 };
 
 // 클라이언트로부터 들어온 token을 검증
-const verifyAccessToken = async (token) => {
-  // if (!req.headers['authorization']) return next(createError.Unauthorized())
-  // const authHeader = req.headers['authorization']
-  // const bearerToken = authHeader.split(' ')
-  // const token = bearerToken[1]
-  // JWT.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, payload) => {
-  //   if (err) {
-  //     const message =
-  //       err.name === 'JsonWebTokenError' ? 'Unauthorized' : err.message
-  //     return next(createError.Unauthorized(message))
-  //   }
-  //   req.payload = payload
-  //   next()
-  // })
+const verifyAccessToken = async (req, res, next) => {
+  try {
+    if (!req.headers['authorization']) throw new CustomError(401, 'Unauthorized');
+    const authHeader = req.headers['authorization'];
+    const bearerToken = authHeader.split(' ');
+    const token = bearerToken[1];
+    const payload = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET);
+    req.payload = payload;
+    next();
+  } catch (error) {
+    const message = error.name === 'JsonWebTokenError' ? 'Unauthorized' : error.message;
+    throw new CustomError(401, message);
+  }
 };
 
 // 외부로부터 받은 user 객체를 이용하여 새로운 RefreshToken을 생성 후
@@ -71,21 +69,24 @@ const signRefreshToken = async (user) => {
 
 // Redis에 저장되어 있는 Refresh Token이 클라이언트에서 보낸 Refresh Token과 같은지 확인한다.
 const verifyRefreshToken = async (refreshToken) => {
+  let userId = "";
+
   try {
     // Refresh Token 검증
     const userPayload = await jwt.verify(refreshToken, process.env.REFRESH_TOKEN_SECRET);
-    const expirationTime = userPayload.exp;
-    const isExpired = dayjs().unix() >= expirationTime;
-    if (isExpired) {
-      await redisClient.get(String(userPayload.id));
-      throw new Error("토큰 시간 만료입니다.");
-    }
     // Redis 값과 같은지 검증
-    const userId = userPayload.id;
+    userId = userPayload.id;
     const redisRefreshToken = await redisClient.get(userId);
     if (redisRefreshToken !== refreshToken) throw new Error("Redis의 값과 Refresh Token이 다릅니다.");
     return userPayload;
   } catch (error) {
+    if (error.name === 'TokenExpiredError') {
+      await redisClient.del(String(userId));
+      throw new CustomError('401', "만료가 된 토큰입니다.");
+    }
+    if (error.name === 'JsonWebTokenError') {
+      throw new CustomError('401', "잘못된 토큰입니다.");
+    }
     throw new CustomError('401', error.message);
   }
 };
