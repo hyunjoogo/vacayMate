@@ -2,16 +2,12 @@ import jwt from 'jsonwebtoken';
 import redisClient from './init_redis.js';
 import { CustomError } from "../exceptions/CustomError.js";
 import dayjs from "dayjs";
-import { ACCESS_TOKEN_EXPIRE_TIME, ISSUER, REFRESH_TOKEN_EXPIRE_TIME } from "../const/tokenConfig.js";
+import { ACCESS_TOKEN_EXPIRE_TIME, ISSUER, PAYLOAD, REFRESH_TOKEN_EXPIRE_TIME } from "../const/tokenConfig.js";
 
 // 새로운 accessToken을 생성하는 함수
 const signAccessToken = (user) => {
   return new Promise((resolve, reject) => {
-    const payload = {
-      id: user.id,
-      email: user.email,
-      name: user.name,
-    };
+    const payload = PAYLOAD(user);
     const secret = process.env.ACCESS_TOKEN_SECRET;
     const options = {
       expiresIn: ACCESS_TOKEN_EXPIRE_TIME,
@@ -49,11 +45,7 @@ const verifyAccessToken = async (token) => {
 // Redis에 key가 user의 id인 RefreshToken을 저장
 const signRefreshToken = async (user) => {
   try {
-    const payload = {
-      id: user.id,
-      email: user.email,
-      name: user.name,
-    };
+    const payload = PAYLOAD(user);
     const secret = process.env.REFRESH_TOKEN_SECRET;
     const options = {
       expiresIn: REFRESH_TOKEN_EXPIRE_TIME,
@@ -87,7 +79,7 @@ const verifyRefreshToken = async (refreshToken) => {
     const isExpired = dayjs().unix() >= expirationTime;
     if (isExpired) {
       await redisClient.get(String(userPayload.id));
-      throw new Error("토큰 시간 만료입니다.")
+      throw new Error("토큰 시간 만료입니다.");
     }
     // Redis 값과 같은지 검증
     const userId = userPayload.id;

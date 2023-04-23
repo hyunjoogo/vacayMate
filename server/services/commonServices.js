@@ -29,7 +29,6 @@ const verifyGoogleToken = async (req) => {
     req.userId = payload['sub'];
     // console.log('구글토큰 내부 Payload', payload);
   }
-  console.log(ticket, payload);
   return payload;
 };
 
