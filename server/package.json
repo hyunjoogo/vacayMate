@@ -30,6 +30,7 @@
     "snakecase-keys": "^5.4.5"
   },
   "devDependencies": {
+    "esm": "^3.2.25",
     "nodemon": "^2.0.22"
   }
 }

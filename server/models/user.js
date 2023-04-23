@@ -34,6 +34,11 @@ export const user = (sequelize, DataTypes) => {
       allowNull: false,
       defaultValue: false
     },
+    user_img: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      defaultValue: 'default.png'
+    },
     created_at: {
       allowNull: false,
       type: DataTypes.DATE,

@@ -2,7 +2,6 @@ import handleError from "../../exceptions/error-handler.js";
 import * as CommonServices from "../../services/commonServices.js";
 import { CustomError } from "../../exceptions/CustomError.js";
 import { signAccessToken, verifyRefreshToken } from "../../helpers/jwt_helper.js";
-import redisClient from "../../helpers/init_redis.js";
 
 const signIn = async (req, res) => {
   /* FLOW
@@ -13,8 +12,8 @@ const signIn = async (req, res) => {
   4. 클라이언트로 새로운 사용자의 정보와 토큰들을 보내준다.
   */
   try {
-    const result = await CommonServices.verifyGoogleToken(req);
-    const newUser = await CommonServices.createUser(result);
+    const payload = req.user;
+    const newUser = await CommonServices.createUser(payload);
     const {accessToken, refreshToken} = await CommonServices.generateToken(newUser);
     res.status(200).json({newUser, token: {accessToken, refreshToken}});
   } catch (error) {
@@ -30,8 +29,8 @@ const login = async (req, res) => {
   4. 클라이언트로 사용자의 정보와 토큰들을 보내준다.
  */
   try {
-    const result = await CommonServices.verifyGoogleToken(req);
-    const user = await CommonServices.findUser(result.email);
+    const payload = req.user;
+    const user = await CommonServices.findUser(payload.email);
     if (user === null) {
       throw new CustomError(400, "존재하지 않는 사용자입니다.");
     }
