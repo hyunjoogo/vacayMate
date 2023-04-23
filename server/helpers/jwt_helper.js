@@ -63,7 +63,7 @@ const signRefreshToken = async (user) => {
 
   } catch (error) {
     console.log(error);
-    throw new CustomError('401', error.message);
+    throw new CustomError(401, error.message);
   }
 };
 
@@ -81,13 +81,10 @@ const verifyRefreshToken = async (refreshToken) => {
     return userPayload;
   } catch (error) {
     if (error.name === 'TokenExpiredError') {
-      await redisClient.del(String(userId));
-      throw new CustomError('401', "만료가 된 토큰입니다.");
+      // user_id를 알 수가 없으므로 클라이언트로 오류 메시지를 로그인을 다시하여 레디스를 다시 저장하게 해야한다.
+      throw new CustomError(401, "만료가 된 토큰입니다.");
     }
-    if (error.name === 'JsonWebTokenError') {
-      throw new CustomError('401', "잘못된 토큰입니다.");
-    }
-    throw new CustomError('401', error.message);
+    throw new CustomError(401, error.message);
   }
 };
 

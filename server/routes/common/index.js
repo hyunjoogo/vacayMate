@@ -6,7 +6,7 @@ const CommonRouter = express.Router();
 
 CommonRouter.post('/sign-in', verifyGoogleToken, CommonController.signIn)
 CommonRouter.post('/login', verifyGoogleToken, CommonController.login)
-CommonRouter.post('/refresh-token', verifyGoogleToken, CommonController.refreshToken)
+CommonRouter.post('/refresh-token', CommonController.refreshToken)
 
 
 

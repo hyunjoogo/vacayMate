@@ -1,5 +1,5 @@
 function handleError(res, error) {
-  if (error.errorCode === 400) {
+  if (error.errorCode === 401) {
     console.error('\x1b[31m%s', 'ValidationError : ', error.message);
     return res.status(error.errorCode).json({error: error.message});
   }

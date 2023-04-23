@@ -51,8 +51,12 @@ const refreshToken = async (req, res) => {
   */
   try {
     //   1. 받은 리플레쉬 토큰 검증 => 안에 있는 정보를 리턴한다.
-    const {refreshToken} = req.body;
-    const userPayload = await verifyRefreshToken(refreshToken);
+    const authHeader = req.headers.authorization;
+    if (!authHeader) {
+      res.status(400).json({success: false, message: '구글 토큰에 문제가 발생했습니다.'});
+    }
+    const token = authHeader.split(' ')[1];
+    const userPayload = await verifyRefreshToken(token);
     //   2. 새로운 액세스토큰 생성
     const accessToken = await signAccessToken(userPayload);
     //   3. 클라이언트로 사용자의 정보와 토큰들을 보내준다.
