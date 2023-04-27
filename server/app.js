@@ -3,6 +3,7 @@ import express from 'express';
 import path from 'path';
 import morgan from "morgan";
 import cors from 'cors';
+import schedule from 'node-schedule';
 
 dotenv.config();
 
@@ -36,6 +37,9 @@ app.use('/api/common/:ver', CommonRouter);
 app.use('/api/register/:ver', RegisterRouter);
 app.use('/api/user/:ver', isUser, UserRouter);
 app.use('/api/admin/:ver', isAdmin, AdminRouter);
+
+
+const job = schedule.scheduleJob('10 * * * * *', () => console.log('a'));
 
 app.listen(PORT, () => console.log(`서버 시작됨: http://localhost:${PORT}`));
 
