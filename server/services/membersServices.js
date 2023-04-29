@@ -2,6 +2,7 @@ import { db } from "../models/index.js";
 import { Sequelize } from "sequelize";
 import { ROLE_TYPE } from "../const/admin.js";
 import { CustomError } from "../exceptions/CustomError.js";
+import dayjs from "dayjs";
 
 const getMembersListPagination = async ({nowPage = 1, pageSize = 10, name, email, role, isLeave}) => {
   const offset = (nowPage - 1) * pageSize;
@@ -82,7 +83,7 @@ const addMemberEnterDate = async (memberNo, enterDate, transaction) => {
     throw new CustomError(400, "이미 생성된 연차가 존재합니다.");
   }
   const result = await memberWithVacation.update(
-    {enter_date: enterDate},
+    {enter_date: dayjs(enterDate).utc()},
     {transaction, returning: true});
   return result;
 };

@@ -33,7 +33,7 @@ const createEnterDate = async (req, res) => {
   const {enterDate, annualMemo} = req.body;
 
   // 유효하지 않은 날짜 형식일 경우
-  if (isValidDate(enterDate)) {
+  if (!isValidDate(enterDate)) {
     throw new CustomError(400, "잘못된 날짜형식입니다.");
   }
 

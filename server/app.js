@@ -14,6 +14,9 @@ import AdminRouter from './routes/admin/index.js';
 import CommonRouter from './routes/common/index.js';
 import isUser from "./middlewares/isUser.js";
 import isAdmin from "./middlewares/isAdmin.js";
+import { getContinuousServiceMonths } from "./functions/calculateAnnual.js";
+import dayjs from "dayjs";
+import { autoCreateAnnualVacation } from "./services/createAnnaulVacation.js";
 
 const __dirname = path.dirname(new URL(import.meta.url).pathname);
 db.sequelize.sync();
@@ -38,9 +41,17 @@ app.use('/api/register/:ver', RegisterRouter);
 app.use('/api/user/:ver', isUser, UserRouter);
 app.use('/api/admin/:ver', isAdmin, AdminRouter);
 
+// 한국시간 00:00:00에 할 수 있도록 해야한다.
+// UTC 기준 15:00:00
+schedule.scheduleJob('10 * * * * *',async () => {
+  const utcDate = dayjs("2023-02-20").utc();
+  await autoCreateAnnualVacation(utcDate);
+  console.log('스케줄러 작동!')
+});
 
-const job = schedule.scheduleJob('10 * * * * *', () => console.log('a'));
+
+
 
 app.listen(PORT, () => console.log(`서버 시작됨: http://localhost:${PORT}`));
-
+// console.log(result.length);
 

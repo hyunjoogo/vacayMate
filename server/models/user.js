@@ -27,7 +27,8 @@ export const user = (sequelize, DataTypes) => {
       defaultValue: 'user'
     },
     enter_date: {
-      type: DataTypes.DATEONLY
+      type: DataTypes.DATEONLY // 날짜 + 00:00:00Z 입력된다.
+      // 그러면 입력할 때 DATE.utc()로 저장하자.
     },
     is_leave: {
       type: DataTypes.BOOLEAN,
