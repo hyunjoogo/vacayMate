@@ -43,16 +43,14 @@ app.use('/api/admin/:ver', isAdmin, AdminRouter);
 
 // 한국시간 00:00:00에 할 수 있도록 해야한다.
 // UTC 기준 15:00:00
-schedule.scheduleJob('0 0 15 * * *',async () => {
-  const utcDate = dayjs().utc();
 
-  await autoCreateAnnualVacation(utcDate);
-  console.log('스케줄러 작동!')
+schedule.scheduleJob('0 11 0 * * *', async () => {
+  const utcDate = dayjs().utc();
+  const result = await autoCreateAnnualVacation(utcDate);
+  console.log('스케줄러 작동!');
+  console.log(result);
 });
 
 
-
-
 app.listen(PORT, () => console.log(`서버 시작됨: http://localhost:${PORT}`));
-// console.log(result.length);
 

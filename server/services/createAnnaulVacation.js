@@ -31,7 +31,7 @@ const getUserWithSameDay = async (day) => {
     }
   });
   return users;
-}
+};
 
 function getMonthAndDay(date) {
   const month = date.month() + 1;
@@ -42,6 +42,7 @@ function getMonthAndDay(date) {
 const autoCreateAnnualVacation = async (today) => {
   const {month, day} = getMonthAndDay(today);
   console.log({month, day});
+  const updateUserList = [];
 
   // ------------- 1년 이상
   // 입사
@@ -65,6 +66,7 @@ const autoCreateAnnualVacation = async (today) => {
         total_days: userAnnualVacation.total_days + addAnnualVacation,
         expiration_date: updateExpirationDate
       });
+      updateUserList.push({id: user.id, name: user.name});
     }
   }
   ///// -------------  1년 미만
@@ -87,11 +89,12 @@ const autoCreateAnnualVacation = async (today) => {
         total_days: userAnnualVacation.total_days + addAnnualVacation,
         expiration_date: updateExpirationDate
       });
+      updateUserList.push({id: user.id, name: user.name});
     }
   }
 
 
-  return usersWithSameMonthDay;
+  return updateUserList;
 };
 
 
