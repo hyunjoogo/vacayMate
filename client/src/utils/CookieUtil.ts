@@ -9,7 +9,7 @@ interface TokenInterface {
   refreshToken: string;
 }
 
-export function setAuthorization({
+export function setAuthorizations({
   accessToken,
   refreshToken,
 }: TokenInterface) {
@@ -20,6 +20,22 @@ export function setAuthorization({
   });
   Cookies.set("refresh_token", refreshToken, {
     expires: REFRESH_TOKEN_EXPIRE_TIME,
+    secure: true,
+    sameSite: "strict",
+  });
+}
+
+export function getRefreshToken() {
+  return Cookies.get("refresh_token");
+}
+
+export function getAccessToken() {
+  return Cookies.get("access_token");
+}
+
+export function setAccessToken(accessToken: string) {
+  Cookies.set("access_token", accessToken, {
+    expires: ACCESS_TOKEN_EXPIRE_TIME,
     secure: true,
     sameSite: "strict",
   });

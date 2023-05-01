@@ -4,7 +4,7 @@ import axios from "axios";
 import { decodeJwt } from "jose";
 import { useSetRecoilState } from "recoil";
 import { userContextAtom } from "../atom/atoms";
-import { setAuthorization } from "../utils/CookieUtil";
+import { setAuthorizations } from "../utils/CookieUtil";
 import { useNavigate } from "react-router-dom";
 
 const GoogleOAuthButton = () => {
@@ -28,7 +28,7 @@ const GoogleOAuthButton = () => {
           }
         );
         setAppContext(data.user);
-        setAuthorization(data.token);
+        setAuthorizations(data.token);
         navigate("/", { replace: true });
       } catch (err) {
         console.error(err);

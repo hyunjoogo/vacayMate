@@ -18,6 +18,7 @@ const Router = () => {
       <Route element={<Layout />}>
         <Route path="/" element={<App />} />
         <Route path="/login" element={<LoginPage />} />
+        <Route path="/home" element={<HomePage />} />
       </Route>
     </Routes>
   );
