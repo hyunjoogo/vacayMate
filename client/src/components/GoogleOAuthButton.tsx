@@ -5,8 +5,10 @@ import { decodeJwt } from "jose";
 import { useSetRecoilState } from "recoil";
 import { userContextAtom } from "../atom/atoms";
 import { setAuthorization } from "../utils/CookieUtil";
+import { useNavigate } from "react-router-dom";
 
 const GoogleOAuthButton = () => {
+  const navigate = useNavigate();
   const setAppContext = useSetRecoilState(userContextAtom);
 
   const onSuccess = async (credentialResponse: CredentialResponse) => {
@@ -14,7 +16,6 @@ const GoogleOAuthButton = () => {
     const payload = credential ? decodeJwt(credential) : undefined;
 
     if (payload) {
-      let accessToken = "";
       try {
         const { data } = await axios.post(
           "http://localhost:3300/api/common/v1/login",
@@ -28,12 +29,12 @@ const GoogleOAuthButton = () => {
         );
         setAppContext(data.user);
         setAuthorization(data.token);
+        navigate("/", { replace: true });
       } catch (err) {
         console.error(err);
       }
     }
   };
-
   const onFailure = () => {
     console.error();
   };
