@@ -27,6 +27,7 @@ const GoogleOAuthButton = () => {
           }
         );
         setAppContext(data.user);
+        setAuthorization(data.token);
       } catch (err) {
         console.error(err);
       }
