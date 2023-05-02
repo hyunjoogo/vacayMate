@@ -1,15 +1,12 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import "./index.css";
-import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { RecoilRoot } from "recoil";
-import { QueryClient, QueryClientProvider } from "react-query";
 import { BrowserRouter } from "react-router-dom";
 import QueryClientConfig from "./QueryClientConfig";
-import Router from "./Router";
 import { GoogleOAuthProvider } from "@react-oauth/google";
-import { UserContextProvider } from "./contexts/AppContext";
+import Router from "./Router";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
@@ -21,9 +18,7 @@ root.render(
     <QueryClientConfig>
       <RecoilRoot>
         <BrowserRouter>
-          <UserContextProvider>
-            <Router />
-          </UserContextProvider>
+          <Router />
         </BrowserRouter>
       </RecoilRoot>
     </QueryClientConfig>
