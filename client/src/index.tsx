@@ -5,20 +5,30 @@ import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { RecoilRoot } from "recoil";
 import { QueryClient, QueryClientProvider } from "react-query";
+import { BrowserRouter } from "react-router-dom";
+import QueryClientConfig from "./QueryClientConfig";
+import Router from "./Router";
+import { GoogleOAuthProvider } from "@react-oauth/google";
+import { UserContextProvider } from "./contexts/AppContext";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
 );
-const queryClient = new QueryClient();
 
 root.render(
-  <React.StrictMode>
-    <QueryClientProvider client={queryClient}>
+  // <React.StrictMode>
+  <GoogleOAuthProvider clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID!}>
+    <QueryClientConfig>
       <RecoilRoot>
-        <App />
+        <BrowserRouter>
+          <UserContextProvider>
+            <Router />
+          </UserContextProvider>
+        </BrowserRouter>
       </RecoilRoot>
-    </QueryClientProvider>
-  </React.StrictMode>
+    </QueryClientConfig>
+  </GoogleOAuthProvider>
+  // </React.StrictMode>
 );
 
 // If you want to start measuring performance in your app, pass a function
