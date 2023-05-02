@@ -4,8 +4,10 @@ import HomePage from "./pages/home/HomePage";
 import LoginPage from "./pages/login/LoginPage";
 import App from "./App";
 import Layout from "./components/Layout";
+import { useAuthentication } from "./contexts/AppContext";
 
 const Router = () => {
+  useAuthentication();
   //       <Route element={<Layout />}>
   //  children
   //       </Route>
