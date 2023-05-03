@@ -1,6 +1,5 @@
 import * as dotenv from "dotenv";
 import express from "express";
-import path from "path";
 import morgan from "morgan";
 import cors from "cors";
 import schedule from "node-schedule";

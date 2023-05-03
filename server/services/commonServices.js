@@ -1,8 +1,6 @@
 import { CustomError } from "../exceptions/CustomError.js";
-import { OAuth2Client } from "google-auth-library";
 import { db } from "../models/index.js";
 import { signAccessToken, signRefreshToken } from "../helpers/jwt_helper.js";
-import redisClient from "../helpers/init_redis.js";
 import dayjs from "dayjs";
 import { REFRESH_TOKEN_EXPIRE_DAYS } from "../const/tokenConfig.js";
 
