@@ -1,4 +1,4 @@
-### 사용자 등록
+### 회원 등록
 POST {{host}}/api/register/{{ver}}
 Authorization: Bearer {{access_token}}
 Content-Type: application/json
@@ -8,28 +8,32 @@ Content-Type: application/json
   "email": "postam@gmail.com"
 }
 
+### 회원 전체 사용자의 승인된 휴가 조회
+GET {{user}}/{{user_id}}/approved-request
+Authorization: Bearer {{access_token}}
+Content-Type: application/json
 
-### 사용자 상세조회: 나의 정보
+### 회원 상세조회: 나의 정보
 GET {{user}}/{{user_id}}/profile
 Authorization: Bearer {{access_token}}
 Content-Type: application/json
 
-### 사용자 휴가종류 조회
+### 회원 휴가종류 조회
 GET {{user}}/{{user_id}}/vacation
 Authorization: Bearer {{access_token}}
 Content-Type: application/json
 
-### 사용자 휴가종류 상세조회
+### 회원 휴가종류 상세조회
 GET {{user}}/{{user_id}}/vacation/22
 Authorization: Bearer {{access_token}}
 Content-Type: application/json
 
-### 사용자 휴가사용요청 조회
+### 회원 휴가사용요청 조회
 GET {{user}}/{{user_id}}/request
 Authorization: Bearer {{access_token}}
 Content-Type: application/json
 
-### 사용자 휴가사용요청 등록#1 (같은 유형의 휴가만 가능)
+### 회원 휴가사용요청 등록#1 (같은 유형의 휴가만 가능)
 POST {{user}}/{{user_id}}/request
 Authorization: Bearer {{access_token}}
 Content-Type: application/json
@@ -51,7 +55,7 @@ Content-Type: application/json
   "totalDays": 1.5
 }
 
-### 사용자 휴가사용요청 등록#2 (같은 유형의 휴가만 가능)
+### 회원 휴가사용요청 등록#2 (같은 유형의 휴가만 가능)
 POST {{user}}/{{user_id}}/request
 Authorization: Bearer {{access_token}}
 Content-Type: application/json
@@ -83,12 +87,12 @@ Content-Type: application/json
   "totalDays": 3.5
 }
 
-### 사용자 휴가사용요청 상세조회
+### 회원 휴가사용요청 상세조회
 GET {{user}}/{{user_id}}/request/1
 Authorization: Bearer {{access_token}}
 Content-Type: application/json
 
-### 사용자 휴가요청 취소
+### 회원 휴가요청 취소
 POST {{user}}/{{user_id}}/request/cancel/1
 Authorization: Bearer {{access_token}}
 Content-Type: application/json
