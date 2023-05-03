@@ -1,6 +1,6 @@
-export const vacation = (sequelize, DataTypes) => {
-  const Vacation = sequelize.define(
-    "Vacation",
+export const token = (sequelize, DataTypes) => {
+  const Token = sequelize.define(
+    "Token",
     {
       id: {
         type: DataTypes.INTEGER,
@@ -15,24 +15,17 @@ export const vacation = (sequelize, DataTypes) => {
           key: "id",
         },
       },
-      type: {
-        type: DataTypes.STRING, // 연차, 여름휴가, 대체휴무
+      token_value: {
+        type: DataTypes.STRING(500),
         allowNull: false,
       },
-      memo: {
-        type: DataTypes.TEXT,
-      },
-      left_days: {
-        type: DataTypes.FLOAT,
+      expires_in: {
+        type: DataTypes.BIGINT,
         allowNull: false,
       },
-      total_days: {
-        type: DataTypes.FLOAT,
-        allowNull: false,
-      },
-      expiration_date: {
+      created_at: {
         type: DataTypes.DATE,
-        allowNull: false,
+        defaultValue: DataTypes.NOW,
       },
     },
     {
@@ -41,6 +34,5 @@ export const vacation = (sequelize, DataTypes) => {
       collate: "utf8_general_ci",
     }
   );
-
-  return Vacation;
+  return Token;
 };

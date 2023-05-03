@@ -1,7 +1,13 @@
-import jwt from 'jsonwebtoken';
-import redisClient from './init_redis.js';
+import jwt from "jsonwebtoken";
 import { CustomError } from "../exceptions/CustomError.js";
-import { ACCESS_TOKEN_EXPIRE_TIME, ISSUER, PAYLOAD, REFRESH_TOKEN_EXPIRE_TIME } from "../const/tokenConfig.js";
+import {
+  ACCESS_TOKEN_EXPIRE_TIME,
+  ISSUER,
+  PAYLOAD,
+  REFRESH_TOKEN_EXPIRE_TIME,
+} from "../const/tokenConfig.js";
+import { db } from "../models/index.js";
+import dayjs from "dayjs";
 
 // 새로운 accessToken을 생성하는 함수
 const signAccessToken = (user) => {
@@ -26,15 +32,17 @@ const signAccessToken = (user) => {
 // 클라이언트로부터 들어온 token을 검증
 const verifyAccessToken = async (req, res, next) => {
   try {
-    if (!req.headers['authorization']) throw new CustomError(401, 'Unauthorized');
-    const authHeader = req.headers['authorization'];
-    const bearerToken = authHeader.split(' ');
+    if (!req.headers["authorization"])
+      throw new CustomError(401, "Unauthorized");
+    const authHeader = req.headers["authorization"];
+    const bearerToken = authHeader.split(" ");
     const token = bearerToken[1];
     const payload = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET);
     req.payload = payload;
     next();
   } catch (error) {
-    const message = error.name === 'JsonWebTokenError' ? 'Unauthorized' : error.message;
+    const message =
+      error.name === "JsonWebTokenError" ? "Unauthorized" : error.message;
     throw new CustomError(401, message);
   }
 };
@@ -60,7 +68,6 @@ const signRefreshToken = async (user) => {
      */
     const refreshToken = await jwt.sign(payload, secret, options);
     return refreshToken;
-
   } catch (error) {
     console.log(error);
     throw new CustomError(401, error.message);
@@ -73,14 +80,32 @@ const verifyRefreshToken = async (refreshToken) => {
 
   try {
     // Refresh Token 검증
-    const userPayload = await jwt.verify(refreshToken, process.env.REFRESH_TOKEN_SECRET);
-    // Redis 값과 같은지 검증
+    const userPayload = await jwt.verify(
+      refreshToken,
+      process.env.REFRESH_TOKEN_SECRET
+    );
+    // 서버토큰 값과 같은지 검증
     userId = userPayload.id;
-    const redisRefreshToken = await redisClient.get(userId);
-    if (redisRefreshToken !== refreshToken) throw new Error("Redis의 값과 Refresh Token이 다릅니다.");
+    const serverRefreshToken = await db.Token.findOne({
+      where: {
+        user_id: userId,
+      },
+    });
+    if (serverRefreshToken === null) {
+      throw new Error("사용자의 토큰이 없습니다.");
+    }
+
+    // 서버의 토큰이 현재시간 기준으로 유효시간이 지났는지?
+    if (serverRefreshToken.expires_in < dayjs().unix()) {
+      throw new Error("만료가 된 Token입니다.");
+    }
+    // 서버의 토큰과 클라의 토큰이 같은지 확인
+    if (serverRefreshToken.token_value !== refreshToken) {
+      throw new Error("Redis의 값과 Refresh Token이 다릅니다.");
+    }
     return userPayload;
   } catch (error) {
-    if (error.name === 'TokenExpiredError') {
+    if (error.name === "TokenExpiredError") {
       // user_id를 알 수가 없으므로 클라이언트로 오류 메시지를 로그인을 다시하여 레디스를 다시 저장하게 해야한다.
       throw new CustomError(401, "만료가 된 토큰입니다.");
     }
@@ -88,6 +113,9 @@ const verifyRefreshToken = async (refreshToken) => {
   }
 };
 
-
-export { signAccessToken, verifyAccessToken, signRefreshToken, verifyRefreshToken };
-
+export {
+  signAccessToken,
+  verifyAccessToken,
+  signRefreshToken,
+  verifyRefreshToken,
+};
