@@ -16,7 +16,11 @@ export const token = (sequelize, DataTypes) => {
         },
       },
       token_value: {
-        type: DataTypes.STRING,
+        type: DataTypes.STRING(500),
+        allowNull: false,
+      },
+      expires_in: {
+        type: DataTypes.BIGINT,
         allowNull: false,
       },
       created_at: {
@@ -24,7 +28,11 @@ export const token = (sequelize, DataTypes) => {
         defaultValue: DataTypes.NOW,
       },
     },
-    { charset: "utf8", collate: "utf8_general_ci" }
+    {
+      timestamps: false,
+      charset: "utf8",
+      collate: "utf8_general_ci",
+    }
   );
   return Token;
 };
