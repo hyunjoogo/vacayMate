@@ -6,7 +6,7 @@ import * as CookieUtils from "../utils/CookieUtil";
 import { setAccessToken } from "../utils/CookieUtil";
 import axios from "axios";
 
-interface UserContextValue {
+export interface UserContextValue {
   id?: number;
   name?: string;
   email?: string;
