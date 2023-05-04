@@ -21,7 +21,7 @@ interface Request {
 const HomePage = () => {
   const [requests, setRequests] = useState<Request[]>([]);
   const userInfo: UserContextValue = useRecoilValue(userContextAtom);
-
+  console.log(userInfo);
   useEffect(() => {
     fetchData();
   }, []);
@@ -44,10 +44,9 @@ const HomePage = () => {
     setRequests(data);
   };
 
-  if (Object.keys(userInfo).length === 0) return null;
-
   return (
     <>
+      {userInfo?.name}
       {requests.map((request) => {
         return (
           <ul
