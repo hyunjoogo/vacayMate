@@ -13,10 +13,7 @@ import { CustomError } from "../exceptions/CustomError.js";
 import * as VacationServices from "./vacationServices.js";
 import snakecaseKeys from "snakecase-keys";
 
-const getApprovedRequest = async (yearMonth) => {
-  const startDt = `${yearMonth}-01`;
-  const endDt = `${yearMonth}-31`;
-
+const getApprovedRequest = async (startDt, endDt) => {
   const approvedRequests = await db.Request.findAll({
     where: {
       status: APPROVED,
@@ -24,8 +21,22 @@ const getApprovedRequest = async (yearMonth) => {
         [Sequelize.Op.between]: [startDt, endDt],
       },
     },
+    include: {
+      model: db.User,
+      as: "user",
+    },
   });
-  return approvedRequests;
+
+  const newApprovedRequests = approvedRequests.map((request) => {
+    return {
+      userId: request.user_id,
+      userName: request.user.name,
+      useDate: request.use_date,
+      usingType: request.using_type,
+    };
+  });
+
+  return newApprovedRequests;
 };
 
 const checkDuplicateRequest = async (userId, vacationId, request) => {

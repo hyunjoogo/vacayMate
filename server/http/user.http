@@ -9,7 +9,7 @@ Content-Type: application/json
 }
 
 ### 회원 전체 사용자의 승인된 휴가 조회
-GET {{user}}/{{user_id}}/approved-request
+GET {{user}}/{{user_id}}/approved-request?startDt=2023-04-01&endDt=2023-04-30
 Authorization: Bearer {{access_token}}
 Content-Type: application/json
 

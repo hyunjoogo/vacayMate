@@ -8,10 +8,10 @@ dayjs.extend(utc);
 
 // 전체 회원의 승인된 요청 조회
 const getApprovedRequest = async (req, res) => {
-  const { yearMonth } = req.query;
+  const { startDt, endDt } = req.query;
 
   try {
-    const requests = await RequestServices.getApprovedRequest(yearMonth);
+    const requests = await RequestServices.getApprovedRequest(startDt, endDt);
     res.status(200).json(requests);
   } catch (error) {
     handleError(res, error);
