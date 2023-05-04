@@ -16,7 +16,7 @@ import snakecaseKeys from "snakecase-keys";
 const getApprovedRequest = async (startDt, endDt) => {
   const approvedRequests = await db.Request.findAll({
     where: {
-      status: APPROVED,
+      // status: APPROVED,
       use_date: {
         [Sequelize.Op.between]: [startDt, endDt],
       },
@@ -29,6 +29,7 @@ const getApprovedRequest = async (startDt, endDt) => {
 
   const newApprovedRequests = approvedRequests.map((request) => {
     return {
+      id: request.id,
       userId: request.user_id,
       userName: request.user.name,
       useDate: request.use_date,
