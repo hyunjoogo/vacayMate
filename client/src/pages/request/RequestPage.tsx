@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import dayjs from "dayjs";
 import { nowFormat } from "../../utils/DateUtil";
+import { getRestDeInfo, getRestDeInfo2023 } from "../../utils/getRestDeInfo";
 
 interface Vacation {
   type: string;
@@ -69,6 +70,7 @@ const RequestPage = () => {
 
   return (
     <>
+      <button onClick={() => getRestDeInfo2023()}>가지고 오기</button>
       <ul>
         {vacations.map((vacation) => (
           <li key={vacation.type}>
