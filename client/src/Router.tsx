@@ -5,6 +5,7 @@ import LoginPage from "./pages/login/LoginPage";
 import App from "./App";
 import Layout from "./components/Layout";
 import { useAuthentication } from "./contexts/AppContext";
+import RequestPage from "./pages/request/RequestPage";
 
 const Router = () => {
   useAuthentication();
@@ -21,6 +22,7 @@ const Router = () => {
         <Route path="/" element={<App />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/home" element={<HomePage />} />
+        <Route path="/request" element={<RequestPage />} />
       </Route>
     </Routes>
   );
