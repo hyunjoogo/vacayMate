@@ -50,14 +50,25 @@ const months = [
 export const getRestDeInfo2023 = async () => {
   const list2023 = [];
 
-  for (let i = 0; i < months.length; i++) {
-    const restDeInfo = await getRestDeInfo("2023", months[i]);
+  for (const element of months) {
+    const restDeInfo = await getRestDeInfo("2023", element);
     if (restDeInfo !== null) {
       list2023.push(...restDeInfo);
     }
   }
 
-  console.log(list2023);
+  const objYear2023 = {};
 
+  for (const element of list2023) {
+    const date = convertNumberToDate(element.locdate);
+    objYear2023[date] = element.dateName;
+  }
   return list2023;
 };
+
+function convertNumberToDate(number) {
+  const year = number.toString().slice(0, 4);
+  const month = number.toString().slice(4, 6);
+  const day = number.toString().slice(6, 8);
+  return `${year}-${month}-${day}`;
+}
