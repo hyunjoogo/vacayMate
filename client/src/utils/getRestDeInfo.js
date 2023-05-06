@@ -51,7 +51,7 @@ export const getRestDeInfo2023 = async () => {
   const list2023 = [];
 
   for (const element of months) {
-    const restDeInfo = await getRestDeInfo("2023", element);
+    const restDeInfo = await getRestDeInfo("2024", element);
     if (restDeInfo !== null) {
       list2023.push(...restDeInfo);
     }
@@ -63,6 +63,8 @@ export const getRestDeInfo2023 = async () => {
     const date = convertNumberToDate(element.locdate);
     objYear2023[date] = element.dateName;
   }
+
+  console.log(objYear2023);
   return list2023;
 };
 
