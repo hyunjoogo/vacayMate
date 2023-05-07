@@ -15,7 +15,7 @@ export function now() {
 }
 
 export function nowFormat(format = "YYYY-MM-DD HH:mm:ss") {
-  return dayjs().utc().format(format);
+  return dayjs().format(format);
 }
 
 export function dateFormat(value: string) {

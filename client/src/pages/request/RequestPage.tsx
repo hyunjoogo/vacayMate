@@ -28,8 +28,8 @@ const usingTypes = ["일차", "오전반차", "오후반차"];
 const RequestPage = () => {
   const [requests, setRequests] = useState<Request[]>([]);
   const [selectedValue, setSelectedValue] = useState({
-    type: "",
-    usingType: "",
+    type: "연차",
+    usingType: "일차",
     startDt: nowFormat("YYYY-MM-DD"),
     endDt: nowFormat("YYYY-MM-DD"),
   });
@@ -87,6 +87,13 @@ const RequestPage = () => {
       }
     }
     return diff;
+  };
+
+  const deleteRequest = (index: number) => {
+    const newRequests = [...requests];
+    newRequests.splice(index, 1);
+    console.log(newRequests);
+    setRequests(newRequests);
   };
 
   return (
@@ -167,6 +174,7 @@ const RequestPage = () => {
             <li key={index}>
               {request.type} - {request.usingType} : {request.usingDays} <br />
               {request.startDt} ~ {request.endDt}
+              <button onClick={() => deleteRequest(index)}>X</button>
             </li>
           );
         })}
