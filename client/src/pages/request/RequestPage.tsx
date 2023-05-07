@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import dayjs from "dayjs";
-import { nowFormat } from "../../utils/DateUtil";
-import { getRestDeInfo, getRestDeInfo2023 } from "../../utils/getRestDeInfo";
+import { isHoliday, nowFormat } from "../../utils/DateUtil";
 
 interface Vacation {
   type: string;
@@ -36,7 +35,25 @@ const RequestPage = () => {
   });
 
   const addRequest = () => {
-    console.log(selectedValue);
+    const start = dayjs(selectedValue.startDt);
+    const end = dayjs(selectedValue.endDt);
+    const diff = end.diff(start, "day");
+
+    if (selectedValue.type === "") {
+      return console.error("휴가유형을 선택해주세요");
+    }
+    if (selectedValue.usingType === "") {
+      return console.error("사용유형을 선택해주세요");
+    }
+    if (isHoliday(selectedValue.startDt) || isHoliday(selectedValue.endDt)) {
+      return console.error(
+        "시작날짜와 종료날짜에 공휴일 또는 주말을 선택할 수 없습니다."
+      );
+    }
+    if (diff < 0) {
+      return console.error("시작날짜 < 종료날짜이어야합니다.");
+    }
+
     setRequests([
       ...requests,
       {
@@ -59,18 +76,22 @@ const RequestPage = () => {
     return defaultUsingDaysByType * diff;
   };
 
-  // TODO 공휴일인지 확인하는 함수 구현 후 다시 진행할 것
-  // 토요일, 일요일, 공휴일이 들어가 있으면 날짜를 안쳐야한다
+  // 선택한 날짜 중에 공휴일, 주말이 끼어있으면 신청일에 제외된다.
   const getDaysDiff = (startDt: string, endDt: string): number => {
     const start = dayjs(startDt);
     const end = dayjs(endDt);
-    const diff = end.diff(start, "day");
+    let diff = 0;
+    for (let date = start; date <= end; date = date.add(1, "day")) {
+      if (!isHoliday(dayjs(date).format("YYYY-MM-DD"))) {
+        diff += 1;
+      }
+    }
     return diff;
   };
 
   return (
     <>
-      <button onClick={() => getRestDeInfo2023()}>가지고 오기</button>
+      <button onClick={() => isHoliday("2023-05-06")}>가지고 오기</button>
       <ul>
         {vacations.map((vacation) => (
           <li key={vacation.type}>
@@ -83,10 +104,12 @@ const RequestPage = () => {
         <select
           value={selectedValue.type}
           onChange={(e: React.ChangeEvent<HTMLSelectElement>) => {
-            console.log(e.target.value);
             setSelectedValue({ ...selectedValue, type: e.target.value });
           }}
         >
+          <option value="" disabled>
+            -----
+          </option>
           {vacations.map((vacation) => (
             <option key={vacation.type} value={vacation.type}>
               {vacation.type}
@@ -100,6 +123,9 @@ const RequestPage = () => {
             setSelectedValue({ ...selectedValue, usingType: e.target.value });
           }}
         >
+          <option value="" disabled>
+            -----
+          </option>
           {usingTypes.map((type) => (
             <option key={type} value={type}>
               {type}
@@ -113,7 +139,11 @@ const RequestPage = () => {
           type="date"
           value={selectedValue.startDt}
           onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-            setSelectedValue({ ...selectedValue, startDt: e.target.value });
+            const startDt = e.target.value;
+            if (isHoliday(startDt)) {
+              return;
+            }
+            setSelectedValue({ ...selectedValue, startDt });
           }}
         />
         <label>종료일</label>
@@ -121,7 +151,11 @@ const RequestPage = () => {
           type="date"
           value={selectedValue.endDt}
           onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-            setSelectedValue({ ...selectedValue, endDt: e.target.value });
+            const endDt = e.target.value;
+            if (isHoliday(endDt)) {
+              return;
+            }
+            setSelectedValue({ ...selectedValue, endDt });
           }}
         />
         <button onClick={addRequest}>+</button>
