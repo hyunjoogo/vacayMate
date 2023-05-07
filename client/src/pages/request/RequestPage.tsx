@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import dayjs from "dayjs";
 import { isHoliday, nowFormat } from "../../utils/DateUtil";
 
@@ -17,7 +17,7 @@ interface Request {
   usingDays: number;
 }
 
-const vacations: Vacation[] = [
+const vacationsDummy: Vacation[] = [
   { type: "연차", leftDays: 31, totalDays: 31, expirationDate: "2024-05-01" },
   { type: "여름휴가", leftDays: 5, totalDays: 5, expirationDate: "2023-12-31" },
   { type: "대체휴무", leftDays: 3, totalDays: 3, expirationDate: "2023-06-31" },
@@ -33,6 +33,11 @@ const RequestPage = () => {
     startDt: nowFormat("YYYY-MM-DD"),
     endDt: nowFormat("YYYY-MM-DD"),
   });
+  const [vacations, setVacations] = useState<Vacation[]>([]);
+
+  useEffect(() => {
+    setVacations(vacationsDummy);
+  }, []);
 
   const addRequest = () => {
     const start = dayjs(selectedValue.startDt);
@@ -54,17 +59,35 @@ const RequestPage = () => {
       return console.error("시작날짜 < 종료날짜이어야합니다.");
     }
 
-    setRequests([
-      ...requests,
-      {
-        ...selectedValue,
-        usingDays: getUsingDays(
-          selectedValue.usingType,
-          selectedValue.startDt,
-          selectedValue.endDt
-        ),
-      },
-    ]);
+    const usingDays = getUsingDays(
+      selectedValue.usingType,
+      selectedValue.startDt,
+      selectedValue.endDt
+    );
+
+    setRequests((prevState) => {
+      return [
+        ...prevState,
+        {
+          ...selectedValue,
+          usingDays,
+        },
+      ];
+    });
+
+    setVacations((prevState) => {
+      const targetVacationIndex = prevState.findIndex((vacation) => {
+        return vacation.type === selectedValue.type;
+      });
+
+      if (targetVacationIndex !== -1) {
+        prevState[targetVacationIndex].leftDays -= usingDays;
+      } else {
+        console.log("No matching vacation type found.");
+      }
+
+      return [...prevState];
+    });
   };
 
   const getUsingDays = (usingType: string, startDt: string, endDt: string) => {
@@ -89,16 +112,29 @@ const RequestPage = () => {
     return diff;
   };
 
-  const deleteRequest = (index: number) => {
+  const deleteRequest = (targetIndex: number) => {
     const newRequests = [...requests];
-    newRequests.splice(index, 1);
-    console.log(newRequests);
+    const target = requests[targetIndex];
+    newRequests.splice(targetIndex, 1);
     setRequests(newRequests);
+
+    setVacations((prevState) => {
+      const targetVacationIndex = prevState.findIndex((vacation) => {
+        return vacation.type === target.type;
+      });
+
+      if (targetVacationIndex !== -1) {
+        prevState[targetVacationIndex].leftDays += target.usingDays;
+      } else {
+        console.error("No matching vacation type found.");
+      }
+
+      return [...prevState];
+    });
   };
 
   return (
     <>
-      <button onClick={() => isHoliday("2023-05-06")}>가지고 오기</button>
       <ul>
         {vacations.map((vacation) => (
           <li key={vacation.type}>
