@@ -1,21 +1,27 @@
 import React, { useEffect, useState } from "react";
 import dayjs from "dayjs";
-import { isHoliday, nowFormat } from "../../utils/DateUtil";
+import { dateFormat, isHoliday, nowFormat } from "../../utils/DateUtil";
+import { getRequestsObj } from "./getRequestsObj";
+import { getSelectedObj } from "./getSelectedObj";
+import { checkUsingType } from "./checkUsingType";
 
-interface Vacation {
+export interface Vacation {
   type: string;
   leftDays: number;
   totalDays: number;
   expirationDate: string;
 }
 
-interface Request {
+export interface Request {
   type: string;
-  usingType: string;
+  usingType: UsingTypes;
   startDt: string;
   endDt: string;
-  usingDays: number;
+  usingDays?: number;
 }
+
+export type UsingTypes = "일차" | "오전반차" | "오후반차";
+// 코드는 스트링을 들어가는 좋다
 
 const vacationsDummy: Vacation[] = [
   { type: "연차", leftDays: 31, totalDays: 31, expirationDate: "2024-05-01" },
@@ -23,11 +29,11 @@ const vacationsDummy: Vacation[] = [
   { type: "대체휴무", leftDays: 3, totalDays: 3, expirationDate: "2023-06-31" },
 ];
 
-const usingTypes = ["일차", "오전반차", "오후반차"];
+const usingTypes: UsingTypes[] = ["일차", "오전반차", "오후반차"];
 
 const RequestPage = () => {
   const [requests, setRequests] = useState<Request[]>([]);
-  const [selectedValue, setSelectedValue] = useState({
+  const [selectedValue, setSelectedValue] = useState<Request>({
     type: "연차",
     usingType: "일차",
     startDt: nowFormat("YYYY-MM-DD"),
@@ -44,11 +50,18 @@ const RequestPage = () => {
     const end = dayjs(selectedValue.endDt);
     const diff = end.diff(start, "day");
 
+    const usingDays = getUsingDays(
+      selectedValue.usingType,
+      selectedValue.startDt,
+      selectedValue.endDt
+    );
+
+    const findTargetIndex = vacations.findIndex(
+      (vacation) => vacation.type === selectedValue.type
+    );
+
     if (selectedValue.type === "") {
       return console.error("휴가유형을 선택해주세요");
-    }
-    if (selectedValue.usingType === "") {
-      return console.error("사용유형을 선택해주세요");
     }
     if (isHoliday(selectedValue.startDt) || isHoliday(selectedValue.endDt)) {
       return console.error(
@@ -59,35 +72,46 @@ const RequestPage = () => {
       return console.error("시작날짜 < 종료날짜이어야합니다.");
     }
 
-    const usingDays = getUsingDays(
-      selectedValue.usingType,
-      selectedValue.startDt,
-      selectedValue.endDt
-    );
+    // 추가하는 요청의 유형의 잔여일수가 남는지 확인
+    if (vacations[findTargetIndex].leftDays < usingDays) {
+      return console.error("해당 휴가 유형의 잔여일이 부족합니다.");
+    }
 
-    setRequests((prevState) => {
-      return [
-        ...prevState,
-        {
-          ...selectedValue,
-          usingDays,
-        },
-      ];
-    });
+    let canProceed = true;
+    try {
+      checkUsingType(requests, selectedValue);
+    } catch (error) {
+      // @ts-ignore
+      console.log(error.message);
+      canProceed = false;
+    }
 
-    setVacations((prevState) => {
-      const targetVacationIndex = prevState.findIndex((vacation) => {
-        return vacation.type === selectedValue.type;
+    if (canProceed) {
+      setRequests((prevState) => {
+        return [
+          ...prevState,
+          {
+            ...selectedValue,
+            usingDays,
+          },
+        ];
       });
 
-      if (targetVacationIndex !== -1) {
-        prevState[targetVacationIndex].leftDays -= usingDays;
-      } else {
-        console.log("No matching vacation type found.");
-      }
+      setVacations((prevState) => {
+        const targetVacationIndex = prevState.findIndex((vacation) => {
+          return vacation.type === selectedValue.type;
+        });
 
-      return [...prevState];
-    });
+        if (targetVacationIndex !== -1) {
+          prevState[targetVacationIndex].leftDays -= usingDays;
+        } else {
+          console.log("No matching vacation type found.");
+        }
+
+        return [...prevState];
+      });
+      console.log(selectedValue);
+    }
   };
 
   const getUsingDays = (usingType: string, startDt: string, endDt: string) => {
@@ -124,7 +148,7 @@ const RequestPage = () => {
       });
 
       if (targetVacationIndex !== -1) {
-        prevState[targetVacationIndex].leftDays += target.usingDays;
+        prevState[targetVacationIndex].leftDays += target.usingDays!;
       } else {
         console.error("No matching vacation type found.");
       }
@@ -163,7 +187,8 @@ const RequestPage = () => {
         <select
           value={selectedValue.usingType}
           onChange={(e: React.ChangeEvent<HTMLSelectElement>) => {
-            setSelectedValue({ ...selectedValue, usingType: e.target.value });
+            const usingType = e.target.value as UsingTypes;
+            setSelectedValue({ ...selectedValue, usingType });
           }}
         >
           <option value="" disabled>

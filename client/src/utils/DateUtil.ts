@@ -14,7 +14,7 @@ export function now() {
   return dayjs().utc();
 }
 
-export function nowFormat(format = "YYYY-MM-DD HH:mm:ss") {
+export function nowFormat(format = "YYYY-MM-DD") {
   return dayjs().format(format);
 }
 
