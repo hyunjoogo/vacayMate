@@ -80,13 +80,6 @@ const RequestPage = () => {
     let canProceed = true;
     try {
       checkUsingType(requests, selectedValue);
-    } catch (error) {
-      // @ts-ignore
-      console.log(error.message);
-      canProceed = false;
-    }
-
-    if (canProceed) {
       setRequests((prevState) => {
         return [
           ...prevState,
@@ -105,12 +98,18 @@ const RequestPage = () => {
         if (targetVacationIndex !== -1) {
           prevState[targetVacationIndex].leftDays -= usingDays;
         } else {
-          console.log("No matching vacation type found.");
+          throw Error("일치하는 휴가 유형이 없습니다.");
         }
 
         return [...prevState];
       });
-      console.log(selectedValue);
+    } catch (error) {
+      // @ts-ignore
+      console.log(error.message);
+      canProceed = false;
+    }
+
+    if (canProceed) {
     }
   };
 

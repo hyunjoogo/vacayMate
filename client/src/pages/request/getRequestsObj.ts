@@ -11,6 +11,11 @@ export const getRequestsObj = (requests: Request[]) => {
   if (requests.length !== 0) {
     requests.forEach((request) => {
       if (request.startDt === request.endDt) {
+        // request.startDt가 존재하면 push
+        if (requestsObj[request.startDt]) {
+          requestsObj[request.startDt].push(request.usingType);
+          return;
+        }
         requestsObj[request.startDt] = [request.usingType];
       } else {
         const start = dayjs(request.startDt);

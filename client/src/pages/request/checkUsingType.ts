@@ -6,8 +6,8 @@ export const checkUsingType = (requests: Request[], selectedValue: Request) => {
   const requestsObj = getRequestsObj(requests);
   const selectedObj = getSelectedObj(selectedValue);
 
-  // 순회하다가 문제가 생기면 스탑하고 리턴 False
-
+  // 순회하다가 문제가 생기면 에러만 보냄
+  // 통과하면 문제 없음
   Object.keys(selectedObj).forEach((key) => {
     if (requestsObj[key]) {
       const requestsDayUsingTypes = requestsObj[key];
