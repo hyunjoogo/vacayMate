@@ -24,7 +24,7 @@ beforeAll(() => server.listen());
 afterEach(() => server.resetHandlers());
 afterAll(() => server.close());
 
-const renderWithRecoilAndRouter = (component) => {
+export const renderWithRecoilAndRouter = (component) => {
   return render(
     <GoogleOAuthProvider clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID}>
       <RecoilRoot>
