@@ -1,7 +1,7 @@
 import React from "react";
 import { CredentialResponse, GoogleLogin } from "@react-oauth/google";
 import axios from "axios";
-import { decodeJwt } from "jose";
+import jwt_decode from "jwt-decode";
 import { useSetRecoilState } from "recoil";
 import { userContextAtom } from "../atom/atoms";
 import { setAuthorizations } from "../utils/CookieUtil";
@@ -13,7 +13,7 @@ const GoogleOAuthButton = () => {
 
   const onSuccess = async (credentialResponse: CredentialResponse) => {
     const { credential } = credentialResponse;
-    const payload = credential ? decodeJwt(credential) : undefined;
+    const payload = credential ? jwt_decode(credential) : undefined;
 
     if (payload) {
       try {
