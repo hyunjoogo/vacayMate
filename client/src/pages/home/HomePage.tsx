@@ -40,7 +40,6 @@ const HomePage = () => {
         },
       }
     );
-    console.log(data);
     setRequests(data);
   };
 
