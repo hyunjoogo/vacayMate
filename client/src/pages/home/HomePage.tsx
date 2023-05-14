@@ -26,6 +26,7 @@ const HomePage = () => {
     fetchData();
   }, []);
 
+  // 이 데이터는 자주 변동이 생길 수 있다.
   const fetchData = async () => {
     const accessToken = CookieUtil.getAccessToken();
     // const today = now();
