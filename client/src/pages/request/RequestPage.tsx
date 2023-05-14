@@ -166,8 +166,9 @@ const RequestPage = () => {
         ))}
       </ul>
       <div>
-        <label>휴가 유형</label>
+        <label htmlFor="type">휴가 유형</label>
         <select
+          id="type"
           value={selectedValue.type}
           onChange={(e: React.ChangeEvent<HTMLSelectElement>) => {
             setSelectedValue({ ...selectedValue, type: e.target.value });
@@ -182,8 +183,9 @@ const RequestPage = () => {
             </option>
           ))}
         </select>
-        <label>사용 유형</label>
+        <label htmlFor="using_type">사용 유형</label>
         <select
+          id="using_type"
           value={selectedValue.usingType}
           onChange={(e: React.ChangeEvent<HTMLSelectElement>) => {
             const usingType = e.target.value as UsingTypes;
@@ -201,8 +203,9 @@ const RequestPage = () => {
         </select>
       </div>
       <div>
-        <label>시작날짜</label>
+        <label htmlFor="startDt">시작날짜</label>
         <input
+          id="startDt"
           type="date"
           value={selectedValue.startDt}
           onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
@@ -213,9 +216,10 @@ const RequestPage = () => {
             setSelectedValue({ ...selectedValue, startDt });
           }}
         />
-        <label>종료일</label>
+        <label htmlFor="endDt">종료일</label>
         <input
           type="date"
+          id="endDt"
           value={selectedValue.endDt}
           onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
             const endDt = e.target.value;
@@ -228,7 +232,7 @@ const RequestPage = () => {
         <button onClick={addRequest}>+</button>
       </div>
       <hr />
-      <ul>
+      <ul test-="reqeusts">
         {requests.map((request, index) => {
           return (
             <li key={index}>
