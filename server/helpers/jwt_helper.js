@@ -30,16 +30,10 @@ const signAccessToken = (user) => {
 };
 
 // 클라이언트로부터 들어온 token을 검증
-const verifyAccessToken = async (req, res, next) => {
+const verifyAccessToken = async (accessToken) => {
   try {
-    if (!req.headers["authorization"])
-      throw new CustomError(401, "Unauthorized");
-    const authHeader = req.headers["authorization"];
-    const bearerToken = authHeader.split(" ");
-    const token = bearerToken[1];
-    const payload = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET);
-    req.payload = payload;
-    next();
+    const payload = jwt.verify(accessToken, process.env.ACCESS_TOKEN_SECRET);
+    return payload;
   } catch (error) {
     const message =
       error.name === "JsonWebTokenError" ? "Unauthorized" : error.message;
