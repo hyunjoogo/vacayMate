@@ -4,6 +4,7 @@ import { dateFormat, isHoliday, nowFormat } from "../../utils/DateUtil";
 import { getRequestsObj } from "./getRequestsObj";
 import { getSelectedObj } from "./getSelectedObj";
 import { checkUsingType } from "./checkUsingType";
+import { getMemberVacations } from "./getMemberVacations";
 
 export interface Vacation {
   type: string;
@@ -43,7 +44,13 @@ const RequestPage = () => {
 
   useEffect(() => {
     setVacations(vacationsDummy);
+    getVacations();
   }, []);
+
+  const getVacations = async () => {
+    const vacations = await getMemberVacations();
+    console.log(vacations);
+  };
 
   const addRequest = () => {
     const start = dayjs(selectedValue.startDt);
