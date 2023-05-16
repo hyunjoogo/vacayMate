@@ -1,6 +1,7 @@
 import dayjs from "dayjs";
 import { RequestsObj } from "./getRequestsObj";
 import { Request } from "./RequestPage";
+import { isHoliday } from "../../utils/DateUtil";
 
 export const getSelectedObj = (selectedValue: Request) => {
   const selectedObj: RequestsObj = {};
@@ -12,7 +13,9 @@ export const getSelectedObj = (selectedValue: Request) => {
     const start = dayjs(selectedValue.startDt);
     const end = dayjs(selectedValue.endDt);
     for (let date = start; date <= end; date = date.add(1, "day")) {
-      selectedObj[date.format("YYYY-MM-DD")] = [selectedValue.usingType];
+      if (!isHoliday(dayjs(date).format("YYYY-MM-DD"))) {
+        selectedObj[date.format("YYYY-MM-DD")] = [selectedValue.usingType];
+      }
     }
   }
 
