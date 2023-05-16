@@ -6,7 +6,6 @@ const baseUrl = "http://localhost:3300";
 export const getMemberVacations = () => {
   const url = baseUrl + "/api/user/v1/vacation";
   const accessToken = getAccessToken();
-  console.log(accessToken);
   return axios.get(url, {
     headers: {
       "Content-Type": "application/json",

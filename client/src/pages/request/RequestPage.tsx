@@ -3,6 +3,7 @@ import dayjs from "dayjs";
 import { isHoliday, nowFormat } from "../../utils/DateUtil";
 import { checkUsingType } from "./checkUsingType";
 import { useMemberVacations } from "./useMemberVacations";
+import { splitByHoliday } from "./splitByHoliday";
 
 export interface MemberVacation {
   id: number;
@@ -46,11 +47,7 @@ const RequestPage = () => {
     const end = dayjs(selectedValue.endDt);
     const diff = end.diff(start, "day");
 
-    const usingDays = getUsingDays(
-      selectedValue.usingType,
-      selectedValue.startDt,
-      selectedValue.endDt
-    );
+    const usingDays = getUsingDays(selectedValue);
 
     const findTargetIndex = vacations.findIndex(
       (vacation) => vacation.type === selectedValue.type
@@ -76,14 +73,17 @@ const RequestPage = () => {
     let canProceed = true;
     try {
       checkUsingType(requests, selectedValue);
+      const splitArray = splitByHoliday(selectedValue);
       setRequests((prevState) => {
-        return [
-          ...prevState,
-          {
-            ...selectedValue,
-            usingDays,
-          },
-        ];
+        // 시작일과 종료일이 같으면 그냥 추가
+        const newArray = [...prevState];
+        for (const split of splitArray) {
+          newArray.push({
+            ...split,
+            usingDays: getUsingDays(split),
+          });
+        }
+        return newArray;
       });
 
       setVacations((prevState) => {
@@ -109,7 +109,8 @@ const RequestPage = () => {
     }
   };
 
-  const getUsingDays = (usingType: string, startDt: string, endDt: string) => {
+  const getUsingDays = (obj: Request) => {
+    const { usingType, startDt, endDt } = obj;
     const diff = getDaysDiff(startDt, endDt);
     const defaultUsingDaysByType = usingType === "일차" ? 1 : 0.5;
     if (diff === 0) {
@@ -150,6 +151,12 @@ const RequestPage = () => {
 
       return [...prevState];
     });
+  };
+
+  // 리스트 서버에서 보내기
+  const postRequests = () => {
+    // 리스트 정리
+    // 서버로 전송
   };
 
   return (
@@ -239,6 +246,8 @@ const RequestPage = () => {
           );
         })}
       </ul>
+      <hr />
+      <button onClick={postRequests}>요청하기</button>
     </>
   );
 };
