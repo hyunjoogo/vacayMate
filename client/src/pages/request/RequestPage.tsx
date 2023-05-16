@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from "react";
 import dayjs from "dayjs";
-import { dateFormat, isHoliday, nowFormat } from "../../utils/DateUtil";
-import { getRequestsObj } from "./getRequestsObj";
-import { getSelectedObj } from "./getSelectedObj";
+import { isHoliday, nowFormat } from "../../utils/DateUtil";
 import { checkUsingType } from "./checkUsingType";
-import { getMemberVacations } from "./getMemberVacations";
+import { useMemberVacations } from "./useMemberVacations";
 
-export interface Vacation {
+export interface MemberVacation {
+  id: number;
+  userId: number;
   type: string;
+  memo: string;
   leftDays: number;
   totalDays: number;
   expirationDate: string;
@@ -22,13 +23,7 @@ export interface Request {
 }
 
 export type UsingTypes = "일차" | "오전반차" | "오후반차";
-// 코드는 스트링을 들어가는 좋다
-
-const vacationsDummy: Vacation[] = [
-  { type: "연차", leftDays: 31, totalDays: 31, expirationDate: "2024-05-01" },
-  { type: "여름휴가", leftDays: 5, totalDays: 5, expirationDate: "2023-12-31" },
-  { type: "대체휴무", leftDays: 3, totalDays: 3, expirationDate: "2023-06-31" },
-];
+// 코드 100, 200, 300 은 string type으로 넣는것이 좋다.
 
 const usingTypes: UsingTypes[] = ["일차", "오전반차", "오후반차"];
 
@@ -40,17 +35,11 @@ const RequestPage = () => {
     startDt: nowFormat("YYYY-MM-DD"),
     endDt: nowFormat("YYYY-MM-DD"),
   });
-  const [vacations, setVacations] = useState<Vacation[]>([]);
 
-  useEffect(() => {
-    setVacations(vacationsDummy);
-    getVacations();
-  }, []);
+  const { memberVacations: vacations, setMemberVacations: setVacations } =
+    useMemberVacations();
 
-  const getVacations = async () => {
-    const vacations = await getMemberVacations();
-    console.log(vacations);
-  };
+  useEffect(() => {}, []);
 
   const addRequest = () => {
     const start = dayjs(selectedValue.startDt);
@@ -239,10 +228,10 @@ const RequestPage = () => {
         <button onClick={addRequest}>+</button>
       </div>
       <hr />
-      <ul test-="reqeusts">
+      <ul>
         {requests.map((request, index) => {
           return (
-            <li key={index}>
+            <li key={index + request.type}>
               {request.type} - {request.usingType} : {request.usingDays} <br />
               {request.startDt} ~ {request.endDt}
               <button onClick={() => deleteRequest(index)}>X</button>

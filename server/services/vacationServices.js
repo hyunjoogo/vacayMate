@@ -5,7 +5,7 @@ import { calculateTotalAnnual } from "../functions/calculateAnnual.js";
 const getUserAllVacations = async (userId) => {
   const userAllVacations = await db.Vacation.findAll({
     where: {
-      user_id: 1,
+      user_id: userId,
     },
   });
 
