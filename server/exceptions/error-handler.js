@@ -1,14 +1,17 @@
 function handleError(res, error) {
-  if (error.errorCode === 401) {
-    console.error('\x1b[31m%s', 'ValidationError : ', error.message);
-    return res.status(error.errorCode).json({error: error.message});
+  if (error.errorCode === 401 || error.errorCode === 400) {
+    console.error("\x1b[31m%s", "ValidationError : ", error.message);
+    return res.status(error.errorCode).json({
+      error: true,
+      message: error.message,
+      status: error.errorCode,
+    });
   }
-  console.error('\x1b[31m%s', 'Errrrrrror : ', error);
-  res.status(500).json({error: "서버 에러 발생"});
+  console.error("\x1b[31m%s", "Errrrrrror : ", error);
+  res.status(500).json({ error: "서버 에러 발생" });
 }
 
 export default handleError;
-
 
 // 받은 req의 DTO를 먼저 ifEmptyThrowBadReq 함수로
 // if (DTO === null) {
