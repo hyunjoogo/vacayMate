@@ -1,9 +1,12 @@
 import React, { useEffect, useState } from "react";
 import dayjs from "dayjs";
-import { isHoliday, nowFormat } from "../../utils/DateUtil";
+import { dateFormat, isHoliday, nowFormat } from "../../utils/DateUtil";
 import { checkUsingType } from "./checkUsingType";
 import { useMemberVacations } from "./useMemberVacations";
 import { splitByHoliday } from "./splitByHoliday";
+import * as Apis from "../../apis/apis";
+import * as ApiErrorHandling from "../../apis/apiErrorHandler";
+import { AxiosError } from "axios";
 
 export interface MemberVacation {
   id: number;
@@ -23,10 +26,25 @@ export interface Request {
   usingDays?: number;
 }
 
+export interface RequestFormat {
+  requests: {
+    useDate: string;
+    usingType: string;
+    usingDay: number;
+  }[];
+  vacationId: number;
+  totalDays: number;
+}
+
 export type UsingTypes = "일차" | "오전반차" | "오후반차";
 // 코드 100, 200, 300 은 string type으로 넣는것이 좋다.
 
 const usingTypes: UsingTypes[] = ["일차", "오전반차", "오후반차"];
+const usingDay = {
+  일차: 1,
+  오전반차: 0.5,
+  오후반차: 0.5,
+};
 
 const RequestPage = () => {
   const [requests, setRequests] = useState<Request[]>([]);
@@ -154,9 +172,45 @@ const RequestPage = () => {
   };
 
   // 리스트 서버에서 보내기
-  const postRequests = () => {
+  const postRequests = async () => {
     // 리스트 정리
+    const requestsList: RequestFormat[] = [];
+    vacations.forEach((vacation) => {
+      const filterRequests = requests.filter((request) => {
+        return request.type === vacation.type;
+      });
+      if (filterRequests.length !== 0) {
+        const format: RequestFormat = {
+          requests: [],
+          vacationId: vacation.id,
+          totalDays: 0,
+        };
+        filterRequests.forEach((request) => {
+          const start = dayjs(request.startDt);
+          const end = dayjs(request.endDt);
+          for (let date = start; date <= end; date = date.add(1, "day")) {
+            format.requests.push({
+              useDate: date.format("YYYY-MM-DD"),
+              usingType: request.usingType,
+              usingDay: usingDay[request.usingType],
+            });
+            format.totalDays += usingDay[request.usingType];
+          }
+        });
+
+        requestsList.push(format);
+      }
+    });
+
     // 서버로 전송
+    try {
+      for (const request of requestsList) {
+        const response = await Apis.postRequests(request);
+        console.log(response);
+      }
+    } catch (error: unknown) {
+      ApiErrorHandling.all(error);
+    }
   };
 
   return (
