@@ -17,6 +17,9 @@ const Layout = () => {
         <li>
           <Link to="/request">Request Page</Link>
         </li>
+        <li>
+          <Link to="/request-mgmt">Request-Mgmt Page</Link>
+        </li>
       </ul>
       <Outlet />
     </div>
