@@ -5,7 +5,7 @@ import { validateQuery } from "../../services/validateQuery/validateQuery.js";
 const getRequestsList = async (req, res, next) => {
   const { id: userId } = req.user;
   const {
-    nowPage = 1,
+    nowPage = 0,
     pageSize = 5,
     name,
     usingType,
