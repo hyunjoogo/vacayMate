@@ -35,36 +35,31 @@ interface memberRequest {
   };
 }
 
-interface MemberRequestList {
-  data: memberRequest[];
-  page: {
-    nowPage: number;
-    pageSize: number;
-    totalPages: number;
-    totalCount: number;
-  };
+interface Page {
+  nowPage: number;
+  pageSize: number;
+  totalPages: number;
+  totalCount: number;
 }
 
 interface SelectedValues {
   name: string;
   startDate: string;
   endDate: string;
-  status: "" | "canceled" | "approved" | "refused";
+  status: "" | "pending" | "canceled" | "approved" | "refused";
   usingType: "" | "all" | "morning" | "afternoon" | "out";
 }
 
 const RequestMgmtPage = () => {
-  const [memberRequestList, setMemberRequestList] = useState<MemberRequestList>(
-    {
-      data: [],
-      page: {
-        nowPage: 0,
-        pageSize: 0,
-        totalPages: 0,
-        totalCount: 0,
-      },
-    }
+  const [memberRequestList, setMemberRequestList] = useState<memberRequest[]>(
+    []
   );
+  const [page, setPage] = useState<Page>({
+    nowPage: 0,
+    pageSize: 10,
+    totalPages: 0,
+    totalCount: 0,
+  });
   const [selectedValues, setSelectedValues] = useState<SelectedValues>({
     name: "",
     startDate: "",
@@ -77,7 +72,14 @@ const RequestMgmtPage = () => {
     fetchData();
   }, []);
 
-  const fetchData = async (params: { [key: string]: string } = {}) => {
+  const fetchData = async (nowPage: number = 0) => {
+    const params: { [key: string]: string } = {
+      name: selectedValues.name,
+      status: selectedValues.status,
+      usingType: selectedValues.usingType,
+      startDate: selectedValues.startDate,
+      endDate: selectedValues.endDate,
+    };
     const paramsArray = Object.keys(params);
 
     if (paramsArray.length !== 0) {
@@ -90,9 +92,10 @@ const RequestMgmtPage = () => {
     }
 
     try {
-      const { data } = await Apis.getMemberRequests(params);
+      const { data } = await Apis.getMemberRequests(params, nowPage);
       console.log(data);
-      setMemberRequestList(data);
+      setMemberRequestList(data.data);
+      setPage(data.page);
     } catch (e) {
       ApiErrorHandler.all(e);
     }
@@ -108,14 +111,17 @@ const RequestMgmtPage = () => {
 
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const params = {
-      name: selectedValues.name,
-      status: selectedValues.status,
-      usingType: selectedValues.usingType,
-      startDate: selectedValues.startDate,
-      endDate: selectedValues.endDate,
-    };
-    fetchData(params);
+    fetchData(0);
+  };
+
+  const handleChangePage = (nowPage: number) => {
+    setPage((prev) => {
+      return {
+        ...prev,
+        nowPage,
+      };
+    });
+    fetchData(nowPage);
   };
 
   return (
@@ -130,6 +136,7 @@ const RequestMgmtPage = () => {
         <select name="status" onChange={updateSearchParameters}>
           <option value="">all</option>
           <option value="canceled">canceled</option>
+          <option value="pending">pending</option>
           <option value="approved">approved</option>
           <option value="refused">refused</option>
         </select>
@@ -146,7 +153,7 @@ const RequestMgmtPage = () => {
         <button type="submit">search</button>
       </form>
       <hr />
-      {memberRequestList.data.map((memberRequest) => {
+      {memberRequestList.map((memberRequest) => {
         return (
           <div key={memberRequest.id}>
             {memberRequest.user.name} / {memberRequest.user.email} /{" "}
@@ -155,6 +162,34 @@ const RequestMgmtPage = () => {
           </div>
         );
       })}
+
+      <div>
+        <button
+          disabled={page.nowPage === 0}
+          onClick={() => handleChangePage(0)}
+        >
+          First
+        </button>
+        <button
+          disabled={page.nowPage === 0}
+          onClick={() => handleChangePage(page.nowPage - 1)}
+        >
+          Previous
+        </button>{" "}
+        {page.nowPage + 1} / {page.totalPages}
+        <button
+          disabled={page.nowPage + 1 === page.totalPages}
+          onClick={() => handleChangePage(page.nowPage + 1)}
+        >
+          Next
+        </button>
+        <button
+          disabled={page.nowPage + 1 === page.totalPages}
+          onClick={() => handleChangePage(page.totalPages - 1)}
+        >
+          Last
+        </button>
+      </div>
     </div>
   );
 };
