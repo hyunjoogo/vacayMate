@@ -5,7 +5,7 @@ import { checkUsingType } from "./checkUsingType";
 import { useMemberVacations } from "./useMemberVacations";
 import { splitByHoliday } from "./splitByHoliday";
 import * as Apis from "../../apis/apis";
-import * as ApiErrorHandling from "../../apis/apiErrorHandler";
+import * as ApiErrorHandler from "../../apis/apiErrorHandler";
 import { AxiosError } from "axios";
 
 export interface MemberVacation {
@@ -209,7 +209,7 @@ const RequestPage = () => {
         console.log(response);
       }
     } catch (error: unknown) {
-      ApiErrorHandling.all(error);
+      ApiErrorHandler.all(error);
     }
   };
 

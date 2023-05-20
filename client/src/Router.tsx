@@ -6,6 +6,7 @@ import App from "./App";
 import Layout from "./components/Layout";
 import { useAuthentication } from "./contexts/AppContext";
 import RequestPage from "./pages/request/RequestPage";
+import RequestMgmtPage from "./pages/request-mgmt/RequestMgmtPage";
 
 const Router = () => {
   useAuthentication();
@@ -23,6 +24,7 @@ const Router = () => {
         <Route path="/login" element={<LoginPage />} />
         <Route path="/home" element={<HomePage />} />
         <Route path="/request" element={<RequestPage />} />
+        <Route path="/request-mgmt" element={<RequestMgmtPage />} />
       </Route>
     </Routes>
   );

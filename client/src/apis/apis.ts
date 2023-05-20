@@ -25,3 +25,17 @@ export const postRequests = (request: RequestFormat) => {
     },
   });
 };
+
+export const getMemberRequests = (params: {}) => {
+  const url = baseUrl + "/api/admin/v1/request";
+  const accessToken = getAccessToken();
+  return axios.get(url, {
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${accessToken}`,
+    },
+    params: {
+      ...params,
+    },
+  });
+};
