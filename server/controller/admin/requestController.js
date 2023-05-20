@@ -2,11 +2,17 @@ import handleError from "../../exceptions/error-handler.js";
 import * as RequestServices from "../../services/requestServices.js";
 import { validateQuery } from "../../services/validateQuery/validateQuery.js";
 
-const getRequestsList = async (req, res) => {
-  const {id: userId} = req.user;
-  const {nowPage = 1, pageSize = 10, name, usingType, status, startDate, endDate} = req.query;
-
-  validateQuery({startDate, endDate, name, status, usingType});
+const getRequestsList = async (req, res, next) => {
+  const { id: userId } = req.user;
+  const {
+    nowPage = 1,
+    pageSize = 5,
+    name,
+    usingType,
+    status,
+    startDate,
+    endDate,
+  } = req.query;
 
   /* FLOW
   1. 검색조건 : 요청자 이름, 요청의 사용타입(일차, 오전반차, 오후반차), 요청의 상태
@@ -18,6 +24,7 @@ const getRequestsList = async (req, res) => {
    */
 
   try {
+    validateQuery({ startDate, endDate, name, status, usingType });
     const result = await RequestServices.getRequestsList({
       nowPage,
       pageSize,
@@ -26,7 +33,7 @@ const getRequestsList = async (req, res) => {
       status,
       startDate,
       endDate,
-      userId
+      userId,
     });
     res.status(200).json(result);
   } catch (error) {
@@ -36,7 +43,7 @@ const getRequestsList = async (req, res) => {
 
 const getDetailRequest = async (req, res) => {
   try {
-    const {requestId} = req.params;
+    const { requestId } = req.params;
     const result = await RequestServices.getDetailRequest(requestId);
     res.status(200).json(result);
   } catch (error) {
@@ -46,26 +53,30 @@ const getDetailRequest = async (req, res) => {
 
 const approveRequest = async (req, res) => {
   try {
-    const {requestId} = req.params;
-    const {id: userId} = req.user;
-    const {message} = req.body;
+    const { requestId } = req.params;
+    const { id: userId } = req.user;
+    const { message } = req.body;
 
-    const approvedRequest = await RequestServices.approveRequest(requestId, userId, message);
+    const approvedRequest = await RequestServices.approveRequest(
+      requestId,
+      userId,
+      message
+    );
     res.status(200).json(approvedRequest);
   } catch (error) {
     handleError(res, error);
   }
-
 };
 
 const refuseRequest = async (req, res) => {
   try {
-    const {requestId} = req.params;
-    const {id: userId} = req.user;
-    const {message} = req.body;
+    const { requestId } = req.params;
+    const { id: userId } = req.user;
+    const { message } = req.body;
 
-    const {refusedRequest, updateVacation} = await RequestServices.refuseRequest(requestId, userId, message);
-    res.status(200).json({refusedRequest, updateVacation});
+    const { refusedRequest, updateVacation } =
+      await RequestServices.refuseRequest(requestId, userId, message);
+    res.status(200).json({ refusedRequest, updateVacation });
   } catch (error) {
     handleError(res, error);
   }

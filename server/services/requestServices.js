@@ -229,8 +229,8 @@ const getDetailRequest = async (requestId) => {
 };
 
 const getRequestsList = async ({
-  nowPage = 1,
-  pageSize = 10,
+  nowPage,
+  pageSize,
   name,
   usingType,
   status,
@@ -242,6 +242,8 @@ const getRequestsList = async ({
 
   const where = {};
   let searchName = "";
+  const today = dayjs();
+
   if (name) {
     searchName = name;
     where["$user.name$"] = { [Sequelize.Op.like]: `%${searchName}%` };
@@ -253,7 +255,6 @@ const getRequestsList = async ({
     where.status = status;
   }
   if (startDate === undefined && endDate === undefined) {
-    const today = dayjs();
     const start = today.subtract(1, "month").format(YYYYMMDD);
     const end = today.add(1, "month").format(YYYYMMDD);
     where.use_date = { [Sequelize.Op.between]: [start, end] };
@@ -261,7 +262,7 @@ const getRequestsList = async ({
     const start = startDate
       ? dayjs(startDate)
       : dayjs(endDate).subtract(1, "month");
-    const end = endDate ? dayjs(endDate) : dayjs(startDate).add(1, "month");
+    const end = endDate ? dayjs(endDate) : today;
     where.use_date = {
       [Sequelize.Op.between]: [start.format(YYYYMMDD), end.format(YYYYMMDD)],
     };
