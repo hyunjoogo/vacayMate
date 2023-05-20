@@ -26,7 +26,7 @@ export const postRequests = (request: RequestFormat) => {
   });
 };
 
-export const getMemberRequests = (params: {}) => {
+export const getMemberRequests = (params: {}, nowPage: number) => {
   const url = baseUrl + "/api/admin/v1/request";
   const accessToken = getAccessToken();
   return axios.get(url, {
@@ -36,6 +36,7 @@ export const getMemberRequests = (params: {}) => {
     },
     params: {
       ...params,
+      nowPage,
     },
   });
 };
