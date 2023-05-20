@@ -237,7 +237,7 @@ const getRequestsList = async ({
   startDate,
   endDate,
 }) => {
-  const offset = (nowPage - 1) * pageSize;
+  const offset = nowPage * pageSize;
   const limit = Number(pageSize);
 
   const where = {};
