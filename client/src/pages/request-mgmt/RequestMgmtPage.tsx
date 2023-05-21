@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import * as Apis from "../../apis/apis";
 import * as ApiErrorHandler from "../../apis/apiErrorHandler";
+import RequestDetail from "./RequestDetail";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 
 interface memberRequest {
   id: number;
@@ -51,11 +53,15 @@ interface SelectedValues {
 }
 
 const RequestMgmtPage = () => {
+  const navigate = useNavigate();
+  const location = useLocation();
+  const queryParams = new URLSearchParams(location.search);
+
   const [memberRequestList, setMemberRequestList] = useState<memberRequest[]>(
     []
   );
   const [page, setPage] = useState<Page>({
-    nowPage: 0,
+    nowPage: parseInt(queryParams.get("page") || "0"),
     pageSize: 10,
     totalPages: 0,
     totalCount: 0,
@@ -67,10 +73,45 @@ const RequestMgmtPage = () => {
     status: "",
     usingType: "",
   });
+  console.log(page);
+  useEffect(() => {
+    console.log(location.search);
+    setSelectedValues((prev) => ({
+      ...prev,
+      name: queryParams.get("name") || "",
+      startDate: queryParams.get("startDate") || "",
+      endDate: queryParams.get("endDate") || "",
+      status: (queryParams.get("status") as SelectedValues["status"]) || "",
+      usingType:
+        (queryParams.get("usingType") as SelectedValues["usingType"]) || "",
+    }));
+    const page = parseInt(queryParams.get("page") || "0");
+    fetchData(page);
+  }, []);
 
   useEffect(() => {
-    fetchData();
-  }, []);
+    console.log("두번재 useEffect", selectedValues);
+    const params: { [key: string]: string } = {
+      name: selectedValues.name,
+      status: selectedValues.status,
+      usingType: selectedValues.usingType,
+      startDate: selectedValues.startDate,
+      endDate: selectedValues.endDate,
+    };
+    const paramsArray = Object.keys(params);
+    let queryString = "/request-mgmt?";
+    if (paramsArray.length !== 0) {
+      paramsArray.forEach((key) => {
+        if (params[key] !== "") {
+          queryString += `${key}=${params[key]}&`;
+        } else {
+        }
+      });
+      queryString += `page=${page.nowPage}`;
+    }
+
+    navigate(queryString);
+  }, [page]);
 
   const fetchData = async (nowPage: number = 0) => {
     const params: { [key: string]: string } = {
@@ -85,7 +126,6 @@ const RequestMgmtPage = () => {
     if (paramsArray.length !== 0) {
       paramsArray.forEach((key) => {
         if (params[key] === "") {
-          console.log(key);
           delete params[key];
         }
       });
@@ -93,7 +133,6 @@ const RequestMgmtPage = () => {
 
     try {
       const { data } = await Apis.getMemberRequests(params, nowPage);
-      console.log(data);
       setMemberRequestList(data.data);
       setPage(data.page);
     } catch (e) {
@@ -111,6 +150,7 @@ const RequestMgmtPage = () => {
 
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    setPage((prev) => ({ ...prev, nowPage: 0 }));
     fetchData(0);
   };
 
@@ -126,6 +166,7 @@ const RequestMgmtPage = () => {
 
   return (
     <div>
+      {location.search}
       <form onSubmit={onSubmit}>
         <input
           type="text"
@@ -164,7 +205,6 @@ const RequestMgmtPage = () => {
           );
         })}
       </ul>
-
       <div>
         <button
           disabled={page.nowPage === 0}
