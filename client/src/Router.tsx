@@ -7,6 +7,7 @@ import Layout from "./components/Layout";
 import { useAuthentication } from "./contexts/AppContext";
 import RequestPage from "./pages/request/RequestPage";
 import RequestMgmtPage from "./pages/request-mgmt/RequestMgmtPage";
+import RequestDetail from "./pages/request-mgmt/RequestDetail";
 
 const Router = () => {
   useAuthentication();
@@ -25,6 +26,7 @@ const Router = () => {
         <Route path="/home" element={<HomePage />} />
         <Route path="/request" element={<RequestPage />} />
         <Route path="/request-mgmt" element={<RequestMgmtPage />} />
+        <Route path="/request-mgmt/:requestId" element={<RequestDetail />} />
       </Route>
     </Routes>
   );
