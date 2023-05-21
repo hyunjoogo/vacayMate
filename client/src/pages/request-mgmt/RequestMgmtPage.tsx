@@ -73,9 +73,8 @@ const RequestMgmtPage = () => {
     status: "",
     usingType: "",
   });
-  console.log(page);
+
   useEffect(() => {
-    console.log(location.search);
     setSelectedValues((prev) => ({
       ...prev,
       name: queryParams.get("name") || "",
@@ -87,7 +86,7 @@ const RequestMgmtPage = () => {
     }));
     const page = parseInt(queryParams.get("page") || "0");
     fetchData(page);
-  }, []);
+  }, [location.search]);
 
   useEffect(() => {
     console.log("두번재 useEffect", selectedValues);
@@ -109,7 +108,6 @@ const RequestMgmtPage = () => {
       });
       queryString += `page=${page.nowPage}`;
     }
-
     navigate(queryString);
   }, [page]);
 
