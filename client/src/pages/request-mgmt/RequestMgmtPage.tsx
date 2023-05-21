@@ -153,15 +153,17 @@ const RequestMgmtPage = () => {
         <button type="submit">search</button>
       </form>
       <hr />
-      {memberRequestList.map((memberRequest) => {
-        return (
-          <div key={memberRequest.id}>
-            {memberRequest.user.name} / {memberRequest.user.email} /{" "}
-            {memberRequest.use_date} / {memberRequest.using_type} /{" "}
-            {memberRequest.status}
-          </div>
-        );
-      })}
+      <ul>
+        {memberRequestList.map((memberRequest) => {
+          return (
+            <li key={memberRequest.id}>
+              {memberRequest.user.name} / {memberRequest.user.email} /{" "}
+              {memberRequest.use_date} / {memberRequest.using_type} /{" "}
+              {memberRequest.status}
+            </li>
+          );
+        })}
+      </ul>
 
       <div>
         <button
