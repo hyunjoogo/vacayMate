@@ -198,9 +198,11 @@ const RequestMgmtPage = () => {
         {memberRequestList.map((memberRequest) => {
           return (
             <li key={memberRequest.id}>
-              {memberRequest.user.name} / {memberRequest.user.email} /{" "}
-              {memberRequest.use_date} / {memberRequest.using_type} /{" "}
-              {memberRequest.status}
+              <Link to={`/request-mgmt/${memberRequest.id}`}>
+                {memberRequest.id} / {memberRequest.user.name} /{" "}
+                {memberRequest.user.email} / {memberRequest.use_date} /{" "}
+                {memberRequest.using_type} / {memberRequest.status}
+              </Link>
             </li>
           );
         })}
