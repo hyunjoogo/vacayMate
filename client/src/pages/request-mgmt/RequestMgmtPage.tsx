@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import * as Apis from "../../apis/apis";
 import * as ApiErrorHandler from "../../apis/apiErrorHandler";
-import RequestDetail from "./RequestDetail";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 
 interface memberRequest {

@@ -40,3 +40,14 @@ export const getMemberRequests = (params: {}, nowPage: number) => {
     },
   });
 };
+
+export const getMemberRequestDetail = (requestId: number) => {
+  const url = baseUrl + "/api/admin/v1/request" + "/" + requestId;
+  const accessToken = getAccessToken();
+  return axios.get(url, {
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${accessToken}`,
+    },
+  });
+};
