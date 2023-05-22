@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import * as Apis from "../../apis/apis";
 import * as ApiErrorHandler from "../../apis/apiErrorHandler";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import RequestDetail from "./RequestDetail";
 
 interface memberRequest {
   id: number;
@@ -52,15 +52,11 @@ interface SelectedValues {
 }
 
 const RequestMgmtPage = () => {
-  const navigate = useNavigate();
-  const location = useLocation();
-  const queryParams = new URLSearchParams(location.search);
-
   const [memberRequestList, setMemberRequestList] = useState<memberRequest[]>(
     []
   );
   const [page, setPage] = useState<Page>({
-    nowPage: parseInt(queryParams.get("page") || "0"),
+    nowPage: 0,
     pageSize: 10,
     totalPages: 0,
     totalCount: 0,
@@ -72,43 +68,12 @@ const RequestMgmtPage = () => {
     status: "",
     usingType: "",
   });
+  const [requestDetailId, setRequestDetailId] = useState<number | null>(null);
+  const [detail, setDetail] = useState<boolean>(false);
 
   useEffect(() => {
-    setSelectedValues((prev) => ({
-      ...prev,
-      name: queryParams.get("name") || "",
-      startDate: queryParams.get("startDate") || "",
-      endDate: queryParams.get("endDate") || "",
-      status: (queryParams.get("status") as SelectedValues["status"]) || "",
-      usingType:
-        (queryParams.get("usingType") as SelectedValues["usingType"]) || "",
-    }));
-    const page = parseInt(queryParams.get("page") || "0");
-    fetchData(page);
-  }, [location.search]);
-
-  useEffect(() => {
-    console.log("두번재 useEffect", selectedValues);
-    const params: { [key: string]: string } = {
-      name: selectedValues.name,
-      status: selectedValues.status,
-      usingType: selectedValues.usingType,
-      startDate: selectedValues.startDate,
-      endDate: selectedValues.endDate,
-    };
-    const paramsArray = Object.keys(params);
-    let queryString = "/request-mgmt?";
-    if (paramsArray.length !== 0) {
-      paramsArray.forEach((key) => {
-        if (params[key] !== "") {
-          queryString += `${key}=${params[key]}&`;
-        } else {
-        }
-      });
-      queryString += `page=${page.nowPage}`;
-    }
-    navigate(queryString);
-  }, [page]);
+    fetchData();
+  }, []);
 
   const fetchData = async (nowPage: number = 0) => {
     const params: { [key: string]: string } = {
@@ -161,9 +126,14 @@ const RequestMgmtPage = () => {
     fetchData(nowPage);
   };
 
+  const handleDetail = (requestId: number) => {
+    console.log(requestId);
+    setRequestDetailId(requestId);
+    setDetail(true);
+  };
+
   return (
     <div>
-      {location.search}
       <form onSubmit={onSubmit}>
         <input
           type="text"
@@ -194,12 +164,13 @@ const RequestMgmtPage = () => {
       <ul>
         {memberRequestList.map((memberRequest) => {
           return (
-            <li key={memberRequest.id}>
-              <Link to={`/request-mgmt/${memberRequest.id}`}>
-                {memberRequest.id} / {memberRequest.user.name} /{" "}
-                {memberRequest.user.email} / {memberRequest.use_date} /{" "}
-                {memberRequest.using_type} / {memberRequest.status}
-              </Link>
+            <li
+              key={memberRequest.id}
+              onClick={() => handleDetail(memberRequest.id)}
+            >
+              {memberRequest.id} / {memberRequest.user.name} /{" "}
+              {memberRequest.user.email} / {memberRequest.use_date} /{" "}
+              {memberRequest.using_type} / {memberRequest.status}
             </li>
           );
         })}
@@ -231,6 +202,7 @@ const RequestMgmtPage = () => {
           Last
         </button>
       </div>
+      {detail && <RequestDetail requestId={requestDetailId!} />}
     </div>
   );
 };

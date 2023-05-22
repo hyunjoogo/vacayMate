@@ -26,7 +26,6 @@ const Router = () => {
         <Route path="/home" element={<HomePage />} />
         <Route path="/request" element={<RequestPage />} />
         <Route path="/request-mgmt" element={<RequestMgmtPage />} />
-        <Route path="/request-mgmt/:requestId" element={<RequestDetail />} />
       </Route>
     </Routes>
   );
