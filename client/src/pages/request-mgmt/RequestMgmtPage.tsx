@@ -201,7 +201,13 @@ const RequestMgmtPage = () => {
           Last
         </button>
       </div>
-      {detail && <RequestDetail requestId={requestDetailId!} />}
+      {detail && (
+        <RequestDetail
+          requestId={requestDetailId!}
+          fetchRequestList={fetchData}
+          nowPage={page.nowPage}
+        />
+      )}
     </div>
   );
 };

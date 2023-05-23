@@ -51,3 +51,23 @@ export const getMemberRequestDetail = (requestId: number) => {
     },
   });
 };
+
+export const postApproveRequest = (
+  requestId: number,
+  message: string | null = null
+) => {
+  const url = baseUrl + "/api/admin/v1/request/approve" + "/" + requestId;
+  const accessToken = getAccessToken();
+  return axios.post(
+    url,
+    {
+      message,
+    },
+    {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${accessToken}`,
+      },
+    }
+  );
+};

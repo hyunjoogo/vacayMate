@@ -57,16 +57,24 @@ interface Temp {
   info: CanceledInfo | ApprovedInfo | RefusedInfo;
 }
 
-const RequestDetail = ({ requestId }: { requestId: number }) => {
+const RequestDetail = ({
+  requestId,
+  fetchRequestList,
+  nowPage,
+}: {
+  requestId: number;
+  fetchRequestList: (nowPage: number) => Promise<void>;
+  nowPage: number;
+}) => {
   const [detailRequest, setDetailRequest] = useState<DetailRequest | null>(
     null
   );
 
   useEffect(() => {
-    fetchData(requestId);
+    fetchRequestDetail(requestId);
   }, [requestId]);
 
-  const fetchData = async (requestId: number) => {
+  const fetchRequestDetail = async (requestId: number) => {
     try {
       const { data } = await Apis.getMemberRequestDetail(Number(requestId));
       console.log(data);
@@ -78,7 +86,6 @@ const RequestDetail = ({ requestId }: { requestId: number }) => {
 
   const renderHistory = () => {
     // 3개의 상태 객체의 시간을 보고 내림차순으로 정리한다.
-
     const history = [];
     if (detailRequest?.approvedInfo) {
       const temp: Temp = {
@@ -133,6 +140,29 @@ const RequestDetail = ({ requestId }: { requestId: number }) => {
     );
   };
 
+  const onApprove = async () => {
+    if (detailRequest?.status !== "pending") {
+      alert("pending 상태의 요청만 가능합니다.");
+      return;
+    }
+    try {
+      const { data } = await Apis.postApproveRequest(requestId);
+      console.log(data);
+      window.confirm("Refused!");
+      await fetchRequestDetail(requestId);
+      await fetchRequestList(nowPage);
+    } catch (e) {
+      ApiErrorHandler.all(e);
+    }
+  };
+  const onRefuse = async () => {
+    console.log(requestId);
+    try {
+    } catch (e) {
+      ApiErrorHandler.all(e);
+    }
+  };
+
   return (
     <div>
       <h1>Request ID: {requestId}</h1>
@@ -152,6 +182,10 @@ const RequestDetail = ({ requestId }: { requestId: number }) => {
             <p>History</p>
             <p>사용신청 : {detailRequest.createdAt}</p>
             {renderHistory()}
+          </div>
+          <div>
+            <button onClick={onApprove}>Approve</button>
+            <button onClick={onRefuse}>Refuse</button>
           </div>
         </>
       )}
