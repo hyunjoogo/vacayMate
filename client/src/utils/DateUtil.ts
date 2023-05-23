@@ -1,8 +1,15 @@
 import dayjs from "dayjs";
 import utc from "dayjs/plugin/utc";
+import updateLocale from "dayjs/plugin/updateLocale";
+import relativeTime from "dayjs/plugin/relativeTime";
+import "dayjs/locale/ko";
+
 import restInformation from "../restInformation/restInformation.json";
 
 dayjs.extend(utc);
+dayjs.extend(updateLocale);
+dayjs.extend(relativeTime);
+dayjs.locale("ko");
 
 interface HolidaysData {
   [year: string]: {
@@ -39,4 +46,10 @@ export function isHoliday(value: string) {
   return false;
 }
 
-// string 시작일, 종료일 넣으면 Day Diff 리턴
+export function timeFromNow(date: dayjs.Dayjs | string) {
+  if (typeof date === "string") {
+    return dayjs(date).fromNow();
+  }
+
+  return date.fromNow();
+}

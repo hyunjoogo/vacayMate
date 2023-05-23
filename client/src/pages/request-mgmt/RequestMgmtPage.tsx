@@ -127,7 +127,6 @@ const RequestMgmtPage = () => {
   };
 
   const handleDetail = (requestId: number) => {
-    console.log(requestId);
     setRequestDetailId(requestId);
     setDetail(true);
   };

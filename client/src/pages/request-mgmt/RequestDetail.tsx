@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import * as ApiErrorHandler from "../../apis/apiErrorHandler";
 import * as Apis from "../../apis/apis";
 import dayjs from "dayjs";
+import { timeFromNow } from "../../utils/DateUtil";
 // Layout
 // https://tailwindui.com/components/application-ui/page-examples/detail-screens?include=archived#component-6d449ab606e4b9f99757efd317b768de
 
@@ -21,56 +22,39 @@ interface DetailRequest {
   status: string;
   memo: string | null;
   createdAt: string;
-  approvedInfo: null | {
-    approvedAt: string;
-    approvedMemo: string | null;
-    email: string;
-    id: number;
-    name: string;
-  };
-  canceledInfo: null | {
-    canceledAt: string;
-    canceledMemo: string | null;
-    email: string;
-    id: number;
-    name: string;
-  };
-  refusedInfo: null | {
-    refusedAt: string;
-    refusedMemo: string | null;
-    email: string;
-    id: number;
-    name: string;
-  };
+  approvedInfo: null | ApprovedInfo;
+  canceledInfo: null | CanceledInfo;
+  refusedInfo: null | RefusedInfo;
 }
 
-interface as {
-  approvedInfo: null | {
-    approvedAt: string;
-    approvedMemo: string | null;
-    email: string;
-    id: number;
-    name: string;
-  };
-  canceledInfo: null | {
-    canceledAt: string;
-    canceledMemo: string | null;
-    email: string;
-    id: number;
-    name: string;
-  };
-  refusedInfo: null | {
-    refusedAt: string;
-    refusedMemo: string | null;
-    email: string;
-    id: number;
-    name: string;
-  };
-}
+type CanceledInfo = {
+  canceledAt: string;
+  canceledMemo: string | null;
+  email: string;
+  id: number;
+  name: string;
+};
+
+type ApprovedInfo = {
+  approvedAt: string;
+  approvedMemo: string | null;
+  email: string;
+  id: number;
+  name: string;
+};
+
+type RefusedInfo = {
+  refusedAt: string;
+  refusedMemo: string | null;
+  email: string;
+  id: number;
+  name: string;
+};
 
 interface Temp {
   type: string;
   at: dayjs.Dayjs;
+  info: CanceledInfo | ApprovedInfo | RefusedInfo;
 }
 
 const RequestDetail = ({ requestId }: { requestId: number }) => {
@@ -100,6 +84,7 @@ const RequestDetail = ({ requestId }: { requestId: number }) => {
       const temp: Temp = {
         type: "approvedInfo",
         at: dayjs(detailRequest?.approvedInfo?.approvedAt),
+        info: { ...detailRequest?.approvedInfo },
       };
 
       history.push(temp);
@@ -108,6 +93,7 @@ const RequestDetail = ({ requestId }: { requestId: number }) => {
       const temp: Temp = {
         type: "canceledInfo",
         at: dayjs(detailRequest?.canceledInfo?.canceledAt),
+        info: { ...detailRequest?.canceledInfo },
       };
 
       history.push(temp);
@@ -116,6 +102,7 @@ const RequestDetail = ({ requestId }: { requestId: number }) => {
       const temp: Temp = {
         type: "refusedInfo",
         at: dayjs(detailRequest?.refusedInfo?.refusedAt),
+        info: { ...detailRequest?.refusedInfo },
       };
       history.push(temp);
     }
@@ -135,6 +122,10 @@ const RequestDetail = ({ requestId }: { requestId: number }) => {
           return (
             <p key={item.type}>
               {item.type} : {item.at.format("YYYY-MM-DD HH:mm:ss")}
+              <br />
+              {item.info.name}님이 취소/거절/승인을 하셨습니다.{" "}
+              {timeFromNow(item.at)}
+              {/* 메모가 있으면 보이게 해야함 */}
             </p>
           );
         })}
@@ -152,6 +143,10 @@ const RequestDetail = ({ requestId }: { requestId: number }) => {
           </p>
           <p>
             {detailRequest.useDate} / {detailRequest.status}
+          </p>
+          <p>
+            {detailRequest.vacation.type} / {detailRequest.vacation.leftDays} /{" "}
+            {detailRequest.vacation.totalDays}
           </p>
           <div>
             <p>History</p>
