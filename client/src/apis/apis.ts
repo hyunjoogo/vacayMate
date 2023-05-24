@@ -71,3 +71,23 @@ export const postApproveRequest = (
     }
   );
 };
+
+export const postRefuseRequest = (
+  requestId: number,
+  message: string | null = null
+) => {
+  const url = baseUrl + "/api/admin/v1/request/refuse" + "/" + requestId;
+  const accessToken = getAccessToken();
+  return axios.post(
+    url,
+    {
+      message,
+    },
+    {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${accessToken}`,
+      },
+    }
+  );
+};

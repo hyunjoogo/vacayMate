@@ -4,6 +4,7 @@ import * as ApiErrorHandler from "../../apis/apiErrorHandler";
 import * as Apis from "../../apis/apis";
 import dayjs from "dayjs";
 import { timeFromNow } from "../../utils/DateUtil";
+import { postRefuseRequest } from "../../apis/apis";
 // Layout
 // https://tailwindui.com/components/application-ui/page-examples/detail-screens?include=archived#component-6d449ab606e4b9f99757efd317b768de
 
@@ -145,10 +146,11 @@ const RequestDetail = ({
       alert("pending 상태의 요청만 가능합니다.");
       return;
     }
+    window.confirm("Approve!");
+
     try {
       const { data } = await Apis.postApproveRequest(requestId);
       console.log(data);
-      window.confirm("Refused!");
       await fetchRequestDetail(requestId);
       await fetchRequestList(nowPage);
     } catch (e) {
@@ -156,8 +158,18 @@ const RequestDetail = ({
     }
   };
   const onRefuse = async () => {
-    console.log(requestId);
+    if (detailRequest?.status !== "pending") {
+      alert("pending 상태의 요청만 가능합니다.");
+      return;
+    }
+
+    window.confirm("Refused!");
+
     try {
+      const { data } = await Apis.postRefuseRequest(requestId);
+      console.log(data);
+      await fetchRequestDetail(requestId);
+      await fetchRequestList(nowPage);
     } catch (e) {
       ApiErrorHandler.all(e);
     }
