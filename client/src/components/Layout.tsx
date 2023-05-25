@@ -1,28 +1,28 @@
 import React from "react";
-import { Link, Outlet } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
+
+import Modal from "./Modal";
+import routes from "../routes";
 
 const Layout = () => {
   return (
-    <div style={{ backgroundColor: "white" }}>
-      <ul>
-        <li>
-          <Link to="/">Public Page</Link>
-        </li>
-        <li>
-          <Link to="/login">Login Page</Link>
-        </li>
-        <li>
-          <Link to="/home">Home Page</Link>
-        </li>
-        <li>
-          <Link to="/request">Request Page</Link>
-        </li>
-        <li>
-          <Link to="/request-mgmt">Request-Mgmt Page</Link>
-        </li>
-      </ul>
-      <Outlet />
-    </div>
+    <main>
+      <Routes>
+        {routes.map((route, idx) => {
+          return (
+            route.component && (
+              <Route
+                key={idx}
+                path={route.path}
+                element={<route.component />}
+              />
+            )
+          );
+        })}
+      </Routes>
+
+      <Modal />
+    </main>
   );
 };
 

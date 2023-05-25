@@ -1,13 +1,8 @@
 import React from "react";
 import { Route, Routes } from "react-router-dom";
-import HomePage from "./pages/home/HomePage";
-import LoginPage from "./pages/login/LoginPage";
-import App from "./App";
 import Layout from "./components/Layout";
 import { useAuthentication } from "./contexts/AppContext";
-import RequestPage from "./pages/request/RequestPage";
-import RequestMgmtPage from "./pages/request-mgmt/RequestMgmtPage";
-import RequestDetail from "./pages/request-mgmt/RequestDetail";
+import Header from "./components/Header";
 
 const Router = () => {
   useAuthentication();
@@ -20,12 +15,8 @@ const Router = () => {
   // https://stackblitz.com/github/remix-run/react-router/tree/main/examples/auth?file=src%2FApp.tsx
   return (
     <Routes>
-      <Route element={<Layout />}>
-        <Route path="/" element={<App />} />
-        <Route path="/login" element={<LoginPage />} />
-        <Route path="/home" element={<HomePage />} />
-        <Route path="/request" element={<RequestPage />} />
-        <Route path="/request-mgmt" element={<RequestMgmtPage />} />
+      <Route element={<Header />}>
+        <Route path="/*" element={<Layout />} />
       </Route>
     </Routes>
   );
