@@ -1,7 +1,6 @@
 import React from "react";
 import { Route, Routes } from "react-router-dom";
 
-import Modal from "./Modal";
 import routes from "../routes";
 
 const Layout = () => {
@@ -20,8 +19,6 @@ const Layout = () => {
           );
         })}
       </Routes>
-
-      <Modal />
     </main>
   );
 };

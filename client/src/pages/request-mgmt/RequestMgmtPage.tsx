@@ -2,8 +2,6 @@ import React, { useEffect, useState } from "react";
 import * as Apis from "../../apis/apis";
 import * as ApiErrorHandler from "../../apis/apiErrorHandler";
 import RequestDetail from "./RequestDetail";
-import { useRecoilState, useSetRecoilState } from "recoil";
-import { modalComponentsAtom, modalStateAtom } from "../../atom/atoms";
 
 interface MemberRequest {
   id: number;
@@ -54,9 +52,6 @@ interface SelectedValues {
 }
 
 const RequestMgmtPage = () => {
-  const [isOpen, setIsOpen] = useRecoilState(modalStateAtom);
-  const setModalComponents = useSetRecoilState(modalComponentsAtom);
-
   const [memberRequestList, setMemberRequestList] = useState<MemberRequest[]>(
     []
   );
@@ -137,18 +132,8 @@ const RequestMgmtPage = () => {
     setDetail(true);
   };
 
-  const onDetail = () => {
-    setModalComponents([]);
-    setIsOpen(true);
-  };
-
   return (
     <div>
-      <div>
-        오픈 상태 : {String(isOpen)}
-        <button onClick={() => onDetail()}>Modal open</button>
-        <button onClick={() => setIsOpen(false)}>Modal close</button>
-      </div>
       <form onSubmit={onSubmit}>
         <input
           type="text"

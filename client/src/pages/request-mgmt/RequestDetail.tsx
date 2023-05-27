@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
 import * as ApiErrorHandler from "../../apis/apiErrorHandler";
 import * as Apis from "../../apis/apis";
 import dayjs from "dayjs";
 import { timeFromNow } from "../../utils/DateUtil";
-import { postRefuseRequest } from "../../apis/apis";
+import useModal from "../../hooks/useModal";
+import { createPortal } from "react-dom";
+import SingleModal from "../../components/modal/SingleModal";
 // Layout
 // https://tailwindui.com/components/application-ui/page-examples/detail-screens?include=archived#component-6d449ab606e4b9f99757efd317b768de
 
@@ -67,6 +68,8 @@ const RequestDetail = ({
   fetchRequestList: (nowPage: number) => Promise<void>;
   nowPage: number;
 }) => {
+  const { showModal, openModal, closeModal } = useModal();
+  const [modalComponent, setModalComponent] = useState(<></>);
   const [detailRequest, setDetailRequest] = useState<DetailRequest | null>(
     null
   );
@@ -175,6 +178,16 @@ const RequestDetail = ({
     }
   };
 
+  const handleClose = (result: string) => {
+    console.log(result);
+    closeModal();
+  };
+
+  const modalOpen = () => {
+    setModalComponent(<SingleModal onClose={handleClose} />);
+    openModal();
+  };
+
   return (
     <div>
       <h1>Request ID: {requestId}</h1>
@@ -201,6 +214,7 @@ const RequestDetail = ({
           </div>
         </>
       )}
+      {showModal && createPortal(modalComponent, document.body)}
     </div>
   );
 };
