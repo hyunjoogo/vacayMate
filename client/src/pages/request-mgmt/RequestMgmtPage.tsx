@@ -72,10 +72,6 @@ const RequestMgmtPage = () => {
   const [requestDetailId, setRequestDetailId] = useState<number | null>(null);
   const [detail, setDetail] = useState<boolean>(false);
 
-  useEffect(() => {
-    fetchData();
-  }, []);
-
   const fetchData = useCallback(
     async (nowPage: number = 0) => {
       const params: { [key: string]: string } = {
@@ -105,6 +101,10 @@ const RequestMgmtPage = () => {
     },
     [selectedValues]
   );
+
+  useEffect(() => {
+    fetchData();
+  }, [fetchData]);
 
   const updateSearchParameters = (
     e:
