@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import * as Apis from "../../apis/apis";
 import * as ApiErrorHandler from "../../apis/apiErrorHandler";
 import RequestDetail from "./RequestDetail";
@@ -76,32 +76,35 @@ const RequestMgmtPage = () => {
     fetchData();
   }, []);
 
-  const fetchData = async (nowPage: number = 0) => {
-    const params: { [key: string]: string } = {
-      name: selectedValues.name,
-      status: selectedValues.status,
-      usingType: selectedValues.usingType,
-      startDate: selectedValues.startDate,
-      endDate: selectedValues.endDate,
-    };
-    const paramsArray = Object.keys(params);
+  const fetchData = useCallback(
+    async (nowPage: number = 0) => {
+      const params: { [key: string]: string } = {
+        name: selectedValues.name,
+        status: selectedValues.status,
+        usingType: selectedValues.usingType,
+        startDate: selectedValues.startDate,
+        endDate: selectedValues.endDate,
+      };
+      const paramsArray = Object.keys(params);
 
-    if (paramsArray.length !== 0) {
-      paramsArray.forEach((key) => {
-        if (params[key] === "") {
-          delete params[key];
-        }
-      });
-    }
+      if (paramsArray.length !== 0) {
+        paramsArray.forEach((key) => {
+          if (params[key] === "") {
+            delete params[key];
+          }
+        });
+      }
 
-    try {
-      const { data } = await Apis.getMemberRequests(params, nowPage);
-      setMemberRequestList(data.data);
-      setPage(data.page);
-    } catch (e) {
-      ApiErrorHandler.all(e);
-    }
-  };
+      try {
+        const { data } = await Apis.getMemberRequests(params, nowPage);
+        setMemberRequestList(data.data);
+        setPage(data.page);
+      } catch (e) {
+        ApiErrorHandler.all(e);
+      }
+    },
+    [selectedValues]
+  );
 
   const updateSearchParameters = (
     e:
