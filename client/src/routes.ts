@@ -4,6 +4,7 @@ import HomePage from "./pages/home/HomePage";
 import RequestPage from "./pages/request/RequestPage";
 import RequestMgmtPage from "./pages/request-mgmt/RequestMgmtPage";
 import React from "react";
+import MembersPage from "./pages/members/MembersPage";
 
 interface Routes {
   path: string;
@@ -16,6 +17,7 @@ const routes: Routes[] = [
   { path: "/home", component: HomePage },
   { path: "/request", component: RequestPage },
   { path: "/request-mgmt", component: RequestMgmtPage },
+  { path: "/members", component: MembersPage },
 ];
 
 export default routes;
