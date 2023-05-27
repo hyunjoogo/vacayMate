@@ -3,7 +3,7 @@ import { CredentialResponse, GoogleLogin } from "@react-oauth/google";
 import axios from "axios";
 import jwt_decode from "jwt-decode";
 import { useSetRecoilState } from "recoil";
-import { userContextAtom } from "../atom/atoms";
+import { userContextAtom } from "../recoil/atoms";
 import { setAuthorizations } from "../utils/CookieUtil";
 import { useNavigate } from "react-router-dom";
 

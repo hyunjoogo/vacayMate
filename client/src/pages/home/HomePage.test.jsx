@@ -2,7 +2,7 @@
 import { render, screen, waitFor, act } from "@testing-library/react";
 import { RecoilRoot } from "recoil";
 import HomePage from "./HomePage";
-import { userContextAtom } from "../../atom/atoms";
+import { userContextAtom } from "../../recoil/atoms";
 import { RecoilState, Snapshot, MutableSnapshot } from "recoil";
 
 const initializeState = (mutableSnapshot) => {

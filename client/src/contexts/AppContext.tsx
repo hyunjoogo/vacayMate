@@ -1,5 +1,5 @@
 import { createContext, ReactNode, useEffect } from "react";
-import { userContextAtom } from "../atom/atoms";
+import { userContextAtom } from "../recoil/atoms";
 import { useRecoilState, useSetRecoilState } from "recoil";
 import { useLocation, useNavigate } from "react-router-dom";
 import * as CookieUtils from "../utils/CookieUtil";

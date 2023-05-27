@@ -5,7 +5,7 @@ import { getMonthRange } from "../../utils/getMonthRange";
 import dayjs from "dayjs";
 import utc from "dayjs/plugin/utc";
 import { useRecoilValue } from "recoil";
-import { userContextAtom } from "../../atom/atoms";
+import { userContextAtom } from "../../recoil/atoms";
 import { UserContextValue } from "../../contexts/AppContext";
 
 dayjs.extend(utc);
