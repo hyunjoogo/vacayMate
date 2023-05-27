@@ -7,9 +7,14 @@ import { isValidDate } from "../../functions/valid/isValidDate.js";
 
 const getMembers = async (req, res) => {
   try {
-    const {nowPage = 1, pageSize = 10, name, email, role, isLeave} = req.query;
+    const { nowPage = 0, pageSize = 5, name, email, role, isLeave } = req.query;
     const result = await membersServices.getMembersListPagination({
-      nowPage, pageSize, name, email, role, isLeave
+      nowPage,
+      pageSize,
+      name,
+      email,
+      role,
+      isLeave,
     });
     res.status(200).json(result);
   } catch (error) {
@@ -20,7 +25,7 @@ const getMembers = async (req, res) => {
 const getMemberDetail = async (req, res) => {
   try {
     // TODO Validation 생각해보기
-    const {memberNo} = req.params;
+    const { memberNo } = req.params;
     const member = await membersServices.getMemberDetail(memberNo);
     res.status(200).json(member);
   } catch (error) {
@@ -29,8 +34,8 @@ const getMemberDetail = async (req, res) => {
 };
 
 const createEnterDate = async (req, res) => {
-  const {memberNo} = req.params;
-  const {enterDate, annualMemo} = req.body;
+  const { memberNo } = req.params;
+  const { enterDate, annualMemo } = req.body;
 
   // 유효하지 않은 날짜 형식일 경우
   if (!isValidDate(enterDate)) {
@@ -46,15 +51,23 @@ const createEnterDate = async (req, res) => {
    */
   const transaction = await db.sequelize.transaction();
   try {
-    const updatedMember = await membersServices.addMemberEnterDate(memberNo, enterDate, transaction);
-    const memberVacations = await vacationServices.createAnnualVacation(updatedMember, {
+    const updatedMember = await membersServices.addMemberEnterDate(
+      memberNo,
       enterDate,
-      annualMemo
-    }, transaction);
+      transaction
+    );
+    const memberVacations = await vacationServices.createAnnualVacation(
+      updatedMember,
+      {
+        enterDate,
+        annualMemo,
+      },
+      transaction
+    );
 
     // // TODO 이 사람의 만료일을 AutoAnnualCreator에게 넘겨주기
     await transaction.commit();
-    res.status(200).json({updatedMember, memberVacations});
+    res.status(200).json({ updatedMember, memberVacations });
   } catch (error) {
     await transaction.rollback();
     handleError(res, error);
