@@ -106,3 +106,15 @@ export const getMembersList = (params: {}, nowPage: number) => {
     },
   });
 };
+
+// 관리자 - 회원상세조회
+export const getMemberDetail = (memberId: number) => {
+  const url = baseUrl + `/api/admin/v1/members/${memberId}`;
+  const accessToken = getAccessToken();
+  return axios.get(url, {
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${accessToken}`,
+    },
+  });
+};

@@ -4,17 +4,11 @@ import TableStackedColumn from "./TableStackedColumn";
 import * as Apis from "../../apis/apis";
 import * as ApiErrorHandler from "../../apis/apiErrorHandler";
 import filterParams from "../../common/functions/filterParams";
-import {
-  MemberResponse,
-  ProcessStatusTypes,
-  UserInfoDetail,
-} from "../../common/types/commonTypes";
-import { getMembersList } from "../../apis/apis";
+import { UserInfoDetail } from "../../common/types/commonTypes";
 import SearchForm from "./SearchForm";
 import MemberDetail from "./MemberDetail";
 import useModal from "../../hooks/useModal";
 import { createPortal } from "react-dom";
-import SingleModal from "../../components/modal/SingleModal";
 
 interface SelectedValues {
   name: string;
