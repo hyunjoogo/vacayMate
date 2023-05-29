@@ -183,11 +183,6 @@ const RequestDetail = ({
     closeModal();
   };
 
-  const modalOpen = () => {
-    setModalComponent(<SingleModal onClose={handleClose} />);
-    openModal();
-  };
-
   return (
     <div>
       <h1>Request ID: {requestId}</h1>

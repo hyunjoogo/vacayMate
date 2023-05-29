@@ -2,39 +2,7 @@ import React, { useCallback, useEffect, useState } from "react";
 import * as Apis from "../../apis/apis";
 import * as ApiErrorHandler from "../../apis/apiErrorHandler";
 import RequestDetail from "./RequestDetail";
-
-interface MemberRequest {
-  id: number;
-  user_id: number;
-  vacation_id: number;
-  use_date: string;
-  using_type: string;
-  using_day: number;
-  status: string;
-  memo: string | null;
-  created_at: string;
-  approved_at: string | null;
-  approved_by: number | null;
-  approved_memo: string | null;
-  refused_at: number | null;
-  refused_by: string | null;
-  refused_memo: string | null;
-  canceled_at: string | null;
-  canceled_by: number | null;
-  canceled_memo: string | null;
-  user: {
-    id: number;
-    name: string;
-    email: string;
-    position: string | null;
-    department: string | null;
-    role: string;
-    enter_date: string | null;
-    is_leave: boolean;
-    user_img: string;
-    created_at: string;
-  };
-}
+import { MemberResponse } from "../../common/types/commonTypes";
 
 interface Page {
   nowPage: number;
@@ -52,7 +20,7 @@ interface SelectedValues {
 }
 
 const RequestMgmtPage = () => {
-  const [memberRequestList, setMemberRequestList] = useState<MemberRequest[]>(
+  const [memberRequestList, setMemberRequestList] = useState<MemberResponse[]>(
     []
   );
 
