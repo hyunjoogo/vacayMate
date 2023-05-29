@@ -3,6 +3,7 @@ import { Sequelize } from "sequelize";
 import { ROLE_TYPE } from "../const/admin.js";
 import { CustomError } from "../exceptions/CustomError.js";
 import dayjs from "dayjs";
+import camelcaseKeys from "camelcase-keys";
 
 const getMembersListPagination = async ({
   nowPage,
@@ -57,6 +58,7 @@ const getMemberDetail = async (memberNo) => {
     include: [
       {
         model: db.Vacation,
+        as: "vacations",
       },
       {
         model: db.Request,
@@ -67,6 +69,7 @@ const getMemberDetail = async (memberNo) => {
     ],
   });
 
+  // return camelcaseKeys(result.toJSON());
   return result;
 };
 

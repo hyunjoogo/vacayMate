@@ -28,21 +28,21 @@ export const user = (sequelize, DataTypes) => {
         type: DataTypes.STRING,
         defaultValue: "user",
       },
-      enter_date: {
+      enterDate: {
         type: DataTypes.DATEONLY, // 날짜 + 00:00:00Z 입력된다.
         // 그러면 입력할 때 DATE.utc()로 저장하자.
       },
-      is_leave: {
+      isLeave: {
         type: DataTypes.BOOLEAN,
         allowNull: false,
         defaultValue: false,
       },
-      user_img: {
+      userImg: {
         type: DataTypes.STRING,
         allowNull: false,
         defaultValue: "default.png",
       },
-      created_at: {
+      createdAt: {
         allowNull: false,
         type: DataTypes.DATE,
         defaultValue: DataTypes.NOW,
@@ -52,6 +52,7 @@ export const user = (sequelize, DataTypes) => {
       timestamps: false,
       charset: "utf8",
       collate: "utf8_general_ci",
+      underscored: true,
     }
   );
 

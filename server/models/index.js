@@ -26,28 +26,28 @@ db.Vacation = vacation(sequelize, Sequelize);
 db.Request = request(sequelize, Sequelize);
 db.Token = token(sequelize, Sequelize);
 
-db.User.hasMany(db.Vacation, { foreignKey: "user_id" });
-db.Vacation.belongsTo(db.User, { foreignKey: "user_id" });
+db.User.hasMany(db.Vacation, { foreignKey: "userId", as: "vacations" });
+db.Vacation.belongsTo(db.User, { foreignKey: "userId", as: "vacations" });
 
-db.Vacation.hasMany(db.Request, { foreignKey: "vacation_id", as: "vacation" });
+db.Vacation.hasMany(db.Request, { foreignKey: "vacationId", as: "vacation" });
 db.Request.belongsTo(db.Vacation, {
-  foreignKey: "vacation_id",
+  foreignKey: "vacationId",
   as: "vacation",
 });
 
-db.User.hasMany(db.Request, { foreignKey: "user_id", as: "user" });
-db.Request.belongsTo(db.User, { foreignKey: "user_id", as: "user" });
+db.User.hasMany(db.Request, { foreignKey: "userId", as: "user" });
+db.Request.belongsTo(db.User, { foreignKey: "userId", as: "user" });
 
-db.User.hasMany(db.Request, { foreignKey: "approved_by", as: "approvedBy" });
-db.Request.belongsTo(db.User, { foreignKey: "approved_by", as: "approvedBy" });
+db.User.hasMany(db.Request, { foreignKey: "approvedBy" });
+db.Request.belongsTo(db.User, { foreignKey: "approvedBy" });
 
-db.User.hasMany(db.Request, { foreignKey: "refused_by", as: "refusedBy" });
-db.Request.belongsTo(db.User, { foreignKey: "refused_by", as: "refusedBy" });
+db.User.hasMany(db.Request, { foreignKey: "refusedBy" });
+db.Request.belongsTo(db.User, { foreignKey: "refusedBy" });
 
-db.User.hasMany(db.Request, { foreignKey: "canceled_by", as: "canceledBy" });
-db.Request.belongsTo(db.User, { foreignKey: "canceled_by", as: "canceledBy" });
+db.User.hasMany(db.Request, { foreignKey: "canceledBy" });
+db.Request.belongsTo(db.User, { foreignKey: "canceledBy" });
 
-db.User.hasMany(db.Token, { foreignKey: "user_id" });
-db.Token.belongsTo(db.User, { foreignKey: "user_id" });
+db.User.hasMany(db.Token, { foreignKey: "userId" });
+db.Token.belongsTo(db.User, { foreignKey: "userId" });
 
 export { db };

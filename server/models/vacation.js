@@ -7,7 +7,7 @@ export const vacation = (sequelize, DataTypes) => {
         primaryKey: true,
         autoIncrement: true,
       },
-      user_id: {
+      userId: {
         type: DataTypes.INTEGER,
         allowNull: false,
         references: {
@@ -22,15 +22,15 @@ export const vacation = (sequelize, DataTypes) => {
       memo: {
         type: DataTypes.TEXT,
       },
-      left_days: {
+      leftDays: {
         type: DataTypes.FLOAT,
         allowNull: false,
       },
-      total_days: {
+      totalDays: {
         type: DataTypes.FLOAT,
         allowNull: false,
       },
-      expiration_date: {
+      expirationDate: {
         type: DataTypes.DATE,
         allowNull: false,
       },
@@ -39,6 +39,7 @@ export const vacation = (sequelize, DataTypes) => {
       timestamps: false,
       charset: "utf8",
       collate: "utf8_general_ci",
+      underscored: true,
     }
   );
 

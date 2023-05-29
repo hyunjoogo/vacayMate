@@ -9,7 +9,7 @@ export default (sequelize, DataTypes) => {
         primaryKey: true,
         autoIncrement: true,
       },
-      user_id: {
+      userId: {
         type: DataTypes.INTEGER,
         allowNull: false,
         references: {
@@ -17,7 +17,7 @@ export default (sequelize, DataTypes) => {
           key: "id",
         },
       },
-      vacation_id: {
+      vacationId: {
         type: DataTypes.INTEGER,
         allowNull: false,
         references: {
@@ -25,15 +25,15 @@ export default (sequelize, DataTypes) => {
           key: "id",
         },
       },
-      use_date: {
+      useDate: {
         type: DataTypes.DATEONLY,
         allowNull: false,
       },
-      using_type: {
+      usingType: {
         type: DataTypes.STRING, // 일차, 오전반차, 오후반차
         allowNull: false,
       },
-      using_day: {
+      usingDay: {
         type: DataTypes.FLOAT, // 1, 0.5
         allowNull: false,
       },
@@ -45,16 +45,16 @@ export default (sequelize, DataTypes) => {
       memo: {
         type: DataTypes.TEXT,
       },
-      created_at: {
+      createdAt: {
         allowNull: false,
         type: DataTypes.DATE,
         defaultValue: DataTypes.NOW,
       },
-      approved_at: {
+      approvedAt: {
         type: DataTypes.DATE,
         allowNull: true,
       },
-      approved_by: {
+      approvedBy: {
         type: DataTypes.INTEGER,
         allowNull: true,
         references: {
@@ -62,14 +62,14 @@ export default (sequelize, DataTypes) => {
           key: "id",
         },
       },
-      approved_memo: {
+      approvedMemo: {
         type: DataTypes.TEXT,
       },
-      refused_at: {
+      refusedAt: {
         type: DataTypes.DATE,
         allowNull: true,
       },
-      refused_by: {
+      refusedBy: {
         type: DataTypes.INTEGER,
         allowNull: true,
         references: {
@@ -77,14 +77,14 @@ export default (sequelize, DataTypes) => {
           key: "id",
         },
       },
-      refused_memo: {
+      refusedMemo: {
         type: DataTypes.TEXT,
       },
-      canceled_at: {
+      canceledAt: {
         type: DataTypes.DATE,
         allowNull: true,
       },
-      canceled_by: {
+      canceledBy: {
         type: DataTypes.INTEGER,
         allowNull: true,
         references: {
@@ -92,7 +92,7 @@ export default (sequelize, DataTypes) => {
           key: "id",
         },
       },
-      canceled_memo: {
+      canceledMemo: {
         type: DataTypes.TEXT,
       },
     },
@@ -100,6 +100,7 @@ export default (sequelize, DataTypes) => {
       timestamps: false,
       charset: "utf8",
       collate: "utf8_general_ci",
+      underscored: true,
     }
   );
 

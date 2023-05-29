@@ -27,6 +27,7 @@ const getMemberDetail = async (req, res) => {
     // TODO Validation 생각해보기
     const { memberNo } = req.params;
     const member = await membersServices.getMemberDetail(memberNo);
+    console.log(member);
     res.status(200).json(member);
   } catch (error) {
     handleError(res, error);
