@@ -7,7 +7,7 @@ export const token = (sequelize, DataTypes) => {
         primaryKey: true,
         autoIncrement: true,
       },
-      user_id: {
+      userId: {
         type: DataTypes.INTEGER,
         allowNull: false,
         references: {
@@ -15,15 +15,15 @@ export const token = (sequelize, DataTypes) => {
           key: "id",
         },
       },
-      token_value: {
+      tokenValue: {
         type: DataTypes.STRING(500),
         allowNull: false,
       },
-      expires_in: {
+      expiresIn: {
         type: DataTypes.BIGINT,
         allowNull: false,
       },
-      created_at: {
+      createdAt: {
         type: DataTypes.DATE,
         defaultValue: DataTypes.NOW,
       },
@@ -32,6 +32,7 @@ export const token = (sequelize, DataTypes) => {
       timestamps: false,
       charset: "utf8",
       collate: "utf8_general_ci",
+      underscored: true,
     }
   );
   return Token;

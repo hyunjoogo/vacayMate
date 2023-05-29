@@ -82,9 +82,10 @@ const verifyRefreshToken = async (refreshToken) => {
     userId = userPayload.id;
     const serverRefreshToken = await db.Token.findOne({
       where: {
-        user_id: userId,
+        userId,
       },
     });
+
     if (serverRefreshToken === null) {
       throw new Error("사용자의 토큰이 없습니다.");
     }
@@ -94,7 +95,7 @@ const verifyRefreshToken = async (refreshToken) => {
       throw new Error("만료가 된 Token입니다.");
     }
     // 서버의 토큰과 클라의 토큰이 같은지 확인
-    if (serverRefreshToken.token_value !== refreshToken) {
+    if (serverRefreshToken.tokenValue !== refreshToken) {
       throw new Error("Redis의 값과 Refresh Token이 다릅니다.");
     }
     return userPayload;

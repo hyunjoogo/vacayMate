@@ -28,16 +28,16 @@ const generateToken = async (user) => {
 
   // 리플레시 토큰을 SQL에 저장하는 로직
   const [token, created] = await db.Token.findOrCreate({
-    where: { user_id: user.id },
+    where: { userId: user.id },
     defaults: {
-      token_value: refreshToken,
-      expires_in: dayjs().add(REFRESH_TOKEN_EXPIRE_DAYS, "day").unix(),
+      tokenValue: refreshToken,
+      expiresIn: dayjs().add(REFRESH_TOKEN_EXPIRE_DAYS, "day").unix(),
     },
   });
 
   if (!created) {
-    token.token_value = refreshToken;
-    token.expires_in = dayjs().add(14, "day").unix();
+    token.tokenValue = refreshToken;
+    token.expiresIn = dayjs().add(14, "day").unix();
     await token.save();
   }
   return { accessToken, refreshToken };
