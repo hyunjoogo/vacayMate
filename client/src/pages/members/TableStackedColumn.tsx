@@ -1,43 +1,20 @@
 import React from "react";
+import { UserInfoDetail } from "../../common/types/commonTypes";
+import { Link } from "react-router-dom";
 
 interface TableStackedColumnProps {
   tableTitle: React.ReactNode | string | null;
+  items: UserInfoDetail[];
+  columnHeaderSlot?: object;
+  fields?: Array<any>;
+  scopedSlots?: object;
 }
 
-const TableStackedColumn = ({ tableTitle }: TableStackedColumnProps) => {
-  const people = [
-    {
-      name: "Lindsay Walton",
-      title: "Front-end Developer",
-      email: "lindsay.walton@example.com",
-      role: "Member",
-    },
-    {
-      name: "Lindsay 2",
-      title: "23",
-      email: "lindsay.1@example.com",
-      role: "Member",
-    },
-    {
-      name: "Lindsay 3",
-      title: "3r",
-      email: "lindsay.w1alton@example.com",
-      role: "Member",
-    },
-    {
-      name: "Lindsay 4",
-      title: "4-end Developer",
-      email: "lindsay.wal2ton@example.com",
-      role: "Member",
-    },
-    {
-      name: "Lindsay 5",
-      title: "Front55-end Developer",
-      email: "lindsay.wa3lton@example.com",
-      role: "Member",
-    },
-  ];
+interface Props extends TableStackedColumnProps {
+  onDetail: (id: number) => void;
+}
 
+const TableStackedColumn = ({ tableTitle, items, onDetail }: Props) => {
   return (
     <div className="px-4 sm:px-6 lg:px-8">
       <div className="sm:flex sm:items-center">
@@ -65,7 +42,7 @@ const TableStackedColumn = ({ tableTitle }: TableStackedColumnProps) => {
                 scope="col"
                 className="hidden px-3 py-3.5 text-left text-sm font-semibold text-gray-900 lg:table-cell"
               >
-                Title
+                Position
               </th>
               <th
                 scope="col"
@@ -79,40 +56,43 @@ const TableStackedColumn = ({ tableTitle }: TableStackedColumnProps) => {
               >
                 Role
               </th>
-              <th scope="col" className="relative py-3.5 pl-3 pr-4 sm:pr-0">
-                <span className="sr-only">Edit</span>
+              <th
+                scope="col"
+                className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"
+              >
+                퇴사여부
               </th>
             </tr>
           </thead>
           <tbody className="divide-y divide-gray-200 bg-white">
-            {people.map((person) => (
-              <tr key={person.email}>
+            {items.map((item) => (
+              <tr
+                key={item.id}
+                className="hover:cursor-pointer"
+                onClick={() => onDetail(item.id)}
+              >
                 <td className="w-full max-w-0 py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:w-auto sm:max-w-none sm:pl-0">
-                  {person.name}
+                  {item.name}
                   <dl className="font-normal lg:hidden">
-                    <dt className="sr-only">Title</dt>
+                    <dt className="sr-only">Position</dt>
                     <dd className="mt-1 truncate text-gray-700">
-                      {person.title}
+                      {item.position} 작을때 나옴
                     </dd>
                     <dt className="sr-only sm:hidden">Email</dt>
                     <dd className="mt-1 truncate text-gray-500 sm:hidden">
-                      {person.email}
+                      {item.email}
                     </dd>
                   </dl>
                 </td>
                 <td className="hidden px-3 py-4 text-sm text-gray-500 lg:table-cell">
-                  {person.title}
+                  {item.position}
                 </td>
                 <td className="hidden px-3 py-4 text-sm text-gray-500 sm:table-cell">
-                  {person.email}
+                  {item.email}
                 </td>
+                <td className="px-3 py-4 text-sm text-gray-500">{item.role}</td>
                 <td className="px-3 py-4 text-sm text-gray-500">
-                  {person.role}
-                </td>
-                <td className="py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-0">
-                  <a href="#" className="text-indigo-600 hover:text-indigo-900">
-                    Edit<span className="sr-only">, {person.name}</span>
-                  </a>
+                  {String(item.is_leave)}
                 </td>
               </tr>
             ))}
