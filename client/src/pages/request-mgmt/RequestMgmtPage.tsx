@@ -140,8 +140,8 @@ const RequestMgmtPage = () => {
               onClick={() => handleDetail(memberRequest.id)}
             >
               {memberRequest.id} / {memberRequest.user.name} /{" "}
-              {memberRequest.user.email} / {memberRequest.use_date} /{" "}
-              {memberRequest.using_type} / {memberRequest.status}
+              {memberRequest.user.email} / {memberRequest.useDate} /{" "}
+              {memberRequest.usingType} / {memberRequest.status}
             </li>
           );
         })}

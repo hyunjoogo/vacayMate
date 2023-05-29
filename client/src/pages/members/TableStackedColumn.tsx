@@ -92,7 +92,7 @@ const TableStackedColumn = ({ tableTitle, items, onDetail }: Props) => {
                 </td>
                 <td className="px-3 py-4 text-sm text-gray-500">{item.role}</td>
                 <td className="px-3 py-4 text-sm text-gray-500">
-                  {String(item.is_leave)}
+                  {String(item.isLeave)}
                 </td>
               </tr>
             ))}
