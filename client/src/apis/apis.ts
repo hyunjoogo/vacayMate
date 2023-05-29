@@ -91,3 +91,18 @@ export const postRefuseRequest = (
     }
   );
 };
+// 관리자 - 회원목록
+export const getMembersList = (params: {}, nowPage: number) => {
+  const url = baseUrl + "/api/admin/v1/members";
+  const accessToken = getAccessToken();
+  return axios.get(url, {
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${accessToken}`,
+    },
+    params: {
+      ...params,
+      nowPage,
+    },
+  });
+};
