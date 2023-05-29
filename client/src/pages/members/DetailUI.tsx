@@ -1,9 +1,9 @@
 import React, { useEffect } from "react";
-import { EnvelopeIcon, PhoneIcon } from "@heroicons/react/20/solid";
+import { MemberData } from "./MemberDetail";
 
 interface DetailUiProps {
   handleModal?: (result: string) => void;
-  memberData: [];
+  memberData: MemberData | null;
 }
 
 function classNames(...classes: any[]) {
@@ -20,27 +20,9 @@ const DetailUi = ({ handleModal, memberData }: DetailUiProps) => {
   useEffect(() => {
     console.log(memberData);
   }, []);
-  const profile = {
-    name: "Ricardo Cooper",
-    imageUrl:
-      "https://images.unsplash.com/photo-1463453091185-61582044d556?ixlib=rb-=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=8&w=1024&h=1024&q=80",
-    coverImageUrl:
-      "https://images.unsplash.com/photo-1444628838545-ac4016a5418a?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80",
-    about: `
-    <p>Tincidunt quam neque in cursus viverra orci, dapibus nec tristique. Nullam ut sit dolor consectetur urna, dui cras nec sed. Cursus risus congue arcu aenean posuere aliquam.</p>
-    <p>Et vivamus lorem pulvinar nascetur non. Pulvinar a sed platea rhoncus ac mauris amet. Urna, sem pretium sit pretium urna, senectus vitae. Scelerisque fermentum, cursus felis dui suspendisse velit pharetra. Augue et duis cursus maecenas eget quam lectus. Accumsan vitae nascetur pharetra rhoncus praesent dictum risus suspendisse.</p>
-  `,
-    fields: {
-      Phone: "(555) 123-4567",
-      Email: "ricardocooper@example.com",
-      Title: "Senior Front-End Developer",
-      Team: "Product Development",
-      Location: "San Francisco",
-      Sits: "Oasis, 4th floor",
-      Salary: "$145,000",
-      Birthday: "June 8, 1990",
-    },
-  };
+
+  const { vacations, user, ...otherKeys } =
+    memberData ?? ({} as Partial<MemberData>);
 
   // @ts-ignore
   return (
@@ -57,48 +39,27 @@ const DetailUi = ({ handleModal, memberData }: DetailUiProps) => {
             클로즈
           </button>
           <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
-            <div className=" sm:flex sm:items-end sm:space-x-5">
+            <div
+              className="flex"
+              // sm:flex sm:items-end sm:space-x-5
+            >
               <div className="flex">
                 <img
-                  className="h-24 w-24 rounded-full ring-4 ring-white sm:h-32 sm:w-32"
-                  src={profile.imageUrl}
+                  className="h-24 w-24 rounded-full ring-4 ring-white"
+                  src={otherKeys?.userImg}
                   alt=""
                 />
               </div>
-              <div className="mt-6 sm:flex sm:min-w-0 sm:flex-1 sm:items-center sm:justify-end sm:space-x-6 sm:pb-1">
-                <div className="mt-6 min-w-0 flex-1 sm:hidden 2xl:block">
+              <div className="flex min-w-0 flex-1 items-center justify-end space-x-6">
+                <div className="min-w-0 flex-1 ">
                   <h1 className="truncate text-2xl font-bold text-gray-900">
-                    {profile.name}
+                    {otherKeys?.name} 이메일
+                  </h1>
+                  <h1 className="truncate font-bold text-gray-900">
+                    부서명 직책
                   </h1>
                 </div>
-                <div className="mt-6 flex flex-col justify-stretch space-y-3 sm:flex-row sm:space-x-4 sm:space-y-0">
-                  <button
-                    type="button"
-                    className="inline-flex justify-center gap-x-1.5 rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
-                  >
-                    <EnvelopeIcon
-                      className="-ml-0.5 h-5 w-5 text-gray-400"
-                      aria-hidden="true"
-                    />
-                    Message
-                  </button>
-                  <button
-                    type="button"
-                    className="inline-flex justify-center gap-x-1.5 rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
-                  >
-                    <PhoneIcon
-                      className="-ml-0.5 h-5 w-5 text-gray-400"
-                      aria-hidden="true"
-                    />
-                    Call
-                  </button>
-                </div>
               </div>
-            </div>
-            <div className="mt-6 hidden min-w-0 flex-1 sm:block 2xl:hidden">
-              <h1 className="truncate text-2xl font-bold text-gray-900">
-                {profile.name}
-              </h1>
             </div>
           </div>
         </div>
@@ -131,11 +92,11 @@ const DetailUi = ({ handleModal, memberData }: DetailUiProps) => {
         {/* Description list */}
         <div className="mx-auto mt-6 max-w-5xl px-4 sm:px-6 lg:px-8">
           <dl className="grid grid-cols-1 gap-x-4 gap-y-8 sm:grid-cols-2">
-            {Object.keys(profile.fields).map((field) => (
+            {Object.keys(otherKeys).map((field) => (
               <div key={field} className="sm:col-span-1">
                 <dt className="text-sm font-medium text-gray-500">{field}</dt>
                 <dd className="mt-1 text-sm text-gray-900">
-                  {profile.fields[field as keyof typeof profile.fields]}
+                  {otherKeys[field as keyof typeof otherKeys]}
                 </dd>
               </div>
             ))}
