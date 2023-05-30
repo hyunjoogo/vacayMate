@@ -33,15 +33,21 @@ export interface UserInfoDetail {
   createdAt: string;
 }
 
-export interface MemberResponse extends ProcessStatusTypes {
+export interface MemberResponse extends ProcessStatusTypes, RequestBasic {
+  user: UserInfoDetail;
+}
+
+export interface RequestResponse extends ProcessStatusTypes, RequestBasic {}
+
+export interface RequestBasic {
   id: number;
   userId: number;
   vacationId: number;
+  vacationType: string;
   useDate: string;
   usingType: string;
   usingDay: number;
   status: string;
   memo: string | null;
   createdAt: string;
-  user: UserInfoDetail;
 }
