@@ -35,7 +35,7 @@ db.Request.belongsTo(db.Vacation, {
   as: "vacation",
 });
 
-db.User.hasMany(db.Request, { foreignKey: "userId", as: "user" });
+db.User.hasMany(db.Request, { foreignKey: "userId", as: "requests" });
 db.Request.belongsTo(db.User, { foreignKey: "userId", as: "user" });
 
 db.User.hasMany(db.Request, { foreignKey: "approvedBy" });

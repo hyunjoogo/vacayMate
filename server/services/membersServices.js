@@ -62,14 +62,13 @@ const getMemberDetail = async (memberNo) => {
       },
       {
         model: db.Request,
-        as: "user", // Update the alias to 'requests'
+        as: "requests", // Update the alias to 'requests'
         separate: true, // Add separate: true to perform the query separately
         where: { user_id: memberNo }, // Add a where condition to filter based on the user_id
       },
     ],
   });
 
-  // return camelcaseKeys(result.toJSON());
   return result;
 };
 
