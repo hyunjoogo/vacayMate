@@ -13,27 +13,29 @@ interface MemberDetail {
 }
 
 export interface MemberData extends UserInfoDetail {
-  user: {
-    id: number;
-    userId: number;
-    vacationId: number;
-    useDate: string;
-    usingType: string;
-    usingDay: number;
-    status: string;
-    memo: string | null;
-    createdAt: string;
-    approvedAt: string | null;
-    approvedBy: number | null;
-    approvedMemo: string | null;
-    refusedAt: string | null;
-    refusedBy: number | null;
-    refusedMemo: string | null;
-    canceledAt: string | null;
-    canceledBy: number | null;
-    canceledMemo: string | null;
-  }[];
-  vacations: VacationsResponse[];
+  user:
+    | {
+        id: number;
+        userId: number;
+        vacationId: number;
+        useDate: string;
+        usingType: string;
+        usingDay: number;
+        status: string;
+        memo: string | null;
+        createdAt: string;
+        approvedAt: string | null;
+        approvedBy: number | null;
+        approvedMemo: string | null;
+        refusedAt: string | null;
+        refusedBy: number | null;
+        refusedMemo: string | null;
+        canceledAt: string | null;
+        canceledBy: number | null;
+        canceledMemo: string | null;
+      }[]
+    | [];
+  vacations: VacationsResponse[] | [];
 }
 
 const MemberDetail = ({ onClose, memberId }: MemberDetail) => {
